@@ -12,19 +12,19 @@ if ($conf['menur_online'] == 1){
     $smarty->cache_lifetime = 60;  //На 60 секунд   
     if (!$smarty->is_cached('right_menu/online.tpl')) {
         $to_echo = array();
-        $DB->query("SELECT s.member_name, s.member_id FROM ibf_sessions s WHERE s.member_id <> 0 AND s.running_time > " . (time() - 900) . " ORDER BY 'running_time' DESC LIMIT 0,".$conf['online_num'].";");
-        while($out = $DB->fetch_row()) {
-            $to_echo[] = "<a href='/forum/index.php?showuser=".$out['member_id']."' target='_blank'>".$out['member_name']."</a>";
-        }
+        $repo = $em->getRepository('Entity\EntityForumSessions');
+        $sessions = $repo->getActiveUserSessions();
+        foreach ($sessions as $index=>$sess) {
+        	$to_echo[] = "<a href='/forum/index.php?showuser=".$sess->getMemberId()."' target='_blank'>".$sess->getMemberName()."</a>";
+        	if ($index >= $conf['online_num']) break;
+        }       
         $to_echo = implode(", ", $to_echo);
-        $DB->query("SELECT count(member_id) as count FROM ibf_sessions WHERE member_id <> 0 AND running_time > " . (time() - 900)." LIMIT 0,1");
-        $row = $DB->fetch_row();
-        if ($row['count'] > $conf['online_num']) $to_echo .= '...';
-        $smarty->assign('mem_count', $row['count']);
+		$countSessions = count($sessions);
+        if ($countSessions > $conf['online_num']) $to_echo .= '...';
+        $smarty->assign('mem_count', $countSessions);
         $smarty->assign('mem_str', $to_echo);
-        $DB->query("SELECT count(member_id) as count FROM ibf_sessions WHERE member_id = 0 AND running_time > " . (time() - 900)." LIMIT 0,1");
-        $row = $DB->fetch_row();
-        $smarty->assign('que_count', $row['count']);    
+        $sessions = $repo->getActiveGuestSessions();
+        $smarty->assign('que_count', count($sessions));    
     }
     $smarty->display('right_menu/online.tpl');
 }
