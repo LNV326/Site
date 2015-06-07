@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="SITE Manager">
+	
+	<property file="dev_env.properties"/>
+		
+	<!-- Deploy SITE project -->
+	<target name="deploySITE">
+		
+		<!--<sshexec trust="true" host="${env.ssh.host}"
+					username="${env.ssh.user}"
+					password="${env.ssh.pass}"
+					command="echo ${env.ssh.pass} | sudo -S rm -rf ${env.path}"
+					failonerror="false"/>
+		<sshexec trust="true" host="${env.ssh.host}"
+					username="${env.ssh.user}"
+					password="${env.ssh.pass}"
+					command="echo ${env.ssh.pass} | mkdir ${env.path}"
+					failonerror="false"/> -->
+		<scp trust="true" todir="${env.ssh.user}:${env.ssh.pass}@${env.ssh.host}:${env.path}">
+			<fileset dir="./"/>
+		</scp>
+		<sshexec trust="true" host="${env.ssh.host}"
+					username="${env.ssh.user}"
+					password="${env.ssh.pass}"
+					command="echo ${env.ssh.pass} | sudo -S chmod 0777 -R ${env.path}"
+					failonerror="false"/>
+					
+	</target>
+</project>
