@@ -5,10 +5,8 @@ global $conf,$smarty,$sdk_info,$em;
     if (!$smarty->is_cached('modules/news_row.tpl',$page.$sdk_info['language'])) {
         //Создание строки для множества форумов
         $start=($conf['news_limit']*$page)-$conf['news_limit'];
-//         $DB->query("SELECT p.author_id,p.author_name,p.post_date,p.post,t.tid,t.title,t.posts,t.description FROM ibf_topics t LEFT JOIN ibf_posts p ON (t.tid=p.topic_id) WHERE t.forum_id IN (".$conf['news_forum_id'].") and p.new_topic=1 ORDER BY t.tid DESC LIMIT " .$start.",".$conf['news_limit']);
         $repo = $em->getRepository('Entity\EntityForumTopics');
         $news = $repo->getTopicsForNews($conf['news_forum_id'], $start, $conf['news_limit']);      
-//         while ($row = $DB->fetch_row()) {
         $last_news = array();
 		foreach ($news as $row) {
 			$postVal = $row->getPostsVal()->get(0);
@@ -59,10 +57,8 @@ function last_p() {
     //Последние сообщения
     $smarty->cache_lifetime = 10;  //На 10 секунд   
     if (!$smarty->is_cached('modules/news_last_posts.tpl')) {
-//         $DB->query("SELECT last_poster_name,last_poster_id,last_post,tid,title FROM ibf_topics WHERE forum_id NOT IN (".$conf['active_ids'].") ORDER BY last_post DESC LIMIT 0,".$conf['active_num'].";" );
         $repo = $em->getRepository('Entity\EntityForumTopics');
     	$posts = $repo->getLastActiveTopics($conf['active_ids'], $conf['active_num']);
-//         while($row = $DB->fetch_row()) {
     	$last_posts = array();
 		foreach ($posts as $row) {
             //Обрезание
@@ -96,9 +92,6 @@ function last_f() {
     //Файловый архив
         $smarty->cache_lifetime = 86400;  //На сутки   
         if (!$smarty->is_cached('modules/news_last_files.tpl')) {
-//             $last_files = array();
-//             $DB->query( "SELECT * FROM s_files_db WHERE `show`='Y' ORDER BY id DESC LIMIT ".$conf['active_num'].";");
-//             while($row = $DB->fetch_row()) {
 			$repo = $em->getRepository('Entity\EntitySFilesDb');
 			$files = $repo->getLastAddedFiles($conf['active_num']);
 			$last_files = array();
