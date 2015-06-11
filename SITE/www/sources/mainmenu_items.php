@@ -1,13 +1,10 @@
 <?php
 use Repository\EntityForumChatonlineRep;
 //Подсчёт кол-ва пользователей в чате!
-// $DB->query("SELECT count(uid) as act_count FROM ibf_chatonline LIMIT 1");
-// $row=$DB->fetch_row();
 $repo = $em->getRepository('Entity\EntityForumChatonline');
 $count = $repo->getActiveSessionsCount();
 //LNV's Mod (DELETE OLD STR FROM CHAT)
 if (!empty($count)) 
-// 	$DB->query("DELETE FROM ibf_chatonline WHERE (".time()."-time)>600"); //10 мин
 	$repo->removeOldSessions();
 //LNV's Mod's End
 

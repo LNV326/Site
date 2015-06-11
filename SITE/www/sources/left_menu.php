@@ -49,9 +49,7 @@ global $nfs,$DB,$sdk_info, $em;
 	$items_count=1;
 	$repo = $em->getRepository('Entity\EntitySMenuCat');
 	$cats = $repo->getAllCategories();
-// 	$DB->query("SELECT c.id,c.name,i.info,i.type,i.url,i.new,i.open_new FROM s_menu_cat c LEFT JOIN s_menu_items i ON (c.id=i.cat_id) ORDER BY c.poz, i.poz ASC");
-	foreach ($cats as $row) {
-// 	while ($row = $DB->fetch_row()) {		
+	foreach ($cats as $row) {	
 		if (in_array($row->getId(),$noshow)) {
 			if ($id <> $row->getId()) {
 				if ($id<>0) {
