@@ -1,67 +1,62 @@
 <?
-global $INFO, $em, $DB, $smarty, $std;
-$smarty->cache_lifetime = 100;  //На 10 мин
-if (!$smarty->is_cached('modules/stats.tpl')) {
+global $INFO, $em, $smarty, $std, $ibforums, $conf;
+$smarty->cache_lifetime = -1;  //На 10 мин
+// if (!$smarty->is_cached('modules/stats.tpl')) {
 	
 	
 	$ibforums->base_url = $INFO['board_url'].'/index.php';
 	
-	$DB->query("SELECT * FROM ibf_stats");
-	$stats = $DB->fetch_row();
-	$total_posts = $stats['TOTAL_REPLIES']+$stats['TOTAL_TOPICS'];
+	$repoStats = $em->getRepository('Entity\EntityForumStats');
+	$stats = $repoStats->findOneBy([]);
+	$total_posts = $stats->getTotalReplies()+$stats->getTotalTopics();
 	
 	$repoSessions = $em->getRepository('Entity\EntityForumSessions');
 	$members = count($repoSessions->getActiveUserSessions());
 	$guests = count($repoSessions->getActiveGuestSessions());
 	
-	$DB->query( "SELECT tid, last_poster_name, last_post, forum_id, title, last_poster_id FROM  ibf_topics ORDER BY last_post DESC LIMIT 1" );
-	$out = $DB->fetch_row();
-	$thread_url = "<a href=\"".$ibforums->base_url. "?showtopic=".$out['tid']."&view=getnewpost\" target=\"_blank\">".$out['title']."</a>";
-	$user_url = "<a href=\"".$ibforums->base_url. "?showuser=".$out['last_poster_id']."\" target=\"_blank\">".$out['last_poster_name']."</a>";
-	$most_time = $std->get_date( $stats['MOST_DATE'], 'SHORT' );
-	$last_members = "<a href=\"".$ibforums->base_url. "?showuser=".$stats['LAST_MEM_ID']."\" target=\"_blank\">".$stats['LAST_MEM_NAME']."</a>";
+	$repoTopic = $em->getRepository('Entity\EntityForumTopics');
+// 	TODO code below has no view in template engine
+// 	$out = $repoTopic->getLastActiveTopic();
+// 	$thread_url = "<a href=\"".$ibforums->base_url. "?showtopic=".$out->getTid()."&view=getnewpost\" target=\"_blank\">".$out->getTitle()."</a>";
+// 	$user_url = "<a href=\"".$ibforums->base_url. "?showuser=".$out->getLastPosterId()."\" target=\"_blank\">".$out->getLastPosterName()."</a>";
+	$most_time = $std->get_date( $stats->getMostDate(), 'SHORT' );
+	$last_members = "<a href=\"".$ibforums->base_url. "?showuser=".$stats->getLastMemId()."\" target=\"_blank\">".$stats->getLastMemName()."</a>";
 	
-	$DB->query("SELECT title, tid, posts, forum_id FROM ibf_topics ORDER BY posts DESC LIMIT 1" );
-	$popposts = $DB->fetch_row();
-	$posts = $popposts['posts'];
-	$poppostsurl = "<a href=\"".$ibforums->base_url. "?showtopic=".$popposts['tid']."&view=getnewpost\" target=\"_blank\">".$popposts['title']."</a>"; 
+	$popposts = $repoTopic->getMostPostedTopic();
+	$posts = $popposts->getPosts();
+	$poppostsurl = "<a href=\"".$ibforums->base_url. "?showtopic=".$popposts->getTid()."&view=getnewpost\" target=\"_blank\">".$popposts->getTitle()."</a>"; 
 	 
-	$DB->query("SELECT title, tid, views, forum_id FROM ibf_topics ORDER BY views DESC LIMIT 1" );
-	$popviews = $DB->fetch_row();
-	$views = $popviews['views'];
-	$popviewsurl = "<a href=\"".$ibforums->base_url. "?showtopic=".$popviews['tid']."&view=getnewpost\" target=\"_blank\">".$popviews['title']."</a>"; 
+	$popviews = $repoTopic->getMostViewedTopic();
+	$views = $popviews->getViews();
+	$popviewsurl = "<a href=\"".$ibforums->base_url. "?showtopic=".$popviews->getTid()."&view=getnewpost\" target=\"_blank\">".$popviews->getTitle()."</a>"; 
 	
-	$DB->query("SELECT name, id, posts FROM ibf_members ORDER BY posts DESC LIMIT 1");
-	$topmember = $DB->fetch_row();
-	$topposts = $topmember['posts'];
-	$topmemberurl =   "<a href=\"".$ibforums->base_url. "?showuser=".$topmember['id']."\" target=\"_blank\">".$topmember['name']."</a>";
+	
+	$repoMember = $em->getRepository('Entity\EntityForumMembers');
+	$topmember = $repoMember->getMostPosterMember();
+	$topposts = $topmember->getPosts();
+	$topmemberurl =   "<a href=\"".$ibforums->base_url. "?showuser=".$topmember->getId()."\" target=\"_blank\">".$topmember->getName()."</a>";
 	
 
-	$repoTopic = $em->getRepository('Entity\EntityForumTopics');
 	$poll = $repoTopic->getTopicWithLastActivePoll();
 	$poll_url = "<a href=\"".$ibforums->base_url. "?showtopic=".$poll->getTid()."&view=getnewpost\" target=\"_blank\">".$poll->getTitle()."</a>";
 	 
 	//FILES категории
-	$DB->query("SELECT count(id) as cnt FROM s_files_cat");
-	$files_cats = $DB->fetch_row();
+	$files_cats = array('cnt' => $em->getRepository('Entity\EntitySFilesCat')->getCount() );
 	//FILES подкатегории
-	$DB->query("SELECT count(id) as cnt FROM s_files_subcat");
-	$files_subcats = $DB->fetch_row();
+	$files_subcats = array('cnt' => $em->getRepository('Entity\EntitySFilesSubcat')->getCount() );
 	//FILES файлы
-	$files_count = $em->getRepository('Entity\EntitySFilesDb')->getCountForShow();
+	$files_count = array('cnt' => $em->getRepository('Entity\EntitySFilesDb')->getCountForShow() );
 	
 	//GALLERY категории
-	$DB->query("SELECT count(id) as cnt FROM s_gallery_cat");
-	$gallery_cats = $DB->fetch_row();
+	$gallery_cats = array('cnt' => $em->getRepository('Entity\EntitySGalleryCat')->getCount() );
 	//FILES подкатегории
-	$DB->query("SELECT count(id) as cnt FROM s_gallery_subcat");
-	$gallery_subcats = $DB->fetch_row();
+	$gallery_subcats = array('cnt' => $em->getRepository('Entity\EntitySGallerySubcat')->getCount() );
 	//FILES файлы
-	$gallery_count = $em->getRepository('Entity\EntitySGalleryImages')->getCountForShow();
+	$gallery_count = array('cnt' => $em->getRepository('Entity\EntitySGalleryImages')->getCountForShow() );
 	
 	//PAGES штук
 	$repoPages = $em->getRepository('Entity\EntitySPages');
-	$pages = $repoPages->getPagesByPopularity();
+	$pages = $repoPages->getAllSortedByPopularity();
 	$pages_count = count($pages);
 	if ($pages_count > 0) {
 		$max_page_id = $pages[0]->getName();
@@ -85,8 +80,7 @@ if (!$smarty->is_cached('modules/stats.tpl')) {
 	}
 
 	//FAQ категории
-	$DB->query("SELECT count(id) as cnt FROM s_faq_db");
-	$faq_questions = $DB->fetch_row();
+	$faq_questions = array('cnt' => $em->getRepository('Entity\EntitySFaqDb')->getCount() );
 	
 	//10 скачиваемых
 	$repoFiles = $em->getRepository('Entity\EntitySFilesDb');
@@ -117,11 +111,11 @@ if (!$smarty->is_cached('modules/stats.tpl')) {
 		'topposts'	=> $topposts,
 		'topmemberurl'	=> $topmemberurl,
 		'poll_url'	=> $poll_url,
-		'topics'	=> $stats['TOTAL_TOPICS'],
-		'replies'	=> $stats['TOTAL_REPLIES'],
+		'topics'	=> $stats->getTotalTopics(),
+		'replies'	=> $stats->getTotalReplies(),
 		'most_time' 	=> $most_time,
-		'most_count'	=> $stats['MOST_COUNT'],
-		'all_members'	=> $stats['MEM_COUNT'],
+		'most_count'	=> $stats->getMostCount(),
+		'all_members'	=> $stats->getMemCount(),
 		'last_members'	=> $last_members,
 		'members'	=> $members,
 		'guests'	=> $guests,
@@ -147,5 +141,5 @@ if (!$smarty->is_cached('modules/stats.tpl')) {
 	));
 	$smarty->display("modules/stats.tpl");
 
-} else $smarty->display("modules/stats.tpl");
+// } else $smarty->display("modules/stats.tpl");
 ?>
