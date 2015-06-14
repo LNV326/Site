@@ -1,7 +1,7 @@
 <?
 global $INFO, $em, $smarty, $std, $ibforums, $conf;
-$smarty->cache_lifetime = -1;  //На 10 мин
-// if (!$smarty->is_cached('modules/stats.tpl')) {
+$smarty->cache_lifetime = 600;  //На 10 мин
+if (!$smarty->is_cached('modules/stats.tpl')) {
 	
 	
 	$ibforums->base_url = $INFO['board_url'].'/index.php';
@@ -141,5 +141,5 @@ $smarty->cache_lifetime = -1;  //На 10 мин
 	));
 	$smarty->display("modules/stats.tpl");
 
-// } else $smarty->display("modules/stats.tpl");
+} else $smarty->display("modules/stats.tpl");
 ?>
