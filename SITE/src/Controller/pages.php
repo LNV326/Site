@@ -1,10 +1,17 @@
 <?php
 use Entity\EntitySPages;
 use Entity\EntitySModules;
-use Controller\StatisticController;
 use Doctrine\Common\ClassLoader;
 
+use Controller;
+
 class Pages {
+	
+	static private $map = [
+			'stat' => 'StatisticController',
+			'news' => 'NewsController'
+	];
+	
 	private $conf;
 	private $DB;
 	private $nfs;
@@ -55,7 +62,7 @@ class Pages {
 		return $this->page;
 	}
 	public function include_page() {
-		global $em, $conf, $smarty, $ibforums, $INFO, $std, $style_id, $lang,  $SDK, $sape_context;
+		global $em, $conf, $smarty, $ibforums, $INFO, $std, $style_id, $lang,  $SDK, $sape_context, $DB, $nfs, $sdk_info;
 // 		global $php_poll, $std, $admins, $Debug, $smarty// Old globals that had not usage
 		if ($this->conf ['adver_site_top_on'] == 1) {
 			// if ($page[name]<>"news") {
@@ -96,17 +103,14 @@ class Pages {
 				echo "<td><img src=\"/style/" . $style_id . "/img/tlr.gif\" alt=\"\" border=\"0\"/></td>\n";
 				echo "</tr></table>\n";
 			}
-// 			include $this->page->getModulePath (); // TODO Need to remove Include
-			switch  ($this->page->getName ()) {
-				case "news" : { module_go (); break; }
-				case "stat" :
-					{
-						$controllerLoader = new ClassLoader( 'Controller', '/home/sa/sites/orm/src' );
-						$controllerLoader->register();
-						$m = new StatisticController( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std );
-						$m->index();
-						break;
-					}
+			if (isset(self::$map[$this->page->getName ()])) {
+				$controllerLoader = new ClassLoader( 'Controller', '/home/sa/sites/nfsko.dev/src' );
+				$controllerLoader->register();
+				$controllerName = 'Controller\\'.self::$map[$this->page->getName ()];
+				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info );
+				$m->index();
+			} else {
+				include $this->page->getModulePath (); // TODO Need to remove Include
 			}
 		} else {
 			$ed_link = '';

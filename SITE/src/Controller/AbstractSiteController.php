@@ -29,15 +29,17 @@ abstract class AbstractSiteController {
 	protected $_ibforums;
 	protected $_INFO;
 	protected $_std;
+	protected $_nfs;
+	protected $_sdk_info;
 	
 	/**
 	 * Template Engine cache setting
-	 * 0 - disable, 1 - enable, 2 - custom lifetime
+	 * 0 - disable, 1 - enable, 2 - custom lifetime, -1 - forever
 	 */
 	protected $_caching = 0;
 	protected $_debug = true;
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std) {
+	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info) {
 		$this->_em = $em;
 		$this->_DB = $DB;
 		$this->_conf = $conf;
@@ -45,6 +47,8 @@ abstract class AbstractSiteController {
 		$this->_ibforums = $ibforums;
 		$this->_INFO = $INFO;
 		$this->_std = $std;
+		$this->_nfs = $nfs;
+		$this->_sdk_info = $sdk_info;
 	}
 	
 	public function index() {
@@ -63,6 +67,7 @@ abstract class AbstractSiteController {
 		$renderTime = $Debug->endTimer();
 		if (isset($getDataTime)) echo 'GetData time: '.$getDataTime.'<br>';
 		echo 'Render time: '.$renderTime.'<br>';
+		$this->postIndexHook();
 	}
 	
 	public function clearCache () {
@@ -71,4 +76,5 @@ abstract class AbstractSiteController {
 	}
 	
 	protected function getData() {}
+	protected function postIndexHook() {}
 }
