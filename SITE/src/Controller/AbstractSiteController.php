@@ -31,6 +31,8 @@ abstract class AbstractSiteController {
 	protected $_std;
 	protected $_nfs;
 	protected $_sdk_info;
+	protected $_style_id;
+	protected $_lang;
 	
 	/**
 	 * Template Engine cache setting
@@ -39,7 +41,7 @@ abstract class AbstractSiteController {
 	protected $_caching = 0;
 	protected $_debug = true;
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info) {
+	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang) {
 		$this->_em = $em;
 		$this->_DB = $DB;
 		$this->_conf = $conf;
@@ -49,6 +51,8 @@ abstract class AbstractSiteController {
 		$this->_std = $std;
 		$this->_nfs = $nfs;
 		$this->_sdk_info = $sdk_info;
+		$this->_style_id = $style_id;
+		$this->_lang = $lang;
 	}
 	
 	public function index() {

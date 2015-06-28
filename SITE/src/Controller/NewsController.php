@@ -9,10 +9,6 @@ class NewsController extends AbstractSiteController {
 	protected $_templateName = 'modules/news.tpl';
 	protected $_caching = 0; // Don't cache module output
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs) {
-		parent::__construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs);
-	}
-	
 	protected function getData() {
 		if ($this->_conf['active_on']==1){
 			//Последние сообщения на форуме и последние файлы в архиве

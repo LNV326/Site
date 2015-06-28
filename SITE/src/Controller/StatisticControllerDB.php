@@ -6,10 +6,6 @@ class StatisticControllerDB extends AbstractSiteController {
 	protected $_cacheLifetime = 600; // 10 minutes
 	protected $_templateName = 'modules/stats.tpl';
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs) {
-		parent::__construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs);
-	}
-	
 	protected function getData() {
 		$this->_ibforums->base_url = $this->_INFO['board_url'].'/index.';
 		

@@ -107,7 +107,7 @@ class Pages {
 				$controllerLoader = new ClassLoader( 'Controller', '/home/sa/sites/nfsko.dev/src' );
 				$controllerLoader->register();
 				$controllerName = 'Controller\\'.self::$map[$this->page->getName ()];
-				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info );
+				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang );
 				$m->index();
 			} else {
 				include $this->page->getModulePath (); // TODO Need to remove Include
