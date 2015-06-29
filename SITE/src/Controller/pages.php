@@ -8,8 +8,26 @@ use Controller;
 class Pages {
 	
 	static private $map = [
-			'stat' => 'StatisticController',
-			'news' => 'NewsController'
+			'about'		=> 'Controller\AboutControllerDB',
+			'add_news' 	=> 'Controller\AddNewsControllerDB',
+			'adver' 	=> 'Controller\AdverControllerDB',
+			'articles'	=> 'Controller\ArticlesControllerDB',
+			'chat'		=> 'Controller\ChatController',
+			'confirm_load' => 'Controller\ConfirmLoadController',
+			'contact' 	=> 'Controller\ContactController',
+			'faq'		=> 'Controller\FAQControllerDB',
+			'files'		=> 'Controller\FilesControllerDB',
+			'gadgets'	=> 'Controller\GadgetsController',
+			'gallery'	=> 'Controller\GalleryController',
+			'info'		=> 'Controller\InfoController',
+			'links'		=> 'Controller\LinksController',
+			'login'		=> 'Controller\LoginController',
+			'news' 		=> 'Controller\NewsControllerDB',
+			'search'	=> 'Controller\SearchControllerDB',
+			'sms_money'	=> 'Controller\SMSMoneyController',
+			'stat' 		=> 'Controller\StatisticControllerDB',
+			'uploads'	=> 'Controller\UploadsController',
+			'userbars'	=> 'Controller\UserbarsController'			
 	];
 	
 	private $conf;
@@ -62,7 +80,7 @@ class Pages {
 		return $this->page;
 	}
 	public function include_page() {
-		global $em, $conf, $smarty, $ibforums, $INFO, $std, $style_id, $lang,  $SDK, $sape_context, $DB, $nfs, $sdk_info;
+		global $em, $conf, $smarty, $ibforums, $INFO, $std, $style_id, $lang, $SDK, $sape_context, $DB, $nfs, $sdk_info, $admin;
 // 		global $php_poll, $std, $admins, $Debug, $smarty// Old globals that had not usage
 		if ($this->conf ['adver_site_top_on'] == 1) {
 			// if ($page[name]<>"news") {
@@ -106,8 +124,8 @@ class Pages {
 			if (isset(self::$map[$this->page->getName ()])) {
 				$controllerLoader = new ClassLoader( 'Controller', '/home/sa/sites/nfsko.dev/src' );
 				$controllerLoader->register();
-				$controllerName = 'Controller\\'.self::$map[$this->page->getName ()];
-				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang );
+				$controllerName = self::$map[$this->page->getName ()];
+				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
 				$m->index();
 			} else {
 				include $this->page->getModulePath (); // TODO Need to remove Include

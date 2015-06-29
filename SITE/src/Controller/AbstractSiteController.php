@@ -3,7 +3,7 @@ namespace Controller;
 
 abstract class AbstractSiteController {
 	
-	protected $_templateName = '';
+	protected $_templateName = null;
 	protected $_cacheLifetime = 0;
 	
 	/**
@@ -33,6 +33,8 @@ abstract class AbstractSiteController {
 	protected $_sdk_info;
 	protected $_style_id;
 	protected $_lang;
+	protected $_SDK;
+	protected $_admin;
 	
 	/**
 	 * Template Engine cache setting
@@ -41,7 +43,7 @@ abstract class AbstractSiteController {
 	protected $_caching = 0;
 	protected $_debug = true;
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang) {
+	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin) {
 		$this->_em = $em;
 		$this->_DB = $DB;
 		$this->_conf = $conf;
@@ -53,24 +55,34 @@ abstract class AbstractSiteController {
 		$this->_sdk_info = $sdk_info;
 		$this->_style_id = $style_id;
 		$this->_lang = $lang;
+		$this->_SDK = $SDK;
+		$this->_admin = $admin;
 	}
 	
 	public function index() {
-		$this->_smarty->caching = $this->_caching;
-		$this->_smarty->compile_check = $this->_debug;
-		$this->_smarty->cache_lifetime = $this->_cacheLifetime;
-		// TODO Need to support multy-page caching http://www.smarty.net/docsv2/ru/caching.multiple.caches.tpl 
 		$Debug = new \Debug;
-		if (!$this->_smarty->is_cached($this->_templateName)) {			
+		if ( is_null($this->_templateName) ) {
 			$Debug->startTimer();
 			$this->getData();
 			$getDataTime = $Debug->endTimer();
+		} else {
+			$this->_smarty->caching = $this->_caching;
+			$this->_smarty->compile_check = $this->_debug;
+			$this->_smarty->cache_lifetime = $this->_cacheLifetime;
+			// TODO Need to support multy-page caching http://www.smarty.net/docsv2/ru/caching.multiple.caches.tpl
+			if (! $this->_smarty->is_cached( $this->_templateName )) {
+				$Debug->startTimer();
+				$this->getData();
+				$getDataTime = $Debug->endTimer();
+			}
+			$Debug->startTimer();
+			$this->_smarty->display( $this->_templateName );
+			$renderTime = $Debug->endTimer();
 		}
-		$Debug->startTimer();
-		$this->_smarty->display($this->_templateName);
-		$renderTime = $Debug->endTimer();
-		if (isset($getDataTime)) echo 'GetData time: '.$getDataTime.'<br>';
-		echo 'Render time: '.$renderTime.'<br>';
+		if (isset( $getDataTime ))
+			echo 'GetData time: ' . $getDataTime . '<br>';
+		if (isset( $renderTime ))
+			echo 'Render time: ' . $renderTime . '<br>';
 		$this->postIndexHook();
 	}
 	
