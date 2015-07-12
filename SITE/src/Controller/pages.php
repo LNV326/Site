@@ -103,7 +103,7 @@ class Pages {
 					{
 						$controllerLoader = new ClassLoader( 'Controller', '/home/sa/sites/orm/src' );
 						$controllerLoader->register();
-						$m = new StatisticController( $em, $conf, $smarty, $ibforums, $INFO, $std );
+						$m = new StatisticController( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std );
 						$m->index();
 						break;
 					}

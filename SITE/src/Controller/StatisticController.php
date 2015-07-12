@@ -6,8 +6,8 @@ class StatisticController extends AbstractSiteController {
 	protected $_cacheLifetime = 600; // 10 minutes
 	protected $_templateName = 'modules/stats.tpl';
 	
-	public function __construct($em, $conf, $smarty, $ibforums, $INFO, $std) {
-		parent::__construct($em, $conf, $smarty, $ibforums, $INFO, $std);
+	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std) {
+		parent::__construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std);
 	}
 	
 	public function index() {
@@ -16,16 +16,16 @@ class StatisticController extends AbstractSiteController {
 	
 	protected function getData() {
 		$this->_ibforums->base_url = $this->_INFO ['board_url'] . '/index.php';
-		
-		$repoStats = $this->_em->getRepository( 'Entity\EntityForumStats' );
+		$em = $this->_em;
+		$repoStats = $em->getRepository( 'Entity\EntityForumStats' );
 		$stats = $repoStats->findOneBy( [ ] );
 		$total_posts = $stats->getTotalReplies() + $stats->getTotalTopics();
 		
-		$repoSessions = $this->_em->getRepository( 'Entity\EntityForumSessions' );
+		$repoSessions = $em->getRepository( 'Entity\EntityForumSessions' );
 		$members = count( $repoSessions->getActiveUserSessions() );
 		$guests = count( $repoSessions->getActiveGuestSessions() );
 		
-		$repoTopic = $this->_em->getRepository( 'Entity\EntityForumTopics' );
+		$repoTopic = $em->getRepository( 'Entity\EntityForumTopics' );
 		// TODO code below has no view in template engine
 		// $out = $repoTopic->getLastActiveTopic();
 		// $thread_url = "<a href=\"".$ibforums->base_url. "?showtopic=".$out->getTid()."&view=getnewpost\" target=\"_blank\">".$out->getTitle()."</a>";
@@ -41,7 +41,7 @@ class StatisticController extends AbstractSiteController {
 		$views = $popviews->getViews();
 		$popviewsurl = "<a href=\"" . $this->_ibforums->base_url . "?showtopic=" . $popviews->getTid() . "&view=getnewpost\" target=\"_blank\">" . $popviews->getTitle() . "</a>";
 		
-		$repoMember = $this->_em->getRepository( 'Entity\EntityForumMembers' );
+		$repoMember = $em->getRepository( 'Entity\EntityForumMembers' );
 		$topmember = $repoMember->getMostPosterMember();
 		$topposts = $topmember->getPosts();
 		$topmemberurl = "<a href=\"" . $this->_ibforums->base_url . "?showuser=" . $topmember->getId() . "\" target=\"_blank\">" . $topmember->getName() . "</a>";
@@ -51,32 +51,32 @@ class StatisticController extends AbstractSiteController {
 		
 		// FILES категории
 		$files_cats = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySFilesCat' )->getCount() 
+				'cnt' => $em->getRepository( 'Entity\EntitySFilesCat' )->getCount() 
 		);
 		// FILES подкатегории
 		$files_subcats = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySFilesSubcat' )->getCount() 
+				'cnt' => $em->getRepository( 'Entity\EntitySFilesSubcat' )->getCount() 
 		);
 		// FILES файлы
 		$files_count = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySFilesDb' )->getCountForShow() 
+				'cnt' => $em->getRepository( 'Entity\EntitySFilesDb' )->getCountForShow() 
 		);
 		
 		// GALLERY категории
 		$gallery_cats = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySGalleryCat' )->getCount() 
+				'cnt' => $em->getRepository( 'Entity\EntitySGalleryCat' )->getCount() 
 		);
 		// FILES подкатегории
 		$gallery_subcats = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySGallerySubcat' )->getCount() 
+				'cnt' => $em->getRepository( 'Entity\EntitySGallerySubcat' )->getCount() 
 		);
 		// FILES файлы
 		$gallery_count = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySGalleryImages' )->getCountForShow() 
+				'cnt' => $em->getRepository( 'Entity\EntitySGalleryImages' )->getCountForShow() 
 		);
 		
 		// PAGES штук
-		$repoPages = $this->_em->getRepository( 'Entity\EntitySPages' );
+		$repoPages = $em->getRepository( 'Entity\EntitySPages' );
 		$pages = $repoPages->getAllSortedByPopularity();
 		$pages_count = count( $pages );
 		if ($pages_count > 0) {
@@ -91,7 +91,7 @@ class StatisticController extends AbstractSiteController {
 		// $pages_count=$pages_count+$modules_count[cnt];
 		
 		// FAQ Подсчёт кол-ва категорий
-		$repoFaqCat = $this->_em->getRepository( 'Entity\EntitySFaqCat' );
+		$repoFaqCat = $em->getRepository( 'Entity\EntitySFaqCat' );
 		$faqCategories = $repoFaqCat->getCategoriesByPopularity();
 		$faq_cats = count( $faqCategories );
 		if ($faq_cats > 0) {
@@ -102,11 +102,11 @@ class StatisticController extends AbstractSiteController {
 		
 		// FAQ категории
 		$faq_questions = array (
-				'cnt' => $this->_em->getRepository( 'Entity\EntitySFaqDb' )->getCount() 
+				'cnt' => $em->getRepository( 'Entity\EntitySFaqDb' )->getCount() 
 		);
 		
 		// 10 скачиваемых
-		$repoFiles = $this->_em->getRepository( 'Entity\EntitySFilesDb' );
+		$repoFiles = $em->getRepository( 'Entity\EntitySFilesDb' );
 		$files = $repoFiles->getMostPopularFiles( 10 );
 		foreach ( $files as $row ) {
 			if ($row->getLink() != '1') {

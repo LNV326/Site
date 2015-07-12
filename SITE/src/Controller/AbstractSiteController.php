@@ -12,6 +12,12 @@ abstract class AbstractSiteController {
 	 */
 	protected $_em;
 	/**
+	 * Database Driver 
+	 * @var unknown
+	 * @deprecated
+	 */
+	protected $_DB;
+	/**
 	 * Global configuration
 	 * @var Array
 	 */
@@ -31,8 +37,9 @@ abstract class AbstractSiteController {
 	protected $_caching = 0;
 	protected $_debug = true;
 	
-	public function __construct($em, $conf, $smarty, $ibforums, $INFO, $std) {
+	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std) {
 		$this->_em = $em;
+		$this->_DB = $DB;
 		$this->_conf = $conf;
 		$this->_smarty = $smarty;
 		$this->_ibforums = $ibforums;
@@ -45,10 +52,17 @@ abstract class AbstractSiteController {
 		$this->_smarty->compile_check = $this->_debug;
 		$this->_smarty->cache_lifetime = $this->_cacheLifetime;
 		// TODO Need to support multy-page caching http://www.smarty.net/docsv2/ru/caching.multiple.caches.tpl 
-		if (!$this->_smarty->is_cached($this->_templateName)) {
+		$Debug = new \Debug;
+		if (!$this->_smarty->is_cached($this->_templateName)) {			
+			$Debug->startTimer();
 			$this->getData();
+			$getDataTime = $Debug->endTimer();
 		}
+		$Debug->startTimer();
 		$this->_smarty->display($this->_templateName);
+		$renderTime = $Debug->endTimer();
+		if (isset($getDataTime)) echo 'GetData time: '.$getDataTime.'<br>';
+		echo 'Render time: '.$renderTime.'<br>';
 	}
 	
 	public function clearCache () {
