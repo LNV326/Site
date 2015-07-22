@@ -14,15 +14,23 @@ use Controller\AbstractSiteController;
  */
 class AddNewsControllerDB extends AbstractSiteController {
 	
+	protected $_templateEngine = 'purePHP';
+	protected $_templateName = 'AddNewsTemplate.php';
+	
 	protected function getData() {
+		
+		$this->_sdk_info['id'] = -1;
+		$this->_sdk_info['name'] = 'Test';
+		
 		include "./admin/ad_editor/functions/global.php";
 		$showForm = false;
 		$showPreview = false;
 		$notAuthorized = true;
+		$errorEmptyTitle = false;
 		if ($this->_sdk_info['id'] <> 0) {
-			$notAuthorized = true;
+			$notAuthorized = false;
 			$showForm = true;
-			$topicTile = $this->_nfs->input['TopicTitle'];
+			$topicTitle = $this->_nfs->input['TopicTitle'];
 			$postInBBCode = $_POST['Post'];
 			$postInHTML = $this->_SDK->bbcode2html($_POST['Post']);
 			$post = $this->_SDK->html2bbcode($this->_nfs->convert_html($_POST['Post']));
@@ -33,16 +41,30 @@ class AddNewsControllerDB extends AbstractSiteController {
 			} else {
 				$description=$this->_nfs->input['TopicDesc'];
 			}
-			if ($topicTile == '')
+			if ($_POST['Post'] <> '' and $topicTitle == '')
 				$errorEmptyTitle = true;
 			
 			if ($_POST['preview']) { //ПРЕДВАРИТЕЛЬНЫЙ ПРОСМОТР
 				$showPreview = true;
-			} else if ($_POST['Post'] <> '' and $topicTile <> '') {  //СОЗДАНИЕ
-				$this->_SDK->new_topic($this->_conf[usernews_forum_id], $topicTile, $description,$postInBBCode);
+			} else if ($_POST['Post'] <> '' and $topicTitle <> '') {  //СОЗДАНИЕ
+				$this->_SDK->new_topic($this->_conf[usernews_forum_id], $topicTitle, $description, $postInBBCode);
 				$showForm = false;
 				$newTopicCreated = true;
 			}
 		}
+		return array(
+				'showForm' => $showForm,
+				'showPreview' => $showPreview,
+				'notAuthorized' => $notAuthorized,
+				'errorEmptyTitle' => $errorEmptyTitle,
+				'newTopicCreated' => $newTopicCreated,
+				'topicTitle' => $topicTitle,
+				'post' => $post,
+				'postInBBCode' => $postInBBCode,
+				'postInHTML' => $postInHTML,
+				'description' => $description,
+				'authorId' => $authorId,
+				'authorName' => $authorName
+		);
 	}
 }

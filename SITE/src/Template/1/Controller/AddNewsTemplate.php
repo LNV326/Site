@@ -1,18 +1,18 @@
-<?php if ($newTopicCreated == true) { ?>
+<?php if ($out['newTopicCreated'] == true) { ?>
 <p style='margin-top: 0.5cm; margin-bottom: 0.1cm; margin-left: 0.7cm'>
 	<b>Результаты:</b> <br>Ваша новость отправлена! После проверки администрацией она будет добавлена в новости сайта.
 </p>
 <?php } ?>
 
-<?php if ($notAuthorized == true) {?>
+<?php if ($out['notAuthorized'] == true) {?>
 <p style='margin-top: 0.5cm; margin-bottom: 0.1cm; margin-left: 0.7cm'>
 	<b>Ошибка:</b> <br>Вы не авторизованы на сайте.
 </p>
 <?php } ?> 
 
-<? if ($showPreview == true) { ?>
+<? if ($out['showPreview'] == true) { ?>
 <p class=normal>Предварительный просмотр введённой информации:</p>
-<?php if ($errorEmptyTitle == true) {?>
+<?php if ($out['errorEmptyTitle'] == true) {?>
 <p class=normal>
 	<b>Внимание</b>: Заголовок новости не указан!
 </p>
@@ -24,22 +24,22 @@
 			<table class=tl align=center cellspacing=0 cellpadding=0 style='width: 98%; margin-top: 5pt'>
 				<tr>
 					<td><img src='style/<?php echo $this->_style_id;?>/img/tll.gif'></td>
-					<td width=100%><b>".$topicTile."</b></td>
+					<td width=100%><b><?php echo $out['topicTitle'];?></b></td>
 					<td><img src='style/<?php echo $this->_style_id;?>/img/tlr.gif'></td>
 				</tr>
 			</table>
 
 			<table align=center cellspacing=0 cellpadding=0 style='width: 98%; margin-top: 5pt'>
 				<tr>
-					<td><div class=news><?php echo $postInHTML;?></div></td>
+					<td><div class=news><?php echo $out['postInHTML'];?></div></td>
 				</tr>
 			</table>
 
 			<table class=tl align=center cellspacing=0 cellpadding=0 style='width: 98%; margin-top: 5pt'>
 				<tr>
 					<td><img src='style/<?php echo $this->_style_id;?>/img/tll.gif'></td>
-					<td width=100%><?php echo $this->_lang[posted]; ?>: <a href='forum/index.php?showuser=<?php echo $authorId;?>' target='_blank'><?php echo $authorName;?></a>
-						| <?php echo $this->_lang[source];?>: <a href='http://<?php echo $description;?>/' target='_blank'><?php echo $description;?></a></td>
+					<td width=100%><?php echo $this->_lang[posted]; ?>: <a href='forum/index.php?showuser=<?php echo $out['authorId'];?>' target='_blank'><?php echo $out['authorName'];?></a>
+						| <?php echo $this->_lang[source];?>: <a href='http://<?php echo $out['description'];?>/' target='_blank'><?php echo $out['description'];?></a></td>
 					<td><img src='style/<?php echo $this->_style_id;?>/img/tlr.gif'></td>
 				</tr>
 			</table>
@@ -49,8 +49,8 @@
 </table>
 <?php } ?>
 
-<?php if ($showForm == true) {
-	if ($errorEmptyTitle == true) { ?>
+<?php if ($out['showForm'] == true) {
+	if ($out['errorEmptyTitle'] == true) { ?>
 <p class=normal>
 	<b>Ошибка:</b> Ваша новость не отправлена! Отсутствует заголовок!
 </p>
@@ -149,7 +149,7 @@
 			<td><p>
 					Источник информации (если есть).<br> Пример www.nd4spd.ws. (<b>http://</b> не нужно):
 				</p></td>
-			<td align=right valign='top'><input type='text' size='40' maxlength='40' name='TopicDesc' value='<?echo $this->_nfs->convert_html($description);?>' tabindex='2' class='forminput'></td>
+			<td align=right valign='top'><input type='text' size='40' maxlength='40' name='TopicDesc' value='<?echo $this->_nfs->convert_html($out['description']);?>' tabindex='2' class='forminput'></td>
 		</tr>
 		<tr bgcolor='#212121'>
 			<td colspan=2><p style='font-size: 3pt'>&nbsp;</p></td>
@@ -214,7 +214,7 @@
 		</tr>
 		<tr bgcolor='#323232'>
 			<td colspan=2><p align=center>
-					<textarea cols='100' rows='10' name='Post' onkeydown="function(e)" tabindex='3' class='textinput' style='width: 100%; height: 75px'><?echo $post; ?></textarea>
+					<textarea cols='100' rows='10' name='Post' onkeydown="function(e)" tabindex='3' class='textinput' style='width: 100%; height: 75px'><?echo $out['post']; ?></textarea>
 					<br>
 				
 				<div align='left' style='float: left'>

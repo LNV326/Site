@@ -1,7 +1,13 @@
 <?php
+
 namespace Controller;
 
 abstract class AbstractSiteController {
+	
+	static $PURE_PHP_TEMPLATE_PATH = __DIR__.'/../Template/1/Controller/';
+	
+	
+	protected $_templateEngine = 'smarty';
 	
 	protected $_templateName = null;
 	protected $_cacheLifetime = 0;
@@ -61,10 +67,11 @@ abstract class AbstractSiteController {
 	
 	public function index() {
 		$Debug = new \Debug;
-		if ( is_null($this->_templateName) ) {
+		if ( $this->_templateEngine != 'smarty' ) {
 			$Debug->startTimer();
-			$this->getData();
+			$out = $this->getData();			
 			$getDataTime = $Debug->endTimer();
+			include realpath(self::$PURE_PHP_TEMPLATE_PATH.$this->_templateName);
 		} else {
 			$this->_smarty->caching = $this->_caching;
 			$this->_smarty->compile_check = $this->_debug;
