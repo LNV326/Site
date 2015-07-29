@@ -23,9 +23,9 @@
 
 			<table class=tl align=center cellspacing=0 cellpadding=0 style='width: 98%; margin-top: 5pt'>
 				<tr>
-					<td><img src='style/<?php echo $this->_style_id;?>/img/tll.gif'></td>
+					<td><img src='style/<?php echo $style_id;?>/img/tll.gif'></td>
 					<td width=100%><b><?php echo $out['topicTitle'];?></b></td>
-					<td><img src='style/<?php echo $this->_style_id;?>/img/tlr.gif'></td>
+					<td><img src='style/<?php echo $style_id;?>/img/tlr.gif'></td>
 				</tr>
 			</table>
 
@@ -37,10 +37,10 @@
 
 			<table class=tl align=center cellspacing=0 cellpadding=0 style='width: 98%; margin-top: 5pt'>
 				<tr>
-					<td><img src='style/<?php echo $this->_style_id;?>/img/tll.gif'></td>
+					<td><img src='style/<?php echo $style_id;?>/img/tll.gif'></td>
 					<td width=100%><?php echo $this->_lang[posted]; ?>: <a href='forum/index.php?showuser=<?php echo $out['authorId'];?>' target='_blank'><?php echo $out['authorName'];?></a>
 						| <?php echo $this->_lang[source];?>: <a href='http://<?php echo $out['description'];?>/' target='_blank'><?php echo $out['description'];?></a></td>
-					<td><img src='style/<?php echo $this->_style_id;?>/img/tlr.gif'></td>
+					<td><img src='style/<?php echo $style_id;?>/img/tlr.gif'></td>
 				</tr>
 			</table>
 
@@ -130,9 +130,9 @@
 
 <table align=center class=tl cellspacing=0 cellpadding=0>
 	<tr>
-		<td><img src='style/<? echo $this->_style_id; ?>/img/tll.gif'></td>
+		<td><img src='style/<? echo $style_id; ?>/img/tll.gif'></td>
 		<td width=98%>&nbsp;<b>Добавляем новость</b></td>
-		<td><img src='style/<? echo $this->_style_id; ?>/img/tlr.gif'></td>
+		<td><img src='style/<? echo $style_id; ?>/img/tlr.gif'></td>
 	</tr>
 </table>
 

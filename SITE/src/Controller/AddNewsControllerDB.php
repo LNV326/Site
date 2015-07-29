@@ -10,6 +10,8 @@ use Controller\AbstractSiteController;
  * 
  * @version 1.0
  * Refactoring from vertion of 2003 year, all HTML transfered to template file, show rules always for user
+ * 
+ * TODO Maybe it's good to join this file and NewsController
  *
  */
 class AddNewsControllerDB extends AbstractSiteController {
@@ -18,11 +20,8 @@ class AddNewsControllerDB extends AbstractSiteController {
 	protected $_templateName = 'AddNewsTemplate.php';
 	
 	protected function getData() {
-		
-		$this->_sdk_info['id'] = -1;
-		$this->_sdk_info['name'] = 'Test';
-		
-		include "./admin/ad_editor/functions/global.php";
+				
+		include "./admin/ad_editor/functions/global.php"; // TODO WTF? What this include and for what purpose?
 		$showForm = false;
 		$showPreview = false;
 		$notAuthorized = true;
