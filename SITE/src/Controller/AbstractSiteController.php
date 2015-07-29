@@ -66,6 +66,7 @@ abstract class AbstractSiteController {
 	}
 	
 	public function index() {
+		global $style_id, $lil, $line;
 		$Debug = new \Debug;
 		if ( $this->_templateEngine != 'smarty' ) {
 			$Debug->startTimer();

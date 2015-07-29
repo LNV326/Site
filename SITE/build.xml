@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="SITE Manager">
 	
-	<property file="dev2_env.properties"/>
+	<property file="dev_env.properties"/>
 		
 	<!-- Deploy SITE project -->
 	<target name="deploySITE">
