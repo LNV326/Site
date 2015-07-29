@@ -4,20 +4,26 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
+/**
+ * 
+ * @author Nikolay Lukyanov
+ * 
+ * @version 1.0
+ * Refactoring from vertion of 2003 year, all HTML transfered to template file.
+ * 
+ * TODO Maybe it's good to do the article and remove this controller
+ *
+ */
 class AdverControllerDB extends AbstractSiteController {
 	
+	protected $_templateEngine = 'purePHP';
+	protected $_templateName = 'AdverTemplate.php';	
 	
 	/* (non-PHPdoc)
 	 * @see \Controller\AbstractSiteController::getData()
 	 */
 	protected function getData() {
-		// TODO: Auto-generated method stub
-		echo <<< EOF
-<p class=normal>Для того чтобы разместить рекламу своего ресурса у нас вам необходимо связаться с администратором проекта: <a href='index.php?page=contact' title='Связь с администратором'>связь</a>.</p>
-<p class=normal><b>Условия размещения рекламы:</b><br>
-1) Рекламируемый сайт не относится к эротике и интим услугам!<br>
-2) Оплата производится через WebMoney, сразу после размещения рекламы!</p>
-EOF;
+		return null;
 	}
 
 }
