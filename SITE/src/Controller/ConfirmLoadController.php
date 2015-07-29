@@ -15,7 +15,7 @@ class ConfirmLoadController extends AbstractSiteController {
 	protected function getData() {
 		$fid=intval($this->_nfs->input['fid']);
 		if ($fid<=0) $fid=intval($_GET['go']);
-		if ($fid<=0) page404();
+		if ($fid<=0) page404(); // TODO Need to create 404 more beautiful =)
 		$this->_DB->query("SELECT * FROM s_files_db WHERE id=".$fid.";");
 		$row=$this->_DB->fetch_row();		
 		if ($row[link]==0) {
