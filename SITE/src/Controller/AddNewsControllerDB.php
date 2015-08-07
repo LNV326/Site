@@ -8,8 +8,9 @@ use Controller\AbstractSiteController;
  * 
  * @author Nikolay Lukyanov
  * 
- * @version 1.0
- * Refactoring from vertion of 2003 year, all HTML transfered to template file, show rules always for user
+ * @version 1.0 Tested 09/08/2015
+ * 
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
  * 
  * TODO Maybe it's good to join this file and NewsController
  *

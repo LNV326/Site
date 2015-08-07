@@ -4,14 +4,22 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
-class ConfirmLoadController extends AbstractSiteController {
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 09/08/2015
+ *
+ * @deprecated Deprecated by Files site domain (download.php file)
+ * 
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ */
+class ConfirmLoadControllerDB extends AbstractSiteController {
 	
 	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'ConfirmLoadTemplate.php';
 	
-	/* (non-PHPdoc)
-	 * @see \Controller\AbstractSiteController::getData()
-	 */
 	protected function getData() {
 		$fid=intval($this->_nfs->input['fid']);
 		if ($fid<=0) $fid=intval($_GET['go']);

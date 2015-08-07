@@ -9,7 +9,7 @@ prompt ('Ссылка к файлу <?php echo $out['filename'];?> (<?php echo $
 <table align=center class=table border=0 cellspacing=0 style='width:98%'>
 <tr style='height:15pt'><td colspan=2 style='border:solid windowtext 1.0pt'><p class=normal><b><?php echo $out['filename'];?></b></p></td></tr>
 <tr style='height:15pt'>
-<?php if ( isset($out['file']['img']) ) {?>
+<?php if ( $out['file']['img'] <> '' ) {?>
 	<td style='border:solid windowtext 1.0pt'><p class=normal>Описание:<br><?php echo $this->_nfs->unconvert_html($out['file']['description']);?><br>
 <?php if ($out['file']['autor']<>'') {?>
 				<br>Авторы: <b><?php echo $out['file']['autor'];?></b>

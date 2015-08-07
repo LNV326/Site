@@ -4,19 +4,24 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
-class UserbarsController extends AbstractSiteController {
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 08/08/2015
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ */
+class UserbarsControllerDB extends AbstractSiteController {
 	
 	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'UserbarsTemplate.php';
 	
-	/* (non-PHPdoc)
-	 * @see \Controller\AbstractSiteController::getData()
-	 */
 	protected function getData() {
 //Юзербар пользователя на форуме
-		if ((!preg_match( "/^http:\/\//", $this->_sdk_info[userbar])) and (preg_match("/^upload:bar-(?:\d+)\.(?:\S+)/", $this->_sdk_info[userbar] ))) {
+		if ((!preg_match( "/^http:\/\//", $this->_sdk_info[userbar])) and (preg_match("/^upload:bar-(?:\d+)\.(?:\S+)/", $this->_sdk_info[userbar] ))) 
  			$userbar_img = preg_replace( "/^upload:/", "", $this->_sdk_info[userbar] );
- 			$showForm = true;
 
 			$dir = $this->_conf [site_path] . "files/userbars/";
 // 			$url = "http://" . $this->_conf [site_url] . "/files/userbars/";
@@ -35,10 +40,8 @@ class UserbarsController extends AbstractSiteController {
 				closedir( $dh );
 			} else
 				$error = true;
-		}
 		return array(
 				'userbar_img' => $userbar_img,
-				'showForm' => $showForm,
 				'files' => $files,
 				'error' => $error
 		);

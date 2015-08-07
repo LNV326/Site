@@ -1,4 +1,3 @@
-<?php var_dump($out);?>
 <script language='JavaScript' type="text/javascript">
 <!--
 function Insert(text,my_bar){
@@ -43,7 +42,7 @@ function Insert(text,my_bar){
 <textarea cols='80' rows='2' id='code_forum2' class='textinput'>Для получения кода кликните на нужный вам Userbar!</textarea><br>
 3) HTML Код:<br>
 <textarea cols='80' rows='2' id='code_html' class='textinput'>Для получения кода кликните на нужный вам Userbar!</textarea></p>
-<?php if ($out['showForm'] == true) {?>
+<?php if (isset($out['userbar_img'])) {?>
 <table align=center class=tl cellspacing=0 cellpadding=0>
 	<tr>
 		<td><img src="<? echo "style/".$style_id."/img" ;?>/tll.gif"></td>
@@ -52,8 +51,9 @@ function Insert(text,my_bar){
 	</tr>
 </table>
 <p class=normal>
-<a href='javascript:Insert(\"<?php echo $out['userbar_img']?>\",1)'><?php echo $this->_std->get_userbar( $this->_sdk_info[userbar], 1, "350x20" )?></a><br>
+<a href='javascript:Insert("<?php echo $out['userbar_img']?>",1)'><?php echo $this->_std->get_userbar( $this->_sdk_info[userbar], 1, "350x20" )?></a><br>
 </p><p class=normal>Примечание: Если вы измените свой Userbar в профиле то он измениться и там, где будет установлен этот код. Если вы удалите свой Userbar из профиля либо загрузите новый, но в другом формате, то там где установлен этот код будет показываться ошибка!</p>
+<?php }?>
 <table align=center class=tl cellspacing=0 cellpadding=0>
 	<tr>
 		<td><img src="<? echo "style/".$style_id."/img" ;?>/tll.gif"></td>
@@ -62,9 +62,8 @@ function Insert(text,my_bar){
 	</tr>
 </table>
 <?php foreach($out['files'] as $file) {?>
-	<p align=center style='margin:5pt'><a href='javascript:Insert(\"<?php echo $file;?>\",0)'><img src='/files/userbars/<?php echo $file;?>' border='0'></a></p>
+	<p align=center style='margin:5pt'><a href='javascript:Insert("<?php echo $file;?>",0)'><img src='/files/userbars/<?php echo $file;?>' border='0'></a></p>
 <?php }?>
 <?php if ($out['error'] == true) {?>
 	<p class=normal>Ошибка при чтении каталога. Обратитесь к администрации!</p>
-<?php }?>
 <?php }?>

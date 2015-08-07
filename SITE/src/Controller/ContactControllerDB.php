@@ -4,14 +4,22 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
-class ContactController extends AbstractSiteController {
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 08/08/2015
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ * TODO Maybe it's good to do the article and remove this controller
+ *
+ */
+class ContactControllerDB extends AbstractSiteController {
 	
 	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'ContactTemplate.php';	
 	
-	/* (non-PHPdoc)
-	 * @see \Controller\AbstractSiteController::getData()
-	 */
 	protected function getData() {
 		
 		//Подгрузка необходимостей )

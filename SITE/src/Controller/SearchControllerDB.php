@@ -4,6 +4,15 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 09/08/2015
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ */
 class SearchControllerDB extends AbstractSiteController {
 	
 	protected $_templateEngine = 'purePHP';
@@ -93,7 +102,7 @@ class SearchControllerDB extends AbstractSiteController {
 		}
 		return array(
 				'showForm' => $showForm,
-				'searchid' => $searchid,
+				'searchId' => $searchid,
 				'searchIn' => $search_in,
 				'themes' => $themes,
 				'pages' => $pages,

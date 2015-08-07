@@ -36,7 +36,7 @@
 			<td colspan=2><p style='font-size: 3pt'>&nbsp;</p></td>
 		</tr>
 		<tr bgcolor='#424242'>
-			<td colspan=2><p align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$pages;?></p></td>
+			<td colspan=2><p align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$out['pages'];?></p></td>
 		</tr>
 	</table>
 </form>
@@ -49,9 +49,9 @@
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<tr bgcolor='#373737'>
 					<td colspan=4><p class=news>Результаты поиска по сайту в целом:<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=topics'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=posts'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=pages'>показать</a>)</p></td>
+				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=topics'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][posts];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=posts'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][pages];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=pages'>показать</a>)</p></td>
 					</tr>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<tr bgcolor='#424242'>
@@ -63,7 +63,7 @@
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<?php foreach ($out['themes'] as $row) {?>
 						<tr bgcolor='#373737'>
-						<td><p class=news>Тема: <a href='/forum/index.php?showtopic=<?php echo $row[tid];?>' target='_blank'><?php echo $row[title];?></a><br>Автор: <a href='/forum/index.php?showtopic=<?php echo $row[starter_id];?>' target='_blank'><?php echo $row[starter_name];?></a><br>Форум: <a href='/forum/index.php?showforum=<?php echo $row[forum_id];?>' target='_blank'><?php echo $row[forum_name];?></a></p></td>
+						<td><p class=news>Тема: <a href='/forum/index.php?showtopic=<?php echo $row[tid];?>' target='_blank'><?php echo $row[title];?></a><br>Автор: <a href='/forum/index.php?showuser=<?php echo $row[starter_id];?>' target='_blank'><?php echo $row[starter_name];?></a><br>Форум: <a href='/forum/index.php?showforum=<?php echo $row[forum_id];?>' target='_blank'><?php echo $row[forum_name];?></a></p></td>
 						<td><p class=news align=center><?php echo $row[posts];?></p></td>
 						<td><p class=news align=center><?php echo $row[views];?></p></td>
 						<td><p class=news align=center>Автор: <a href='/forum/index.php?showuser=<?php echo $row[last_poster_id];?>' target='_blank'><?php echo $row[last_poster_name];?></a><br><?php echo $row[last_post];?></p></td>
@@ -75,17 +75,17 @@
 						</tr>
 					<?php }?>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
-					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$pages;?></p></td></tr>
+					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$out['pages'];?></p></td></tr>
 					</table>
 <?php break; } case 'posts' : {?>
 					<table align=center width=98% cellspacing=1 cellpadding=1 style='border-top:1px solid #555555; border-bottom:1px solid #555555; border-left:1px solid #555555; border-right:1px solid #555555;margin:3pt'>
-					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>Результаты поиска в сообщениях форума".$pages."</p></td></tr>
+					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>Результаты поиска в сообщениях форума<?php echo $out['pages'];?></p></td></tr>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<tr bgcolor='#373737'>
 					<td colspan=4><p class=news>Результаты поиска по сайту в целом:<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=topics'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=posts'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=pages'>показать</a>)</p></td>
+				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=topics'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][posts];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=posts'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][pages];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=pages'>показать</a>)</p></td>
 					</tr>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<?php foreach($out['themes'] as $row) {?>
@@ -106,17 +106,17 @@
 						</tr>
 						<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<?php }?>
-					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$pages;?></p></td></tr>
+					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>© <?php echo $out['site_name']." ".$out['site_start_year']." - ".date(Y).$out['pages'];?></p></td></tr>
 					</table>
 <?php break; } case 'pages' : {?>
-echo "<table align=center width=98% cellspacing=1 cellpadding=1 style='border-top:1px solid #555555; border-bottom:1px solid #555555; border-left:1px solid #555555; border-right:1px solid #555555;margin:3pt'>
+<table align=center width=98% cellspacing=1 cellpadding=1 style='border-top:1px solid #555555; border-bottom:1px solid #555555; border-left:1px solid #555555; border-right:1px solid #555555;margin:3pt'>
 					<tr bgcolor='#424242'><td colspan=4><p class=news align=center>Результаты поиска в страницах сайта</p></td></tr>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<tr bgcolor='#373737'>
 					<td colspan=4><p class=news>Результаты поиска по сайту в целом:<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=topics'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=posts'>показать</a>)<br>
-				Найдено <?php echo $out[hits_search][topics];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $searchid;?>&search_in=pages'>показать</a>)</p></td>
+				Найдено <?php echo $out[hits_search][topics];?> совпадений в названиях тем форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=topics'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][posts];?> совпадений в сообщениях форума. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=posts'>показать</a>)<br>
+				Найдено <?php echo $out[hits_search][pages];?> совпадений в страницах сайта. (<a href='index.php?page=search&searchid=<?php echo $out['searchId'];?>&search_in=pages'>показать</a>)</p></td>
 					</tr>
 					<tr bgcolor='#212121'><td colspan=4><p style='font-size:3pt'>&nbsp;</p></td></tr>
 					<tr bgcolor='#424242'>

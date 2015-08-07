@@ -4,14 +4,20 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
-class LoginController extends AbstractSiteController {
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 08/08/2015
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ */
+class LoginControllerDB extends AbstractSiteController {
 	
 	protected $_caching = 0; // No caching
 	protected $_templateName = "modules/auth.tpl";
 	
-	/* (non-PHPdoc)
-	 * @see \Controller\AbstractSiteController::getData()
-	 */
 	protected function getData() {
 		if (!empty($_GET['error'])) {
 			switch ($_GET['error']) {

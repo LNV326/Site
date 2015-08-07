@@ -1,13 +1,22 @@
 <?php
 namespace Controller;
 
+/**
+ *
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 09/08/2015
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ *
+ */
 class StatisticControllerDB extends AbstractSiteController {
 	
 	protected $_cacheLifetime = 600; // 10 minutes
 	protected $_templateName = 'modules/stats.tpl';
 	
 	protected function getData() {
-		$this->_ibforums->base_url = $this->_INFO['board_url'].'/index.';
+		$this->_ibforums->base_url = $this->_INFO['board_url'].'/index.php';
 		
 		$this->_DB->query("SELECT * FROM ibf_stats");
 		$stats = $this->_DB->fetch_row();
@@ -30,7 +39,7 @@ class StatisticControllerDB extends AbstractSiteController {
 		$out = $this->_DB->fetch_row();
 // 		$thread_url = "<a href=\"".$this->_ibforums->base_url. "?showtopic=".$out['tid']."&view=getnewpost\" target=\"_blank\">".$out['title']."</a>";
 // 		$user_url = "<a href=\"".$this->_ibforums->base_url. "?showuser=".$out['last_poster_id']."\" target=\"_blank\">".$out['last_poster_name']."</a>";
-// 		$most_time = $std->get_date( $stats['MOST_DATE'], 'SHORT' );
+		$most_time = $this->_std->get_date( $stats['MOST_DATE'], 'SHORT' );
 		$last_members = "<a href=\"".$this->_ibforums->base_url. "?showuser=".$stats['LAST_MEM_ID']."\" target=\"_blank\">".$stats['LAST_MEM_NAME']."</a>";
 		
 		$this->_DB->query("SELECT title, tid, posts, forum_id FROM ibf_topics ORDER BY posts DESC LIMIT 1" );
