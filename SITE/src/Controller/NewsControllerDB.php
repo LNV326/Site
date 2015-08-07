@@ -4,6 +4,15 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 
+/**
+ *
+ * Refactoring from old site engine version (year 2003). All HTML code transfered to template file.
+ * 
+ * @author Nikolay Lukyanov
+ *
+ * @version 1.0 Tested 16/08/2015
+ *
+ */
 class NewsControllerDB extends AbstractSiteController {
 	
 	protected $_templateName = 'modules/news.tpl';
