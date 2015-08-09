@@ -1,0 +1,16 @@
+{
+	"autoload" : {
+		"psr-0" : {
+			"Controller" : "src",
+			"Utils" : "src"
+		}
+	},
+	"name" : "LNV/SITE",
+	"minimum-stability" : "dev",
+	"description" : "Project for test",
+	"authors" : [{
+			"name" : "Nikolay Lukyanov",
+			"email" : "lnv326@gmail.com"
+		}
+	]
+}
