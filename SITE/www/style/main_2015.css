@@ -1,0 +1,113 @@
+@CHARSET "UTF-8";
+@IMPORT url("style/main.css");
+
+/* ===============
+ * Main menu and categories menu on the left side of site template
+ * ===============
+ */
+/* Container for each menu (header+body) */
+#mainmenu-left nav.dropdown {
+	display: block !important;
+}
+
+/* Permanent open-style for main menu-body */
+#mainmenu-left nav.dropdown.open-permanent > .dropdown-menu {
+	display: block !important;
+}
+
+/* Hidden menu-body styly (when bootstrap.css is not import) */
+#mainmenu-left nav.dropdown:not(.open) > .dropdown-menu {
+	display: none;
+}
+
+/* Menu-header style */
+#mainmenu-left div.dropdown-toggle {
+	height: 19px;
+	padding: 0;
+	background-image: url('http://www.nfsko.ru/style/1/img/mtl.gif');
+	cursor: pointer;
+	position: relative;
+}
+
+/* Menu toggle-arrow, closed (not for permanent open) */
+#mainmenu-left nav.dropdown:not(.open-permanent) div.dropdown-toggle:after {
+	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat;
+	content: '';
+	position: absolute;
+	top: 4px;
+	right: 3px;
+	width: 11px;
+	height: 11px;
+}
+
+/* Menu toggle-arrow, open */
+#mainmenu-left nav.dropdown.open > div.dropdown-toggle:after {
+	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat
+		-11px;
+}
+
+/* Menu-header title style */
+#mainmenu-left div.dropdown-toggle b {
+	font-size: 11px;
+	margin-left: 5px;
+	position: relative;
+	top: 2px;
+}
+
+/* Menu-body style */
+#mainmenu-left ul.dropdown-menu {
+	margin: 0;
+	padding: 0;
+	font-size: 8pt;
+	font-family: "Verdana";
+	background-image: url('http://www.nfsko.ru/style/1/img/ml.gif');
+}
+
+/* Each menu-body element style */
+#mainmenu-left ul.dropdown-menu>li {
+	background: url(http://www.nfsko.ru/style/1/img/lil.gif) no-repeat
+		scroll left center transparent;
+	padding: 0 0 0 15px;
+	margin-left: 3px;
+	width: 160px;
+	position: relative;
+	display: block;
+	clear: both;
+	width: auto;
+}
+
+/* Title for menu-body element */
+#mainmenu-left ul.dropdown-menu>li a {
+	color: #F8F8FF;
+	padding: 0;
+	height: 12px;
+	line-height: 12px;
+}
+
+/*#mainmenu-left ul.dropdown-menu>li:focus a {
+	color: #F8F8FF;
+	background: transparent;
+}*/
+
+/* Set the NEW image near the title of menu-body element */
+#mainmenu-left ul.dropdown-menu>li a[new]:after {
+	content: "";
+	background: url(http://www.nfsko.ru/style/1/img/new.gif) no-repeat
+		scroll right center transparent;
+	width: 14px;
+	height: 10px;
+	display: block;
+	margin: 3px 3px 0 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+/* Set the small link near the title of menu-body element (for RSS-link for example) */
+#mainmenu-left ul.dropdown-menu>li div.smalllink {
+	width: 21px;
+	height: 11px;
+	position: absolute;
+	right: 3px;
+	top: 0;
+}

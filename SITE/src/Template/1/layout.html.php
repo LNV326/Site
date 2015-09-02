@@ -33,7 +33,7 @@ global $pageManager;
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 	<!-- Add some CSS -->
-	<link rel="stylesheet" href="/main_2015.css" type="text/css" />
+	<link rel="stylesheet" href="/style/main_2015.css" type="text/css" />
 <style>
 html, body {
   height: 100%;
