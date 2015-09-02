@@ -16,12 +16,17 @@ abstract class NavigationManager {
 	}
 	
 	public static function getMainMenu() {
-		// TODO Need to add code to remove old sessions from chat
-		$count = -1;
-		$conf = self::$_conf;
+		//Подсчёт кол-ва пользователей в чате!
+		self::$_DB->query("SELECT count(uid) as act_count FROM ibf_chatonline LIMIT 1");
+		$row = self::$_DB->fetch_row();
+		$count=$row['act_count'];
+		// Remove old sessions from chat
+		if (!empty($count)) self::$_DB->query("DELETE FROM ibf_chatonline WHERE (".time()."-time)>600"); //10 мин
+	 	// TODO Dont need to remove ols sessions, need to count only active sessions (minus one DB query)
+		
 		//Элементы меню
 		$main_menu=array();
-		$main_menu[] = array("ru" => "Новости сайта", "en" => "Site News", "link" => "/", "image" => "rss.png", "image_title" => "RSS News", "image_link" => "http://www.".$conf[site_url]."/modules/rss.php");
+		$main_menu[] = array("ru" => "Новости сайта", "en" => "Site News", "link" => "/", "image" => "rss.png", "image_title" => "RSS News", "image_link" => "http://www.".self::$_conf[site_url]."/modules/rss.php");
 		$main_menu[] = array("ru" => "Форум сайта", "en" => "Forum", "link" => "/forum/");//, "image" => "wap.png", "image_link" => "http://wap.nfsko.ru", "image_title" => "Wap Forum", "noindex" => true);
 		$main_menu[] = array("ru" => "Чат сайта (".$count.")", "en" => "Chat (".$count.")", "link" => "/chat/", "blank" => "1");
 		$main_menu[] = array("ru" => "Файловый архив", "en" => "Files", "link" => "http://files.nfsko.ru", "noindex" => true);
@@ -39,7 +44,8 @@ abstract class NavigationManager {
 	}
 	
 	public static function getMenuCategories() {
-		global $nfs,$DB,$sdk_info;
+		global $nfs,$sdk_info;
+		// TODO need to remove globals
 		$i=0;
 		$noshow=null;
 	
@@ -59,9 +65,9 @@ abstract class NavigationManager {
 			}
 		}
 	
-		$DB->query("SELECT c.id,c.name,i.info,i.type,i.url,i.new,i.open_new FROM s_menu_cat c LEFT JOIN s_menu_items i ON (c.id=i.cat_id) ORDER BY c.poz, i.poz ASC");
+		self::$_DB->query("SELECT c.id,c.name,i.info,i.type,i.url,i.new,i.open_new FROM s_menu_cat c LEFT JOIN s_menu_items i ON (c.id=i.cat_id) ORDER BY c.poz, i.poz ASC");
 		$categories = array();
-		while ($row = $DB->fetch_row()) {
+		while ($row = self::$_DB->fetch_row()) {
 			// Get or init new category
 			if (!array_key_exists($row['id'], $categories)) {
 				$categories[$row['id']] = array(

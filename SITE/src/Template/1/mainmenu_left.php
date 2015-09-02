@@ -1,6 +1,6 @@
-<div class="ml_n">
-	<nav class="dropdown">
-		<div class="mtl_n dropdown-toggle" data-toggle="dropdown"><b><? echo $lang[menu]; ?></b></div>
+<div class="ml_n" id="mainmenu-left">
+	<nav class="dropdown open-permanent">
+		<div class="dropdown-toggle" data-toggle="dropdown"><b><? echo $lang[menu]; ?></b></div>
 		<ul class="dropdown-menu navmenu-nav">
 <?
 // include "sources/mainmenu_items.php";
@@ -16,21 +16,17 @@ foreach ($main_menu as $item) {
 	$item_noindex = $item['noindex'] ? true : false;
 	
 	//Вывод
-	if (!empty($item['image'])) { ?>
-		<li class="mr_n">
-			<div class="mrr_n"><noindex>
-				<a href="<?php echo $item['image_link']; ?>" rel="nofollow" title="<?php echo $item['image_title']; ?>">
-					<img src="/style/<?php echo $style_id; ?>/img/<?php echo $item['image']; ?>" border="0" width="21px" height="11px" alt=""/>
-				</a>
-			</noindex></div>
-			<a href="<?php echo $item['link']; ?>" <?php echo $blank; ?> title="<?php echo $item_text; ?>"><?php echo $item_text_link; ?></a>
-		</li>
-	<?php } else { ?>
-		<li class="mr_n">
-			<a href="<?php echo $item[link]; ?>" <?php echo $blank.($item_noindex ? ' rel="nofollow"' : '')?> title="<?php echo $item_text; ?>"><?php echo $item_text_link; ?></a>
-		</li>		
-	<?php } ?>
-
+	?>
+	<li>
+		<?php if (!empty($item['image'])) { ?>
+		<div class="smalllink"><noindex>
+			<a href="<?php echo $item['image_link']; ?>" rel="nofollow" title="<?php echo $item['image_title']; ?>">
+				<img src="/style/<?php echo $style_id; ?>/img/<?php echo $item['image']; ?>" border="0" width="21px" height="11px" alt=""/>
+			</a>
+		</noindex></div>
+		<?php } ?>
+		<a href="<?php echo $item['link']; ?>" <?php echo $blank.($item_noindex ? ' rel="nofollow"' : '')?> title="<?php echo $item_text; ?>"><?php echo $item_text_link; ?></a>
+	</li>
 	<?php 
 }
 ?>
@@ -45,20 +41,16 @@ $menu = NavigationManager::getMenuCategories();
 
 foreach ($menu as $category) {?>
 <nav class="dropdown">
-	<div class="mtl_n mtl_n_p dropdown-toggle" data-toggle="dropdown" onclick='menuLoad(this, <?php echo 'm'.$category['id']; ?>)'>
-		<i <?php echo ($category['isOpen'] ? " class='expanded'" : ""); ?>></i>
+	<div class="dropdown-toggle <?php echo ($category['isOpen'] ? "open-permanent" : ""); ?>" data-toggle="dropdown" onclick='menuLoad(this, <?php echo 'm'.$category['id']; ?>)'>
 		<b><?php echo $nfs->unconvert_html($category['name']); ?></b>
 	</div>
 	<ul class="dropdown-menu navmenu-nav" id="<?php echo 'm'.$category['id']; ?>">
 	<?php foreach ($category['items'] as $item) {
 		$row_link = ($item['type'] == 'link') ?	$item['url'] : "/index.php?page=".$nfs->unconvert_html($item['url']);
 		$row_target = ($item['open_new'] == '1') ? " target='_blank'" : ""; ?>
-		<li class="mr_n">
-			<?php if ($item['new'] == '1') {?>
-				<div class="mrr_n"><span></span></div>
-			<?php } ?>
+		<li>
 			<?php echo ($item['type']=='link' ? "<noindex>" : ""); ?>
-				<a href='<?php echo $nfs->unconvert_html($row_link); ?>' <?php echo $row_target; ?><?php echo ($item['type']=='link' ? " rel='nofollow'" : ""); ?>>
+				<a href='<?php echo $nfs->unconvert_html($row_link); ?>' <?php echo $row_target; ?><?php echo ($item['type']=='link') ? " rel='nofollow'" : ""; ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?>>
 					<?php echo $nfs->unconvert_html($item['info']); ?>
 				</a>
 			<?php echo ($item['type']=='link' ? "</noindex>" : ""); ?>

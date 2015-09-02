@@ -26,4 +26,12 @@
 					failonerror="false"/>
 					
 	</target>
+	<!-- ================================= 
+          target: Less Compile              
+         ================================= -->
+    <target name="Less Compile" description="description">
+        <exec executable="less" input="www/main_2015.less" output="www/main_2015_2.css">
+        </exec>
+    </target>
+
 </project>

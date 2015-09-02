@@ -19,7 +19,7 @@ global $pageManager;
 	<!-- Подключаем JavaScript Jasny Bootstrap -->
 	<script src="jasny-bootstrap.min.js"></script>
 	<!-- Bootstrap -->
-<link href="bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap.min.css1" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,13 +27,13 @@ global $pageManager;
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<link href="http://itchief.ru/assets/demo/jasny-bootstrap/css/jasny-bootstrap.min.css" rel="stylesheet">
+	<link href="http://itchief.ru/assets/demo/jasny-bootstrap/css/jasny-bootstrap.min.css1" rel="stylesheet">
 	
 	<!-- Add some JS -->
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 	<!-- Add some CSS -->
-	<link rel="stylesheet" href="http://<? echo $conf['site_url']; ?>/style/main.css" type="text/css" />
+	<link rel="stylesheet" href="/main_2015.css" type="text/css" />
 <style>
 html, body {
   height: 100%;
