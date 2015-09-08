@@ -87,10 +87,14 @@ abstract class AbstractSiteController {
 			$this->_smarty->display( $this->_templateName );
 			$renderTime = $Debug->endTimer();
 		}
-		if (isset( $getDataTime ))
-			echo 'GetData time: ' . $getDataTime . '<br>';
-		if (isset( $renderTime ))
-			echo 'Render time: ' . $renderTime . '<br>';
+		// Show debug info for admins
+		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
+			echo 'ClassName: '.__CLASS__.'<br>';
+			if (isset( $getDataTime ))
+				echo 'GetData time: ' . $getDataTime . '<br>';
+			if (isset( $renderTime ))
+				echo 'Render time: ' . $renderTime . '<br>';
+		}
 		$this->postIndexHook();
 	}
 	
@@ -98,6 +102,8 @@ abstract class AbstractSiteController {
 		$this->_smarty->caching = $this->_caching;
 		$this->_smarty->clear_cache($this->_templateName);
 	}
+	
+	
 	
 	protected function getData() {}
 	protected function postIndexHook() {}
