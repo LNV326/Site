@@ -1,10 +1,31 @@
 <?xml version="1.0"?>
 <project name="SITE Manager">
 	
-	<property file="dev2_env.properties"/>
+	<property file="test_env.properties"/>
+	
+	<!-- Using Paths -->
+	<property name="path.src" value="${env.path}/src"/>
+	<property name="path.vendor" value="${env.path}/vendor"/>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: Clear Sources Remote                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="Clear Sources Remote">
+    	<sshexec trust="true" host="${env.ssh.host}" port="${env.ssh.port}"
+    				username="${env.ssh.user}"
+    				password="${env.ssh.pass}"					
+    				command="rm -r ${path.src}"
+    				failonerror="false"/>
+		<sshexec trust="true" host="${env.ssh.host}" port="${env.ssh.port}"
+					username="${env.ssh.user}"
+					password="${env.ssh.pass}"					
+					command="mkdir ${path.src}"
+					failonerror="false"/>
+    </target>
+
 		
 	<!-- Deploy SITE project -->
-	<target name="deploySITE">
+	<target name="ClearDeploySITE" depends="Clear Sources Remote">
 		
 		<!--<sshexec trust="true" host="${env.ssh.host}"
 					username="${env.ssh.user}"
@@ -16,8 +37,16 @@
 					password="${env.ssh.pass}"
 					command="echo ${env.ssh.pass} | mkdir ${env.path}"
 					failonerror="false"/> -->
-		<scp trust="true" todir="${env.ssh.user}:${env.ssh.pass}@${env.ssh.host}:${env.path}">
-			<fileset dir="./"/>
+		<scp trust="true" todir="${env.ssh.user}:${env.ssh.pass}@${env.ssh.host}:${env.path}" port="${env.ssh.port}">
+			<fileset dir="./">
+				<exclude name="composer*"/>
+				<exclude name="*.properties"/>
+				<exclude name="*.xml"/>
+				<exclude name="src/ForFutureUse/"/>
+				<exclude name=".settings/"/>
+				<exclude name="vendor/jasny"/>
+				<exclude name="vendor/twbs"/>
+			</fileset>
 		</scp>
 		<sshexec trust="true" host="${env.ssh.host}"
 					username="${env.ssh.user}"
@@ -26,6 +55,7 @@
 					failonerror="false"/>
 					
 	</target>
+	
 	<!-- ================================= 
           target: Less Compile              
          ================================= -->

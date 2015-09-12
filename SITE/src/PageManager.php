@@ -12,7 +12,7 @@ use Controller;
  */
 class PageManager {
 		
-	private static $_map = [
+	private static $_map = array(
 			'about' => 'Controller\AboutControllerDB',
 			'add_news' => 'Controller\AddNewsControllerDB',
 			'adver' => 'Controller\AdverControllerDB',
@@ -33,7 +33,7 @@ class PageManager {
 			'stat' => 'Controller\StatisticControllerDB',
 			'uploads' => 'Controller\UploadsController',
 			'userbars' => 'Controller\UserbarsControllerDB'
-	];
+	);
 	private $_DB;
 	private $_conf;
 	private $_nfs;

@@ -7,7 +7,7 @@ namespace Utils;
  * @author NLukyanov (LNV)
  *
  */
-abstract class Debug {
+class Debug {
 	
 	static protected $starttime;
 	

@@ -4,7 +4,7 @@ namespace Controller;
 
 abstract class AbstractSiteController {
 	
-	static $PURE_PHP_TEMPLATE_PATH = __DIR__.'/../Template/1/Controller/';
+	static $PURE_PHP_TEMPLATE_PATH = '/../Template/1/Controller/';
 	
 	
 	protected $_templateEngine = 'smarty';
@@ -72,7 +72,7 @@ abstract class AbstractSiteController {
 			$Debug->startTimer();
 			$out = $this->getData();			
 			$getDataTime = $Debug->endTimer();
-			include realpath(self::$PURE_PHP_TEMPLATE_PATH.$this->_templateName);
+			include realpath(__DIR__.self::$PURE_PHP_TEMPLATE_PATH.$this->_templateName);
 		} else {
 			$this->_smarty->caching = $this->_caching;
 			$this->_smarty->compile_check = $this->_debug;

@@ -10,16 +10,6 @@ global $pageManager;
 	<title><? echo $nfs->unconvert_html($page[title]).($hide_title_info ? "" : " / ".$conf[site_title]); ?></title>
 	<meta name="keywords" content="<? echo $conf[site_keywords]; ?>" />
 	<meta name="description" content="<? echo $conf[banner_desc]; ?>" />
-		
-	<!-- FOr test only!!!  -->
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="bootstrap.min.js"></script>
-	<!-- Подключаем JavaScript Jasny Bootstrap -->
-	<script src="jasny-bootstrap.min.js"></script>
-	<!-- Bootstrap -->
-<link href="bootstrap.min.css1" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -27,63 +17,17 @@ global $pageManager;
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	<link href="http://itchief.ru/assets/demo/jasny-bootstrap/css/jasny-bootstrap.min.css1" rel="stylesheet">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="/style/js/bootstrap.min.js"></script>
 	
 	<!-- Add some JS -->
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
 	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 	<!-- Add some CSS -->
-	<link rel="stylesheet" href="/style/main_2015.css" type="text/css" />
-<style>
-html, body {
-  height: 100%;
-}
-body {
-  padding: 50px 0 0 0;
-}
-
-.navmenu {
-  padding-top: 50px;
-}
-
-.navbar {
-  display: block;
-  text-align: center;
-}
-.navbar-brand {
-  display: inline-block;
-  float: none;
-}
-.navbar-toggle {
-  position: absolute;
-  float: left;
-  margin-left: 15px;
-}
-
-.container {
-  max-width: 100%;
-}
-
-@media (min-width: 1px) {
-  .navbar-toggle {
-    display: block !important;
-  }
-}
-
-@media (min-width: 992px) {
-  body {
-    padding: 0 0 0 300px;
-  }
-  .navmenu {
-    padding-top: 0;
-  }
-  .navbar {
-    display: none !important; /* IE8 fix */
-  }
-}
-.navmenu-nav.dropdown-menu { position:relative; }
-.dropdown-backdrop { position: static; }
-</style>
+	<link rel="stylesheet" href="/style/css/main_2015.css" type="text/css" />
 </head>
 <body>
 	<div class="skeleton">
