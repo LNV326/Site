@@ -46,7 +46,7 @@ class GalleryService {
 	
 	public static function getCountForReview() {
 		self::$_DB->query("SELECT count(id) as count FROM s_gallery_images WHERE allow_add='0';");
-		$img_count = $DB->fetch_row();
+		$img_count = self::$_DB->fetch_row();
 		return $img_count['count'];
 	}
 }

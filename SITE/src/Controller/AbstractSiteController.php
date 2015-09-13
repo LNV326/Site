@@ -89,11 +89,11 @@ abstract class AbstractSiteController {
 		}
 		// Show debug info for admins
 		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
-			echo 'ClassName: '.__CLASS__.'<br>';
+			echo 'ClassName: '.get_class($this).'<br>';
 			if (isset( $getDataTime ))
-				echo 'GetData time: ' . $getDataTime . '<br>';
+				echo 'GetData time: ' . $getDataTime . ' sec<br>';
 			if (isset( $renderTime ))
-				echo 'Render time: ' . $renderTime . '<br>';
+				echo 'Render time: ' . $renderTime . ' sec<br>';
 		}
 		$this->postIndexHook();
 	}
