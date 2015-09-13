@@ -1,5 +1,6 @@
 {* Smarty *}
 {* Правое меню: Таймер *}
+{* Refactored in 2015 *}
 
 {literal}
 <SCRIPT language=JavaScript src='/js/modules/jscountdown.js'></SCRIPT>
@@ -16,5 +17,9 @@ with (mycountdown) {
 addCountdown(mycountdown);
 </SCRIPT>
 {/literal}
-<tr><td class="mtr">Осталось времени</td></tr>
-<tr><td><p style="font-size:8pt;margin-right:0.1cm;margin-left:0.2cm;text-align:justify"><? echo $conf['time_text'] ?>: <center><div class="small" id="mycountdowndiv"></div><script language='JavaScript'>doCountdown();</script></center></p></td></tr>
+<div class="sideblock-block">
+	<div class="sideblock-header">Осталось времени</div>
+	<div class="sideblock-body">
+		<p style="font-size:8pt;margin-right:0.1cm;margin-left:0.2cm;text-align:justify"><? echo $conf['time_text'] ?>: <center><div class="small" id="mycountdowndiv"></div><script language='JavaScript'>doCountdown();</script></center></p>
+	</div>
+</div>

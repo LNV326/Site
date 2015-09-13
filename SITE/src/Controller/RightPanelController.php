@@ -28,7 +28,7 @@ class RightPanelController extends AbstractComplexController  {
 			'renderOthersPanel'			
 	);
 	
-	private $_relatedTemplatePath = '../../../../src/Template/1/';
+	private $_relatedTemplatePath = '../../../../src/Template/1/ComplexController/RightPanelController/';
 	
 	protected function renderLoginPanel() { 
 		//Поле авторизации

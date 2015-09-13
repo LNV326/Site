@@ -69,14 +69,8 @@ global $pageManager;
 						<!-- Main area -->
 						<tr style='background-color: #323232'>
 							<td class="ml" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></td>
-							<td style="width:100%;background: #000000 url(<? echo $bg ;?>); vertical-align:top;">
-								<table cellspacing="0" cellpadding="0" align="center" style="width: 98%; border: none; font-size: 9pt; text-align: justify">
-									<tr>
-										<td><? $pageManager->include_page(); ?></td>
-									</tr>
-								</table>
-							</td>
-							<td align="right" class="mr" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></td>
+							<td id='content'><? $pageManager->include_page(); ?></td>
+							<td class="mr" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></td>
 						</tr>
 						<tr>
 							<td rowspan="2" style="width:100%;background: #000000 url(<? echo $bg ;?>); vertical-align:bottom;"><?

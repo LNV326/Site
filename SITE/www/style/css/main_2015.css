@@ -7,7 +7,7 @@
  * ===============
  */
 /* Container for each block (header+body) */
-#mainmenu-left nav.sideblock-block {
+nav.sideblock-block {
 	display: block !important;
 }
 
@@ -16,7 +16,7 @@ div.sideblock-header {
 	height: 19px;
 	font-size: 11px;
 	line-height: 19px;
-	padding: 0 5px;
+	padding: 0 4px;
 	cursor: pointer;
 	position: relative;
 	font-weight: bold;
@@ -24,7 +24,7 @@ div.sideblock-header {
 
 /* Menu toggle-arrow, closed (not for permanent open) */
 div.sideblock-header i {
-	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat;
+	background: url('/style/1/img/spoiler.gif') no-repeat;
 	position: absolute;
 	top: 4px;
 	right: 3px;
@@ -34,7 +34,7 @@ div.sideblock-header i {
 
 /* Menu toggle-arrow, open */
 div.sideblock-header i.expanded {
-	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat
+	background: url('/style/1/img/spoiler.gif') no-repeat
 		-11px;
 }
 
@@ -52,12 +52,12 @@ ul.sideblock-body {
 	padding: 0;
 	font-size: 8pt;
 	font-family: "Verdana";
-	background-image: url('http://www.nfsko.ru/style/1/img/ml.gif');
+	background-image: url('/style/1/img/ml.gif');
 }
 
 /* Each sideblock-body element style */
 ul.sideblock-body>li {
-	background: url(http://www.nfsko.ru/style/1/img/lil.gif) no-repeat
+	background: url('/style/1/img/lil.gif') no-repeat
 		scroll left center transparent;
 	padding: 0 0 0 15px;
 	margin-left: 3px;
@@ -80,7 +80,7 @@ ul.sideblock-body>li a {
 /* Set the NEW image near the title of sideblock-body element */
 ul.sideblock-body>li a[new]:after {
 	content: "";
-	background: url(http://www.nfsko.ru/style/1/img/new.gif) no-repeat
+	background: url('/style/1/img/new.gif') no-repeat
 		scroll right center transparent;
 	width: 14px;
 	height: 10px;
@@ -96,19 +96,30 @@ ul.sideblock-body>li div.smalllink {
 	width: 21px;
 	height: 11px;
 	position: absolute;
-	right: 3px;
+	right: 5px;
 	top: 0;
 }
 
 /* Specific style for left and right side  */
 #mainmenu-left div.sideblock-header {
 	text-align: left;
-	background-image: url('http://www.nfsko.ru/style/1/img/mtl.gif');
+	background-image: url('/style/1/img/mtl.gif');
 }
 .mr div.sideblock-header {
 	text-align: right;
-	background-image: url('http://www.nfsko.ru/style/1/img/mtr.gif');
+	background-image: url('/style/1/img/mtr.gif');
 }
 .mr div.sideblock-body {
 	text-align: left;
 }
+
+/* ===============
+ * Style for the center container
+ * ===============
+ */
+ #content {
+ 	width:100%;
+ 	background: #000000 url('/style/1/img/bg.gif');
+ 	vertical-align: top;
+ 	padding: 0 1%;
+ }
