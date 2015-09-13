@@ -38,8 +38,8 @@ abstract class NavigationManager {
 		//$main_menu[] = array("ru" => "Наши Userbar's", "en" => "Userbar's", "url" => "/index.php?page=userbars" );
 		//$main_menu[] = array("ru" => "Наши кнопки", "en" => "Our banners", "url" => "/index.php?page=info" );
 		//$main_menu[] = array("ru" => "Реклама на сайте", "en" => "Advertising", "url" => "/index.php?page=adver" );
-		$main_menu[] = array("ru" => "Добавить файлы", "en"	=> "Upload files", "url" => "http://files.nfsko.ru/index.php?page=upload", "noindex" => true);
-		$main_menu[] = array("ru" => "Добавить новость", "en" => "Add news", "url" => "/index.php?page=add_news" );
+		$main_menu[] = array("ru" => "Добавить файлы", "en"	=> "Upload files", "url" => "http://files.nfsko.ru/index.php?page=upload", "noindex" => true, "isBold" => true);
+		$main_menu[] = array("ru" => "Добавить новость", "en" => "Add news", "url" => "/index.php?page=add_news", "isBold" => true );
 		return $main_menu;
 	}
 	

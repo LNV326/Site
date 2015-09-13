@@ -22,7 +22,7 @@ function renderMenuBodyItems($items) {
 				</a> </noindex>
 			</div>
 		<?php } echo ($item_noindex ? "<noindex>" : ""); ?>
-			<a href="<?php echo $nfs->unconvert_html($row_link); ?>" <?php echo $row_target; ?> <?php echo ($item_noindex ? " rel='nofollow'" : ""); ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?> title="<?php echo $item_text; ?>"><?php echo $item_text; ?></a>
+			<a href="<?php echo $nfs->unconvert_html($row_link); ?>" <?php echo $row_target; ?> <?php echo ($item_noindex ? " rel='nofollow'" : ""); ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?> title="<?php echo $item_text; ?>"><?php echo ($item['isBold'] ? '<b>'.$item_text.'</b>' : $item_text); ?></a>
 		<?php echo ($item_noindex ? "</noindex>" : ""); ?>
 </li>
 <?php
