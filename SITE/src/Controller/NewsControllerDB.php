@@ -49,9 +49,10 @@ class NewsControllerDB extends AbstractSiteController {
 	        $news = array();       
 	        while ($row = $this->_DB->fetch_row()) {
 	            //Ставим всем внешним ссылкам <noindex> и rel="nofollow"
-	            if (!in_array(intval($row['tid']), array(7998))) {
-	            	$row['post']=preg_replace('#<a([^<]*)href=["\']http://(?!nfsko\.ru|www\.nfsko\.ru|files\.nfsko\.ru|images\.nfsko\.ru)([^"\']*)["\']([^<]*)>(.*)</a>#ismU', '<noindex><a$1href="http://$2"$3 rel="nofollow">$4</a></noindex>', $row['post']);
-	            }
+// 	            if (!in_array(intval($row['tid']), array(7998))) {
+// 	            	$row['post']=preg_replace('#<a([^<]*)href=["\']http://(?!nfsko\.ru|www\.nfsko\.ru|files\.nfsko\.ru|images\.nfsko\.ru)([^"\']*)["\']([^<]*)>(.*)</a>#ismU', '<noindex><a$1href="http://$2"$3 rel="nofollow">$4</a></noindex>', $row['post']);
+// 	            }
+	        	$row['post']=OutLinkParse($row['post']);
 				//$row['post']=str_replace("&","&amp;",$row['post']);
 				//$row['description']=str_replace("&","&amp;",$row['description']); 
 				$row['post']=str_replace("<br>","<br/>",$row['post']);

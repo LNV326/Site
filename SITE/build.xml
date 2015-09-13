@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="SITE Manager">
 	
-	<property file="test_env.properties"/>
+	<property file="dev2_env.properties"/>
 	
 	<!-- Using Paths -->
 	<property name="path.src" value="${env.path}/src"/>

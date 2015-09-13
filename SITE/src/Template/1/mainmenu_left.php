@@ -1,64 +1,61 @@
-<div class="ml_n" id="mainmenu-left">
-	<nav class="dropdown open-permanent">
-		<div class="dropdown-toggle" data-toggle="dropdown"><b><? echo $lang[menu]; ?></b></div>
-		<ul class="dropdown-menu navmenu-nav">
-<?
-// include "sources/mainmenu_items.php";
+<?php
 require_once '../src/NavigationManager.php';
 NavigationManager::init($conf, $DB);
-$main_menu = NavigationManager::getMainMenu();
-
-
-foreach ($main_menu as $item) {
-	$blank = $item['blank']=="1" ? " target='_blank'" : "";
-	$item_text = $item[$langinfo['ldir']];
-	$item_text_link = $item['b']==1 ? "<b>".$item_text."</b>" : $item_text;
-	$item_noindex = $item['noindex'] ? true : false;
-	
-	//Вывод
-	?>
-	<li>
-		<?php if (!empty($item['image'])) { ?>
-		<div class="smalllink"><noindex>
-			<a href="<?php echo $item['image_link']; ?>" rel="nofollow" title="<?php echo $item['image_title']; ?>">
-				<img src="/style/<?php echo $style_id; ?>/img/<?php echo $item['image']; ?>" border="0" width="21px" height="11px" alt=""/>
-			</a>
-		</noindex></div>
-		<?php } ?>
-		<a href="<?php echo $item['link']; ?>" <?php echo $blank.($item_noindex ? ' rel="nofollow"' : '')?> title="<?php echo $item_text; ?>"><?php echo $item_text_link; ?></a>
-	</li>
-	<?php 
-}
-?>
-		</ul>
-		<div style='clear:both;'></div>
-	</nav>
-<?php 
-
-// include "sources/left_menu.php";
-// echo leftmenu_go();
+$mainMenu = NavigationManager::getMainMenu();
 $menu = NavigationManager::getMenuCategories();
 
-foreach ($menu as $category) {?>
-<nav class="dropdown">
-	<div class="dropdown-toggle <?php echo ($category['isOpen'] ? "open-permanent" : ""); ?>" data-toggle="dropdown" onclick='menuLoad(this, <?php echo 'm'.$category['id']; ?>)'>
-		<b><?php echo $nfs->unconvert_html($category['name']); ?></b>
-	</div>
-	<ul class="dropdown-menu navmenu-nav" id="<?php echo 'm'.$category['id']; ?>">
-	<?php foreach ($category['items'] as $item) {
-		$row_link = ($item['type'] == 'link') ?	$item['url'] : "/index.php?page=".$nfs->unconvert_html($item['url']);
-		$row_target = ($item['open_new'] == '1') ? " target='_blank'" : ""; ?>
-		<li>
-			<?php echo ($item['type']=='link' ? "<noindex>" : ""); ?>
-				<a href='<?php echo $nfs->unconvert_html($row_link); ?>' <?php echo $row_target; ?><?php echo ($item['type']=='link') ? " rel='nofollow'" : ""; ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?>>
-					<?php echo $nfs->unconvert_html($item['info']); ?>
-				</a>
-			<?php echo ($item['type']=='link' ? "</noindex>" : ""); ?>
-		</li>		 
-	<?php } ?>
-	</ul>
-	<div style='clear:both;'></div>
-</nav>
+function renderMenuBodyItems($items) {
+	global $nfs, $langinfo, $style_id;
+	foreach ( $items as $item ) {
+		$row_link = ($item ['type'] == 'link') ? $item ['url'] : "/index.php?page=" . $nfs->unconvert_html( $item ['url'] );
+		$row_target = ($item ['open_new'] == '1') ? " target='_blank'" : "";
+		$item_noindex = ($item ['type'] == 'link' || $item ['noindex']) ? true : false;
+		$item_text = $nfs->unconvert_html( (!empty($item['info'])) ? $item['info'] : $item[$langinfo['ldir']] );
+		?>
+<li>
+		<?php if (!empty($item['image'])) { ?>
+			<div class="smalllink">
+				<noindex> <a href="<?php echo $item['image_link']; ?>" rel="nofollow"
+					title="<?php echo $item['image_title']; ?>"> <img
+					src="/style/<?php echo $style_id; ?>/img/<?php echo $item['image']; ?>"
+					border="0" width="21px" height="11px" alt="" />
+				</a> </noindex>
+			</div>
+		<?php } echo ($item_noindex ? "<noindex>" : ""); ?>
+		<a href="<?php echo $nfs->unconvert_html($row_link); ?>"
+			<?php echo $row_target; ?>
+			<?php echo ($item_noindex ? " rel='nofollow'" : ""); ?>
+			<?php echo ($item['new'] == '1') ? 'new' : ''; ?>
+			title="<?php echo $item_text; ?>">
+			<?php echo $item_text; ?>
+		</a>
+		<?php echo ($item_noindex ? "</noindex>" : ""); ?>
+</li>
+<?php
+	}
+}
+?>
+
+<div class="ml_n" id="mainmenu-left">
+	<nav class="menu-block">
+		<div class="menu-header">
+			<b><? echo $lang[menu]; ?></b>
+		</div>
+		<ul class="menu-body">
+			<? renderMenuBodyItems( $mainMenu ); ?>
+		</ul>
+	</nav>
+<?php foreach ($menu as $category) {?>
+	<nav class="menu-block">
+		<div class="menu-header"
+			onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
+			<b><?php echo $nfs->unconvert_html($category['name']); ?></b>
+			<i <?php echo ($category['isOpen'] ? "class='expanded'" : ""); ?>></i>
+		</div>
+		<ul class="menu-body" id="<?php echo 'm'.$category['id']; ?>">
+			<?php if ($category['isOpen']) renderMenuBodyItems($category['items']); ?>
+		</ul>
+	</nav>
 <?php }
 /*if ($sape_show) {
  $a = $sape->return_links();
@@ -89,8 +86,10 @@ if (empty($cur_page)) {
 //unset($o);
 //echo $trustlink->build_links();
 if (!empty($tmp_html)) {
-	?><div class="mtl_n"><b>Реклама</b></div>
-<div style="padding:0 10px; font-size:9px;"><?echo $tmp_html;?></div><?
+	?><div class="mtl_n">
+		<b>Реклама</b>
+	</div>
+	<div style="padding: 0 10px; font-size: 9px;"><?echo $tmp_html;?></div><?
 }
 ?>
 </div>

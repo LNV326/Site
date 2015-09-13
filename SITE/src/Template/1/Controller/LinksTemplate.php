@@ -13,8 +13,6 @@
 <center><a title="Сайт об автосимуляторах Need For Speed и не только" href="http://nfs2003.msk.ru" target="_blank"><img src="http://nfs2003.msk.ru/images/banner1.gif" border="0" width="88" height="31"></a></center>
 <br>
 <center><a href="http://nfs-racing.com/" target="_blank" title="Вcё о серии NFS."><img border="0" src="http://www.nfs-racing.com/banner/bann2.gif" width="468" height="60"></a></center>
-<br>
-<center><a href="http://nfs-community.com/" target="_blank"><img src="http://nfs-community.com/DesignNew/Images/468x60_2.gif" alt="Need For Speed Community Portal"></a></center>
 
 <?/*
 <table align=center class=tl cellspacing=0 cellpadding=0><tr>
