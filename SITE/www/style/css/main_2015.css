@@ -2,30 +2,28 @@
 @IMPORT url("/style/main.css");
 
 /* ===============
- * Main menu and categories menu on the left side of site template
+ * Style for any side block
+ * For example main menu and categories menu on the left side, random image panel and search panel on the right side
  * ===============
  */
-/* Container for each menu (header+body) */
-#mainmenu-left nav.menu {
+/* Container for each block (header+body) */
+#mainmenu-left nav.sideblock-block {
 	display: block !important;
 }
 
-/* Hidden menu-body styly (when bootstrap.css is not import) */
-#mainmenu-left nav.dropdown:not(.open) > .menu-body {
-	display: none;
-}
-
-/* Menu-header style */
-#mainmenu-left div.menu-header {
+/* Title */
+div.sideblock-header {
 	height: 19px;
-	padding: 0;
-	background-image: url('http://www.nfsko.ru/style/1/img/mtl.gif');
+	font-size: 11px;
+	line-height: 19px;
+	padding: 0 5px;
 	cursor: pointer;
 	position: relative;
+	font-weight: bold;
 }
 
 /* Menu toggle-arrow, closed (not for permanent open) */
-#mainmenu-left div.menu-header i {
+div.sideblock-header i {
 	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat;
 	position: absolute;
 	top: 4px;
@@ -35,21 +33,21 @@
 }
 
 /* Menu toggle-arrow, open */
-#mainmenu-left div.menu-header i.expanded {
+div.sideblock-header i.expanded {
 	background: url(http://www.nfsko.ru/style/1/img/spoiler.gif) no-repeat
 		-11px;
 }
 
-/* Menu-header title style */
-#mainmenu-left div.menu-header b {
+/* Sideblock-header title style */
+div.sideblock-header b {
 	font-size: 11px;
 	margin-left: 5px;
 	position: relative;
 	top: 2px;
 }
 
-/* Menu-body style */
-#mainmenu-left ul.menu-body {
+/* Sideblock-body style */
+ul.sideblock-body {
 	margin: 0;
 	padding: 0;
 	font-size: 8pt;
@@ -57,8 +55,8 @@
 	background-image: url('http://www.nfsko.ru/style/1/img/ml.gif');
 }
 
-/* Each menu-body element style */
-#mainmenu-left ul.menu-body>li {
+/* Each sideblock-body element style */
+ul.sideblock-body>li {
 	background: url(http://www.nfsko.ru/style/1/img/lil.gif) no-repeat
 		scroll left center transparent;
 	padding: 0 0 0 15px;
@@ -70,21 +68,17 @@
 	width: auto;
 }
 
-/* Title for menu-body element */
-#mainmenu-left ul.menu-body>li a {
+/* Title for sideblock-body element */
+ul.sideblock-body>li a {
 	color: #F8F8FF;
 	padding: 0;
 	height: 12px;
 	line-height: 12px;
 }
 
-/*#mainmenu-left ul.menu-body>li:focus a {
-	color: #F8F8FF;
-	background: transparent;
-}*/
 
-/* Set the NEW image near the title of menu-body element */
-#mainmenu-left ul.menu-body>li a[new]:after {
+/* Set the NEW image near the title of sideblock-body element */
+ul.sideblock-body>li a[new]:after {
 	content: "";
 	background: url(http://www.nfsko.ru/style/1/img/new.gif) no-repeat
 		scroll right center transparent;
@@ -97,11 +91,24 @@
 	right: 0;
 }
 
-/* Set the small link near the title of menu-body element (for RSS-link for example) */
-#mainmenu-left ul.menu-body>li div.smalllink {
+/* Set the small link near the title of sideblock-body element (for RSS-link for example) */
+ul.sideblock-body>li div.smalllink {
 	width: 21px;
 	height: 11px;
 	position: absolute;
 	right: 3px;
 	top: 0;
+}
+
+/* Specific style for left and right side  */
+#mainmenu-left div.sideblock-header {
+	text-align: left;
+	background-image: url('http://www.nfsko.ru/style/1/img/mtl.gif');
+}
+.mr div.sideblock-header {
+	text-align: right;
+	background-image: url('http://www.nfsko.ru/style/1/img/mtr.gif');
+}
+.mr div.sideblock-body {
+	text-align: left;
 }

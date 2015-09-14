@@ -28,11 +28,13 @@ class RightPanelController extends AbstractComplexController  {
 			'renderOthersPanel'			
 	);
 	
+	private $_relatedTemplatePath = '../../../../src/Template/1/';
+	
 	protected function renderLoginPanel() { 
 		//Поле авторизации
 		if (($this->_conf['menur_login']==1) and (!$this->_SDK->is_loggedin())){
 			$this->_smarty->cache_lifetime = -1;
-			$this->_smarty->display('right_menu/login.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'login.tpl');
 		}
 	}
 
@@ -57,7 +59,7 @@ class RightPanelController extends AbstractComplexController  {
 				$row = $this->_DB->fetch_row();
 				$this->_smarty->assign( 'que_count', $row ['count'] ); 
 			}
-			$this->_smarty->display('right_menu/online.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'online.tpl');
 		}
 	}
 	
@@ -71,7 +73,7 @@ class RightPanelController extends AbstractComplexController  {
 				FilesStoreService::init($this->_conf, $this->_DB);
 				$this->_smarty->assign('files_count', FilesStoreService::getCountForReview());
 			}
-			$this->_smarty->display('right_menu/mod_cp.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'mod_cp.tpl');
 		}
 	}
 		
@@ -87,7 +89,7 @@ class RightPanelController extends AbstractComplexController  {
 				$this->_smarty->assign('subcat_row', $imageInfo['subcat']);
 				$this->_smarty->assign('size_px', $imageInfo['size_px']);
 			}
-			$this->_smarty->display('right_menu/rnd_screen.tpl',$vid);
+			$this->_smarty->display($this->_relatedTemplatePath.'rnd_screen.tpl',$vid);
 		}
 	}
 	
@@ -95,28 +97,28 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле поиска
 		if ($this->_conf['menur_search'] == 1){
 			$this->_smarty->cache_lifetime = -1;
-			$this->_smarty->display('right_menu/search.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'search.tpl');
 		}
 	}
 	
 	protected function renderSubprojectsPanel() {
 		//Поле доп. проектов
 		$this->_smarty->cache_lifetime = -1;
-		$this->_smarty->display('right_menu/progects.tpl');
+		$this->_smarty->display($this->_relatedTemplatePath.'progects.tpl');
 	}
 	
 	protected function renderTimerPanel() {
 		//Таймер
 		if ($this->_conf['menur_time'] == 1){
 			$this->_smarty->cache_lifetime = 86400;  //Раз в сутки
-			$this->_smarty->display('right_menu/timer.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'timer.tpl');
 		}
 	}
 	
 	protected function renderOthersPanel() {
 		//Остальное
 		$this->_smarty->cache_lifetime = 86400;  //Раз в сутки
-		$this->_smarty->display('right_menu/other.tpl');
+		$this->_smarty->display($this->_relatedTemplatePath.'other.tpl');
 	}
 
 	protected function postIndexHook() {
