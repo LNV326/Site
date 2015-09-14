@@ -1,3 +1,4 @@
+<aside id='rightpanel'>
 <?php
 use Controller\RightPanelController;
 $rpc = new RightPanelController( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
@@ -18,3 +19,4 @@ if ($sape_show) {
 	</div>
 </div>
 <img src="<? echo $empty; ?>" width="165px" height="1px" alt="" border="0" />
+</aside>

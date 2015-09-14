@@ -1,12 +1,7 @@
-<?php
-echo '<?xml version="1" encoding="utf-8"?>';
-global $pageManager;
-?> 
-<!-- quirks mode -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="utf-8">
 	<title><? echo $nfs->unconvert_html($page[title]).($hide_title_info ? "" : " / ".$conf[site_title]); ?></title>
 	<meta name="keywords" content="<? echo $conf[site_keywords]; ?>" />
 	<meta name="description" content="<? echo $conf[banner_desc]; ?>" />
@@ -34,6 +29,7 @@ global $pageManager;
 		<div class="skeleton1">
 			<div class="skeleton2">
 				<div class="skeleton3">
+				<header>
 <?echo $logo;?>
 					<table border="0" cellspacing="0" cellpadding="0" class="top">
 						<tr style="height: 22px;">
@@ -64,13 +60,13 @@ global $pageManager;
 							?></p></td>
 						</tr>
 					</table>
-					
-					<table cellspacing="0" cellpadding="0" style='width: 100.0%; border: none'>
+					</header>
+					<table class='container-fluid'>
 						<!-- Main area -->
 						<tr style='background-color: #323232'>
-							<td class="ml" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></td>
-							<td id='content'><? $pageManager->include_page(); ?></td>
-							<td class="mr" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></td>
+							<td id='panel-left' class="ml" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></td>
+							<td id='panel-content'><? $pageManager->include_page(); ?></td>
+							<td id='panel-right' class="mr" valign="top" rowspan="2"><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></td>
 						</tr>
 						<tr>
 							<td rowspan="2" style="width:100%;background: #000000 url(<? echo $bg ;?>); vertical-align:bottom;"><?

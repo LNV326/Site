@@ -22,7 +22,7 @@ function renderMenuBodyItems($items) {
 				</a> </noindex>
 			</div>
 		<?php } echo ($item_noindex ? "<noindex>" : ""); ?>
-			<a href="<?php echo $nfs->unconvert_html($row_link); ?>" <?php echo $row_target; ?> <?php echo ($item_noindex ? " rel='nofollow'" : ""); ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?> title="<?php echo $item_text; ?>"><?php echo ($item['isBold'] ? '<b>'.$item_text.'</b>' : $item_text); ?></a>
+<a href="<?php echo $nfs->unconvert_html($row_link); ?>" <?php echo $row_target; ?> <?php echo ($item_noindex ? " rel='nofollow'" : ""); ?> <?php echo ($item['new'] == '1') ? 'new' : ''; ?> title="<?php echo $item_text; ?>"><?php echo ($item['isBold'] ? '<b>'.$item_text.'</b>' : $item_text); ?></a>
 		<?php echo ($item_noindex ? "</noindex>" : ""); ?>
 </li>
 <?php
@@ -30,15 +30,15 @@ function renderMenuBodyItems($items) {
 }
 ?>
 
-<div class="ml_n" id="mainmenu-left">
-	<nav class="sideblock-block">
+<nav class="ml_n" id="mainmenu-left">
+	<div class="sideblock">
 		<div class="sideblock-header"><? echo $lang[menu]; ?></div>
 		<ul class="sideblock-body">
 			<? renderMenuBodyItems( $mainMenu ); ?>
 		</ul>
-	</nav>
+	</div>
 <?php foreach ($menu as $category) {?>
-	<nav class="sideblock-block">
+	<div class="sideblock">
 		<div class="sideblock-header"
 			onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
 			<?php echo $nfs->unconvert_html($category['name']); ?>
@@ -47,7 +47,7 @@ function renderMenuBodyItems($items) {
 		<ul class="sideblock-body" id="<?php echo 'm'.$category['id']; ?>">
 			<?php if ($category['isOpen']) renderMenuBodyItems($category['items']); ?>
 		</ul>
-	</nav>
+	</div>
 <?php }
 /*if ($sape_show) {
  $a = $sape->return_links();
@@ -77,11 +77,12 @@ if (empty($cur_page)) {
 //$trustlink = new TrustlinkClient($o);
 //unset($o);
 //echo $trustlink->build_links();
-if (!empty($tmp_html)) {
-	?><div class="mtl_n">
-		<b>Реклама</b>
+if (!empty($tmp_html)) { ?>
+<div class="sideblock">
+	<div class="sideblock-header">Реклама</div>
+	<div class="sideblock-body">
+		<div style="padding: 0 10px; font-size: 9px;"><?echo $tmp_html;?></div>
 	</div>
-	<div style="padding: 0 10px; font-size: 9px;"><?echo $tmp_html;?></div><?
-}
-?>
 </div>
+<? } ?>
+</nav>

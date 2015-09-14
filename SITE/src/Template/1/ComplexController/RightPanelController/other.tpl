@@ -35,13 +35,14 @@
 </div>
 *}
 
-{* Партнёры *}
+{* Партнёры 
 <div class="sideblock-block">
 	<div class="sideblock-header">Наши партнеры</div>
 	<div class="sideblock-body">
 		<p style="font-size:8pt;text-align:center;margin-left:0.2cm;margin-right:0.1cm;margin-top:0.1cm">Electronic Arts Russia:</p><p style="margin-top:10px; margin-bottom:10px; text-align:center;"><a href="http://www.electronicarts.ru" rel="nofollow" target="_blank"><img src="/files/site/ea.gif" alt="" border="0"/></a></p>
 	</div>
 </div>
+*}
 
 {* Реклама *}
 

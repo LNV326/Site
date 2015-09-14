@@ -7,7 +7,7 @@
  * ===============
  */
 /* Container for each block (header+body) */
-nav.sideblock-block {
+div.sideblock {
 	display: block !important;
 }
 
@@ -53,6 +53,7 @@ ul.sideblock-body {
 	font-size: 8pt;
 	font-family: "Verdana";
 	background-image: url('/style/1/img/ml.gif');
+	text-align: left;
 }
 
 /* Each sideblock-body element style */
@@ -70,7 +71,6 @@ ul.sideblock-body>li {
 
 /* Title for sideblock-body element */
 ul.sideblock-body>li a {
-	color: #F8F8FF;
 	padding: 0;
 	height: 12px;
 	line-height: 12px;
@@ -101,25 +101,43 @@ ul.sideblock-body>li div.smalllink {
 }
 
 /* Specific style for left and right side  */
-#mainmenu-left div.sideblock-header {
+#panel-left div.sideblock-header {
 	text-align: left;
 	background-image: url('/style/1/img/mtl.gif');
 }
-.mr div.sideblock-header {
+#panel-right div.sideblock-header {
 	text-align: right;
 	background-image: url('/style/1/img/mtr.gif');
 }
-.mr div.sideblock-body {
-	text-align: left;
-}
+
 
 /* ===============
  * Style for the center container
  * ===============
  */
- #content {
+ #panel-content {
  	width:100%;
  	background: #000000 url('/style/1/img/bg.gif');
  	vertical-align: top;
- 	padding: 0 1%;
+ 	padding: 0 0.9%;
  }
+ 
+ 
+ 
+/* ===============
+ * Delete style below
+ * ===============
+ */
+table, tr, td {
+	border-spacing: 0;
+	padding: 0;
+}
+
+.container-fluid {
+	width: 100%;
+	border: none;
+}
+
+.tl, .newst {
+	line-height: 7px;
+}
