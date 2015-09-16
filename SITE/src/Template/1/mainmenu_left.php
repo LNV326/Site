@@ -31,22 +31,20 @@ function renderMenuBodyItems($items) {
 ?>
 
 <div class="ml_n" id="mainmenu-left">
-	<nav class="menu-block">
-		<div class="menu-header">
-			<b><? echo $lang[menu]; ?></b>
-		</div>
-		<ul class="menu-body">
+	<nav class="sideblock-block">
+		<div class="sideblock-header"><? echo $lang[menu]; ?></div>
+		<ul class="sideblock-body">
 			<? renderMenuBodyItems( $mainMenu ); ?>
 		</ul>
 	</nav>
 <?php foreach ($menu as $category) {?>
-	<nav class="menu-block">
-		<div class="menu-header"
+	<nav class="sideblock-block">
+		<div class="sideblock-header"
 			onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
-			<b><?php echo $nfs->unconvert_html($category['name']); ?></b>
+			<?php echo $nfs->unconvert_html($category['name']); ?>
 			<i <?php echo ($category['isOpen'] ? "class='expanded'" : ""); ?>></i>
 		</div>
-		<ul class="menu-body" id="<?php echo 'm'.$category['id']; ?>">
+		<ul class="sideblock-body" id="<?php echo 'm'.$category['id']; ?>">
 			<?php if ($category['isOpen']) renderMenuBodyItems($category['items']); ?>
 		</ul>
 	</nav>
