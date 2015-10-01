@@ -1,0 +1,134 @@
+@CHARSET "UTF-8";
+
+/* Main style for the 3-column style */
+#container-main {
+	display: table;
+ 	height: 100%;
+}
+#container-main .row {
+	display: table-row;
+  	height: 100%;
+}
+#container-main .row > div {
+	display: table-cell;
+	height: 100%;
+}
+
+/* Common decoration for the left and right panels */
+.sideblock {
+	width: 100%;
+}
+.sideblock-header {
+	width: 100%;
+	height: 19px;
+	line-height: 19px;
+	font-weight: bold;
+	font-family: Verdana;
+	font-size: 11px;
+	padding: 0px 5px;
+}
+div.sideblock-body {
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: Verdana;
+	font-size: 11px;
+}
+ul.sideblock-body {
+	width: 100%;
+	list-style: inside url('/style/1/img/lil.gif') none;
+	padding: 0 5px;
+	margin: 0;
+	font-family: Verdana;
+	font-size: 11px;
+}
+ul.sideblock-body > li {
+	height: 12px;
+	line-height: 12px;
+	position: relative;
+}
+ul.sideblock-body > li > .smalllink {
+	position: absolute;
+	height: 11px;
+	width: 21px;
+	top: 0;
+	right: 0;
+}
+
+/* Mirrored decoration for the left and right panels*/
+#panel-left, #panel-right {
+	padding: 0;
+}
+#panel-left > nav {
+	width: 165px;
+	height: 100%;
+	background-image: url('/style/1/img/ml.gif');
+	color: #c7c7c7;
+	float: left;
+}
+#panel-left .sideblock-header {
+	background-image: url('/style/1/img/mtl.gif');
+	color: #c7c7c7;
+	text-align: left;
+}
+#panel-right > aside {
+	width: 165px;
+	height: 100%;
+	background-image: url('/style/1/img/mr.gif');
+	color: #c7c7c7;
+	float: right;
+}
+#panel-right .sideblock-header {
+	background-image: url('/style/1/img/mtr.gif');
+	color: #c7c7c7;
+	text-align: right;
+}
+#panel-left a, #panel-right a {
+	color: #E6E6E6;
+	text-decoration: none;
+}
+#panel-left a:hover, #panel-right a:hover {
+	color: #BBB;
+	text-decoration: none;
+}
+
+/* Decoration for blocks in the right panel */
+.sideblock-body > div, .sideblock-body > form, .sideblock-body > figure {
+	margin: 0 7px 5px 7px;
+}
+.sideblock-body .form-group {
+	margin: 0;
+}
+.sideblock-body .form-group > label {
+	font-weight: normal;
+	margin-bottom: 2px;
+}
+.sideblock-body .form-control, .sideblock-body .btn-default  {
+	font-size: 9px;
+	font-family: Verdana;
+	color: #CCC;
+	background-color: #666;
+	border: 1px solid #424242;
+	height: 20px;
+	border-radius: 0px;
+	padding: 0 6px;
+}
+.sideblock-body .btn-default {
+	margin-top: 6px;
+}
+#block-online p {
+	margin-bottom: 5px;
+	line-height: 11px;
+}
+#block-online h6 {
+	margin: 2px 0;
+	font-weight: bold;
+	font-size: 11px;
+}
+#block-rndscreen {
+	margin-top: 5px;
+}
+#block-rndscreen figcaption {
+	text-align: center;
+	font-size: 12px;
+}

@@ -34,7 +34,7 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле авторизации
 		if (($this->_conf['menur_login']==1) and (!$this->_SDK->is_loggedin())){
 			$this->_smarty->cache_lifetime = -1;
-			$this->_smarty->display($this->_relatedTemplatePath.'login.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'block-login.tpl');
 		}
 	}
 
@@ -59,7 +59,7 @@ class RightPanelController extends AbstractComplexController  {
 				$row = $this->_DB->fetch_row();
 				$this->_smarty->assign( 'que_count', $row ['count'] ); 
 			}
-			$this->_smarty->display($this->_relatedTemplatePath.'online.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'block-online.tpl');
 		}
 	}
 	
@@ -89,7 +89,7 @@ class RightPanelController extends AbstractComplexController  {
 				$this->_smarty->assign('subcat_row', $imageInfo['subcat']);
 				$this->_smarty->assign('size_px', $imageInfo['size_px']);
 			}
-			$this->_smarty->display($this->_relatedTemplatePath.'rnd_screen.tpl',$vid);
+			$this->_smarty->display($this->_relatedTemplatePath.'block-rndscreen.tpl',$vid);
 		}
 	}
 	
@@ -97,7 +97,7 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле поиска
 		if ($this->_conf['menur_search'] == 1){
 			$this->_smarty->cache_lifetime = -1;
-			$this->_smarty->display($this->_relatedTemplatePath.'search.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'block-search.tpl');
 		}
 	}
 	
