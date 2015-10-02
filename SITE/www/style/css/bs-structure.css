@@ -1,20 +1,30 @@
 @CHARSET "UTF-8";
+@IMPORT url("/style/main.css");
 
-/* Main style for the 3-column style */
+/* ====================
+ * Main style for the 3-column template
+ * Templates: layout.html
+ * ====================
+ */
 #container-main {
 	display: table;
  	height: 100%;
 }
-#container-main .row {
+#container-main > .row {
 	display: table-row;
   	height: 100%;
 }
-#container-main .row > div {
+#container-main > .row > div {
 	display: table-cell;
 	height: 100%;
+	padding: 0;
 }
 
-/* Common decoration for the left and right panels */
+/* ====================
+ * Common decoration for the left and right panels
+ * Templates: mainmenu_left.html, mainmenu_right.html
+ * ====================
+ */
 .sideblock {
 	width: 100%;
 }
@@ -26,6 +36,18 @@
 	font-family: Verdana;
 	font-size: 11px;
 	padding: 0px 5px;
+	position: relative;
+}
+.sideblock-header > i {
+	background: url('/style/1/img/spoiler.gif') no-repeat;
+	position: absolute;
+	top: 4px;
+	right: 3px;
+	width: 11px;
+	height: 11px;
+}
+.sideblock-header> i.expanded {
+	background: url('/style/1/img/spoiler.gif') no-repeat -11px;
 }
 div.sideblock-body {
 	width: 100%;
@@ -56,9 +78,6 @@ ul.sideblock-body > li > .smalllink {
 }
 
 /* Mirrored decoration for the left and right panels*/
-#panel-left, #panel-right {
-	padding: 0;
-}
 #panel-left > nav {
 	width: 165px;
 	height: 100%;
@@ -117,6 +136,7 @@ ul.sideblock-body > li > .smalllink {
 .sideblock-body p {
 	margin-bottom: 5px;
 	line-height: 11px;
+	font-size: 9px;
 }
 .sideblock-body h6 {
 	margin: 2px 0;
@@ -134,9 +154,55 @@ ul.sideblock-body > li > .smalllink {
 	margin: 5px 3px;
 }
 
-.debug-info {
+
+/* ====================
+ * Decoration for debug info
+ * Templates: no
+ * ====================
+ */
+.debug-info p, .debug-info h6 {
 	width: 100%;
 	font-size: 9px;
 	font-family: Verdana;
 	padding: 2px 5px;
+}
+.debug-info h6 {
+	font-weight: bold;
+	margin: 2px 0;
+}
+
+/* ====================
+ * Decoration for tests
+ * Templates: no
+ * ====================
+ */
+.logo {
+    min-width: 940px;
+}
+@media (min-width: 992px) {
+	#content {
+		padding: 0px 28px;
+	}
+}
+@media (min-width: 1200px) {
+	#content {
+		padding: 0px 10px;
+	}
+}
+
+
+
+.mr_n {
+    margin: 0px !important;
+    padding: 0px;
+    height: 12px;
+    line-height: 12px;
+}
+
+@media (max-width: 1200px) {
+	.news object, .news embed {
+		width: 480px;
+		height: 320px;
+		margin: auto;
+	}
 }

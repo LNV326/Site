@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title><? echo $nfs->unconvert_html($page[title]).($hide_title_info ? "" : " / ".$conf[site_title]); ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="<? echo $conf[site_keywords]; ?>" />
 <meta name="description" content="<? echo $conf[banner_desc]; ?>" />
 
@@ -35,8 +36,8 @@
 		</header>
 		<div class="row">
 			<!-- Main area -->
-			<div class="ml col-lg-2 col-md-2 col-sm-3 hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></div>
-			<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12" id='panel-content'>				
+			<div class="col-lg-2 col-md-2 col-sm-3 hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></div>
+			<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12" id='panel-center'>				
 				<div class="row">
 					<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' id='adver-top'></div>
 				</div>
@@ -62,9 +63,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="mr col-lg-2 col-md-2 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>
+			<div class="col-lg-2 col-md-2 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>
 		</div>
-		<div class='row'>
+		<footer class='row'>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 <? echo $bottom;
 if (($SDK->get_num_new_pms() != 0) and ($sdk_info ['view_pop'] == '1')) {
@@ -74,7 +75,7 @@ PopUp('/modules/view_new_pms.php','New_PMS','550','200','0','1','1','1');
 }
 ?>
 			</div>
-		</div>
+		</footer>
 	</div>
 </body>
 </html>
