@@ -112,15 +112,13 @@ ul.sideblock-body > li > .smalllink {
 	height: 20px;
 	border-radius: 0px;
 	padding: 0 6px;
+	margin-top: 3px;
 }
-.sideblock-body .btn-default {
-	margin-top: 6px;
-}
-#block-online p {
+.sideblock-body p {
 	margin-bottom: 5px;
 	line-height: 11px;
 }
-#block-online h6 {
+.sideblock-body h6 {
 	margin: 2px 0;
 	font-weight: bold;
 	font-size: 11px;
@@ -131,4 +129,14 @@ ul.sideblock-body > li > .smalllink {
 #block-rndscreen figcaption {
 	text-align: center;
 	font-size: 12px;
+}
+#block-projects {
+	margin: 5px 3px;
+}
+
+.debug-info {
+	width: 100%;
+	font-size: 9px;
+	font-family: Verdana;
+	padding: 2px 5px;
 }

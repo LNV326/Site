@@ -73,7 +73,7 @@ class RightPanelController extends AbstractComplexController  {
 				FilesStoreService::init($this->_conf, $this->_DB);
 				$this->_smarty->assign('files_count', FilesStoreService::getCountForReview());
 			}
-			$this->_smarty->display($this->_relatedTemplatePath.'mod_cp.tpl');
+			$this->_smarty->display($this->_relatedTemplatePath.'block-modcp.tpl');
 		}
 	}
 		
@@ -104,7 +104,7 @@ class RightPanelController extends AbstractComplexController  {
 	protected function renderSubprojectsPanel() {
 		//Поле доп. проектов
 		$this->_smarty->cache_lifetime = -1;
-		$this->_smarty->display($this->_relatedTemplatePath.'progects.tpl');
+		$this->_smarty->display($this->_relatedTemplatePath.'block-projects.tpl');
 	}
 	
 	protected function renderTimerPanel() {

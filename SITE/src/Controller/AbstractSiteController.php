@@ -89,11 +89,12 @@ abstract class AbstractSiteController {
 		}
 		// Show debug info for admins
 		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
-			echo 'ClassName: '.get_class($this).'<br>';
+			echo '<div class="debug-info"><h6>Debug info</h6><p>ClassName: '.get_class($this).'<br>Template engine: '.$this->_templateEngine.'<br>';
 			if (isset( $getDataTime ))
 				echo 'GetData time: ' . $getDataTime . ' sec<br>';
 			if (isset( $renderTime ))
 				echo 'Render time: ' . $renderTime . ' sec<br>';
+			echo 'To disable this message set "conf[debug_on]" property into "false"</p></div>';
 		}
 		$this->postIndexHook();
 	}
