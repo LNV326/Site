@@ -79,32 +79,7 @@ class PageManager {
 // 		global $style_id,$lang,$page,$DB,$type,$nfs,$php_poll,$SDK,$sdk_info,$std,$admins,$Debug,$sape_context,$smarty;
 // 		global $em, $smarty, $ibforums, $INFO, $std, $style_id, $lang, $SDK, $sape_context, $DB, $nfs, $sdk_info, $admin;
 		global $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin, $sape_context, $sape_show;
-		if ($this->_conf['adver_site_top_on']==1){
-			//if ($page[name]<>"news") {
-			/*?>
-			<script type="text/javascript"><!--
-			google_ad_client = "ca-pub-8369190706828575";
-			google_ad_slot = "7094441647";
-			google_ad_width = 468;
-			google_ad_height = 60;
-			//-->
-			</script>
-			<script type="text/javascript"
-			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script>
-			<?*/
-			//echo "<p style=\"margin:5px 5px 5px -364px; text-align:center; height:90px; width:728px; left:50%; position:relative;\">";
-			echo "<p style=\"margin:5px 5px 5px -234px; text-align:center; height:60px; width:468px; left:50%; position:relative;\">";
-			echo $this->_conf['adver_site_top_html'];
-			echo "</p>";
-			//} else {
-			/*?>
-			<div style="width:100%;margin:5px 0 5px 0;"><object>
-			<embed src="/files/roxen.swf" width="100%" height="55" style="border:0px;height:55px;"></embed>
-			</object></div>
-			<?*/
-			//}
-		}
+		
 		//Вывод
 		if (isset($this->_page['module_path'])) {
 			if ($this->_page[name]<>"news") {

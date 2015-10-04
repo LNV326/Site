@@ -27,7 +27,8 @@
 	src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 <!-- Add some CSS -->
 <link rel="stylesheet" href="/style/css/bootstrap.css" type="text/css" />
-<link rel="stylesheet" href="/style/css/bs-structure.css" type="text/css" />
+<link rel="stylesheet" href="/style/css/bs-structure.css"
+	type="text/css" />
 </head>
 <body>
 	<div class="container" id="container-main">
@@ -37,9 +38,40 @@
 		<div class="row">
 			<!-- Main area -->
 			<div class="col-lg-2 col-md-2 col-sm-3 hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></div>
-			<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12" id='panel-center'>				
+			<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12" id='panel-center'>
 				<div class="row">
-					<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' id='adver-top'></div>
+					<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' id='adver-top'>
+					<?php if ($conf ['adver_site_top_on'] == 1) {
+						// if ($page[name]<>"news") {
+						/*
+						 * ?>
+						 * <script type="text/javascript"><!--
+						 * google_ad_client = "ca-pub-8369190706828575";
+						 * google_ad_slot = "7094441647";
+						 * google_ad_width = 468;
+						 * google_ad_height = 60;
+						 * //-->
+						 * </script>
+						 * <script type="text/javascript"
+						 * src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+						 * </script>
+						 * <?
+						 */
+						// echo "<p style=\"margin:5px 5px 5px -364px; text-align:center; height:90px; width:728px; left:50%; position:relative;\">";
+						echo "<p style=\"margin:5px 5px 5px -234px; text-align:center; height:60px; width:468px; left:50%; position:relative;\">";
+						echo $conf ['adver_site_top_html'];
+						echo "</p>";
+						// } else {
+						/*
+						 * ?>
+						 * <div style="width:100%;margin:5px 0 5px 0;"><object>
+						 * <embed src="/files/roxen.swf" width="100%" height="55" style="border:0px;height:55px;"></embed>
+						 * </object></div>
+						 * <?
+						 */
+						// }
+					} ?>
+					</div>
 				</div>
 				<div class="row">
 					<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' id="content"> <? $pageManager->include_page(); ?></div>
