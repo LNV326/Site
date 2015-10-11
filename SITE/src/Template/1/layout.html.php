@@ -27,8 +27,7 @@
 	src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 <!-- Add some CSS -->
 <link rel="stylesheet" href="/style/css/bootstrap.css" type="text/css" />
-<link rel="stylesheet" href="/style/css/bs-structure.css"
-	type="text/css" />
+<link rel="stylesheet" href="/style/css/bs-structure.css" type="text/css" />
 </head>
 <body>
 	<div class="container" id="container-main">
@@ -36,9 +35,9 @@
 			<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><? include "../src/Template/" . $style_id . "/header.html.php"; ?></div>
 		</header>
 		<div class="row">
-			<!-- Main area -->
-			<div class="col-lg-2 col-md-2 col-sm-3 hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php"; ?></div>
-			<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12" id='panel-center'>
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 visible-lg visible-md hidden-sm hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php";?></div>
+			<!-- Основное содержимое веб-страницы -->
+			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" id='panel-center'>
 				<div class="row">
 					<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12' id='adver-top'>
 					<?php if ($conf ['adver_site_top_on'] == 1) {
@@ -95,7 +94,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-2 col-md-2 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>							
 		</div>
 		<footer class='row'>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

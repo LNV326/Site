@@ -9,14 +9,16 @@
 #container-main {
 	display: table;
  	height: 100%;
+ 	padding: 0;
 }
 #container-main > .row {
 	display: table-row;
   	height: 100%;
 }
 #container-main > .row > div {
+	/* !important is need for adaptive left menu open/close state and for change viewport width after that*/
 	display: table-cell;
-	height: 100%;
+	height: 100% !important;
 	padding: 0;
 }
 
@@ -27,6 +29,7 @@
  */
 .sideblock {
 	width: 100%;
+	text-align: left;
 }
 .sideblock-header {
 	width: 100%;
@@ -172,6 +175,81 @@ ul.sideblock-body > li > .smalllink {
 }
 
 /* ====================
+ * Decoration for menu header
+ * Templates: header.html
+ * ====================
+ */
+ 
+.navbar {
+  display: block;
+  text-align: center;
+}
+.navbar-brand {
+  display: inline-block;
+  float: none;
+}
+.navbar-toggle {
+  position: absolute;
+  float: left;
+  margin-left: 15px;
+}
+@media (min-width: 1px) {
+  .navbar-toggle {
+    display: block !important;
+  }
+}
+@media (min-width: 992px) {
+  .navbar {
+    display: none !important; /* для IE8 */
+  }
+}
+
+/* ====================
+ * Decoration for adaptive left menu
+ * Templates: layout.html, mainmenu-left.html
+ * ====================
+ */
+ 
+@media (max-width: 992px) {
+	#panel-left.collapse.in, #panel-left.collapsing {
+		z-index: 10;
+		position: fixed;
+		left: 0;
+		display: block !important;
+		width: 100%;	
+	}
+	#mainmenu-left {
+		height: 100% !important;
+		background: rgba(0, 0, 0, 0.7) !important;
+		width: 100% !important;
+		text-align: center;
+	}
+	.sideblock {
+		width: 165px;
+		display: inline-block;
+		vertical-align: top;
+		background: url('/style/1/img/ml.gif');
+	}
+	body {	
+  		padding: 50px 0 0 0;
+	}
+}
+
+/* ====================
+ * Decoration for disable some bootstrap feachures
+ * Templates: no
+ * ====================
+ */
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+	padding: 0px;
+}
+
+/* ====================
  * Decoration for tests
  * Templates: no
  * ====================
@@ -199,6 +277,7 @@ ul.sideblock-body > li > .smalllink {
     line-height: 12px;
 }
 
+/* Adaptive draft for embed video in news*/ 
 @media (max-width: 1200px) {
 	.news object, .news embed {
 		width: 480px;
@@ -206,3 +285,6 @@ ul.sideblock-body > li > .smalllink {
 		margin: auto;
 	}
 }
+
+
+

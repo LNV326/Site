@@ -8,7 +8,7 @@
 		<form action="/index.php?page=search&amp;search_in=topics&amp;start=1" method="post" id='block-search'>
 			<div class="form-group">
     			<label for="username">{$lang.search_text}</label>
-				<input type="text" name="keywords" class="form-control" size="27" placeholder="Шевелись, Плотва!">
+				<input type="text" name="keywords" class="form-control" size="27" placeholder="Text for search">
 			</div>
 			<button type="submit" class="btn btn-default center-block">{$lang.search_title}</button>
 		</form>
