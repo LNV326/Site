@@ -96,9 +96,9 @@
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>							
 		</div>
-		<footer class='row'>
+		<footer class='row' id='footer'>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-<? echo $bottom;
+<? include "../src/Template/" . $style_id . "/footer.html.php";
 if (($SDK->get_num_new_pms() != 0) and ($sdk_info ['view_pop'] == '1')) {
 	echo "<script language=\"javascript\" type=\"text/javascript\"><!--
 PopUp('/modules/view_new_pms.php','New_PMS','550','200','0','1','1','1');

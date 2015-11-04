@@ -205,6 +205,37 @@ ul.sideblock-body > li > .smalllink {
 }
 
 /* ====================
+ * Decoration for body footer
+ * Templates: footer.html
+ * ====================
+ */
+#footer > div {
+	background: url('/style/1/img/ml_noend.gif');
+}
+.bottom1 {
+	height: 85px;
+}
+.bottom1 > div {
+	height: 100%;
+}
+.bottom1 > div:nth-child(-n+3) {
+	border-right: 1px solid #242424;
+}
+.bottom1 > div:nth-child(n+2) {
+	border-left: 1px solid #363636;
+}
+.footerblock-header {
+	padding: 0px 5px;
+	font-weight: bold;
+}
+ul.footerblock-body {
+	padding: 0px 5px;
+	list-style: none;
+	pading: 0;
+	margin: 0;
+}
+
+/* ====================
  * Decoration for adaptive left menu
  * Templates: layout.html, mainmenu-left.html
  * ====================

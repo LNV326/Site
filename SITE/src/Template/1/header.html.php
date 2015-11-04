@@ -15,7 +15,7 @@
 </div>
 
 <div class='row'>
-	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs">
 		<table border="0" cellspacing="0" cellpadding="0" class="top">
 			<tr style="height: 22px;">
 				<td width="45%"><p style="margin-left: 0.2cm; font-size: 8pt"><?
