@@ -16,9 +16,8 @@
   	height: 100%;
 }
 #container-main > .row > div {
-	/* !important is need for adaptive left menu open/close state and for change viewport width after that*/
 	display: table-cell;
-	height: 100% !important;
+	height: 100%;
 	padding: 0;
 }
 
@@ -65,12 +64,13 @@ ul.sideblock-body {
 	padding: 0 5px;
 	margin: 0;
 	font-family: Verdana;
-	font-size: 11px;
+	font-size: 0;
 }
 ul.sideblock-body > li {
 	height: 12px;
 	line-height: 12px;
 	position: relative;
+	font-size: 11px;
 }
 ul.sideblock-body > li > .smalllink {
 	position: absolute;
@@ -209,29 +209,53 @@ ul.sideblock-body > li > .smalllink {
  * Templates: layout.html, mainmenu-left.html
  * ====================
  */
- 
-@media (max-width: 992px) {
-	#panel-left.collapse.in, #panel-left.collapsing {
-		z-index: 10;
-		position: fixed;
-		left: 0;
-		display: block !important;
-		width: 100%;	
-	}
-	#mainmenu-left {
+@media (min-width: 992px) {
+	#panel-left {
 		height: 100% !important;
-		background: rgba(0, 0, 0, 0.7) !important;
-		width: 100% !important;
-		text-align: center;
 	}
-	.sideblock {
-		width: 165px;
-		display: inline-block;
-		vertical-align: top;
-		background: url('/style/1/img/ml.gif');
-	}
+}
+@media (max-width: 992px) {
 	body {	
   		padding: 50px 0 0 0;
+	}
+	#panel-left {
+		position: fixed;
+		z-index: 100;
+		left: 0px;		
+		top: 50px;
+		right: -20px;
+	    overflow: auto;
+		height: 0;
+	    width: auto;
+	    background: rgba(0, 0, 0, 0.3);
+	}
+	#panel-left.collapse.in, #panel-left.collapsing {
+		display: block !important;		
+	}
+	#panel-left > nav {
+		background: #222;
+		border-right: 1px solid #080808;
+		width: 250px;
+		height: auto;
+	}
+	#panel-left .sideblock-header, #panel-left ul.sideblock-body > li,
+	#panel-left ul.sideblock-body > div.mr_n {		
+		height: 36px;
+		line-height: 36px;
+		font-size: 14px;
+		margin: 0px 10px !important;
+		width: auto;
+		border-bottom: 1px solid #323232;
+	}
+	#panel-left .sideblock-header {
+		background: none;
+	}
+	#panel-left ul.sideblock-body {
+		background: #1C1C1C;
+	}
+	.sideblock-header > i {
+		top: 12px;
+		right: 5px;
 	}
 }
 
