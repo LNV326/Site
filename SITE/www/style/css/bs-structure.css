@@ -209,30 +209,60 @@ ul.sideblock-body > li > .smalllink {
  * Templates: footer.html
  * ====================
  */
+/**/
 #footer > div {
 	background: url('/style/1/img/ml_noend.gif');
 }
-.bottom1 {
-	height: 85px;
-}
-.bottom1 > div {
+#footer .navigation > div {
 	height: 100%;
+	font-size: 10px;
 }
-.bottom1 > div:nth-child(-n+3) {
+#footer .navigation > div:nth-child(-n+3) {
 	border-right: 1px solid #242424;
 }
-.bottom1 > div:nth-child(n+2) {
+#footer .navigation > div:nth-child(-n+4) {
 	border-left: 1px solid #363636;
 }
+#footer .navigation > div:first-child {
+	border-left: 0;
+}
+/* Footer blocks */
+.footerblock {
+	height: 89px; /* Need for vertical borders =( */
+	padding: 8px 0 6px;
+}
 .footerblock-header {
-	padding: 0px 5px;
+	padding-bottom: 4px;
 	font-weight: bold;
 }
 ul.footerblock-body {
-	padding: 0px 5px;
+	padding: 0px;
 	list-style: none;
 	pading: 0;
 	margin: 0;
+}
+#footer .navigation > div:first-child > .footerblock {
+	padding-left: 15px;
+}
+#footer .navigation > div:last-child > .footerblock {
+	padding: 10px;
+}
+#footer .navigation > div:last-child > .footerblock * {
+	margin-bottom: 4px;
+}
+#footer #copyrights {
+	height: 18px;
+	margin: 0;
+	background-image: url('/style/1/img/top.gif');
+	background-color: #323232;
+	font-size: 9px;
+	line-height: 18px;
+}
+#footer #copyrights > div {
+	padding: 0 8px;
+}
+#footer #copyrights > div:nth-child(1) > span {
+	font-weight: bold;
 }
 
 /* ====================

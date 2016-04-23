@@ -3,7 +3,7 @@
 		<div class="mtl_n"></div>
 	</div>
 </div>
-<div class="row bottom1">
+<div class="row navigation">
 		<div class='col-lg-2 col-md-2 col-sm-3 col-xs-3'>
 			<nav class="footerblock" role="navigation">
 				<div class="footerblock-header">www.NFSko.ru</div>
@@ -35,7 +35,7 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bottom1_fon">
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 			<nav class="footerblock" role="navigation">
 				<div class="footerblock-header">Мы в соцсетях</div>
 				<div class="footerblock-body">
@@ -49,7 +49,8 @@
 				</div>
 			</nav>
 		</div>
-		<div class="col-lg-3 col-md-3 hidden-sm hidden-xs bottom1_fon" style='text-align: right; padding: 10px; width: 120px; vertical-align: middle;'>
+		<div class="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">
+			<div class="footerblock">
 <?php echo $conf[count_hidden]; ?>
 <noindex>
 
@@ -117,16 +118,17 @@ if(11<js)d.write('--'+'>')//-->
 <!-- end of Top100 logo -->
 
 		</div>
+	</div>
 </div>
 <div class="row">
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
-		<p class="small">
-			<b><?php echo $lang['copy_info']; ?></b> <a href='http://www.<?php echo $conf['site_url']; ?>/forum/index.php?act=Stats&amp;CODE=leaders' target='_blank'><b><?php echo $lang['admin_ons']; ?></b></a> <b><?php echo $lang['forbidden']; ?>.</b>
-		</p>
-	</div>
-	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-		<p class="small">
-			<a href='http://www.<?php echo $conf['site_url']; ?>/index.php?page=info' title='<?php echo $lang['info']; ?>'><?php echo $conf['site_name']; ?></a> © <?php echo $conf['site_start_year']." - ".date(Y);?>. Разработка и поддержка <a href='http://www.<?php echo $conf['site_url']; ?>/index.php?page=about' title='<?php echo $lang['about'];?>'>www.allex.me</a>
-		</p>
-	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="row" id="copyrights">
+			<div class="col-lg-6 col-md-6 hidden-sm hidden-xs text-left">		
+				<span><?php echo $lang['copy_info']; ?> <a href='http://www.<?php echo $conf['site_url']; ?>/forum/index.php?act=Stats&amp;CODE=leaders' target='_blank'><?php echo $lang['admin_ons']; ?></a> <?php echo $lang['forbidden']; ?>.</span>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+				<span><a href='http://www.<?php echo $conf['site_url']; ?>/index.php?page=info' title='<?php echo $lang['info']; ?>'><?php echo $conf['site_name']; ?></a> © <?php echo $conf['site_start_year']." - ".date(Y);?>. Разработка и поддержка <a href='http://www.<?php echo $conf['site_url']; ?>/index.php?page=about' title='<?php echo $lang['about'];?>'>www.allex.me</a></span>
+			</div>
+		</div>
+	</div>	
 </div>
