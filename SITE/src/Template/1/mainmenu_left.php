@@ -28,19 +28,50 @@ function renderMenuBodyItems($items) {
 <?php
 	}
 }
+
+function renderUserProfileInfo() {
+	global $SDK, $conf, $lang;
+	if ($SDK->is_loggedin ()) {
+		echo '
+		<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=UserCP" target="_blank"><b>' . $lang ["my_control"] . '</b></a></li>
+		<li><a href="http://' . $conf ['site_url'] . '/sources/auth.php?act=logout" onclick="return log_out()" target="_self"><b>' . $lang ["exit"] . '</b></a></li>
+		<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=Search&amp;CODE=getnew" target="_blank">' . $lang ["new_posts"] . '</a> (<b>' . $SDK->get_num_new_posts () . '</b>)</li>
+		<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=Msg&amp;CODE=01" target="_blank">' . $lang ["new_pms"] . '</a> (<b>' . $SDK->get_num_new_pms () . '/' . $SDK->get_num_total_pms () . '</b>)</li>';
+		if ($SDK->is_admin ()) {
+			echo '<li><a href="http://' . $conf ['site_url'] . '/forum/admin.php" target="_blank"><b>Forum CP</b></a></li>';
+		}
+		if ($SDK->is_supermod ()) {
+			echo '
+			<li><a href="http://' . $conf ['site_url'] . '/admin.php" target="_blank"><b>Site CP</b></a></b></li>
+			<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=modcp" target="_blank"><b>Mod CP</b></a></li>';
+		}
+	} else {
+		echo '
+		<li><a href="http://' . $conf ['site_url'] . '/index.php?page=login">' . $lang ["enter"] . '</a></li>
+		<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=Reg" target="_balnk">' . $lang ["reg"] . '</a></li>
+		<li><a href="http://' . $conf ['site_url'] . '/forum/index.php?act=Reg&amp;CODE=reval">' . $lang ["reval"] . '</a></li>';
+	}
+}
 ?>
 
 <nav class="ml_n" id="mainmenu-left">
+	<div class="sideblock visible-sm visible-xs hidden-lg hidden-md">
+		<div class="sideblock-header"><? 
+		if ($SDK->is_loggedin ()) {
+			echo '<b>' . $lang [login_hi] . '</b> <a href="http://' . $conf ['site_url'] . '/forum/index.php?showuser=' . $sdk_info [id] . '" target="_blank"><b>' . $sdk_info [name] . '</b></a>';
+		} else {
+			echo $lang [guest_hi];
+		}
+		?></div>
+		<ul class="sideblock-body"><? renderUserProfileInfo(); ?></ul>
+	</div>
 	<div class="sideblock">
 		<div class="sideblock-header"><? echo $lang[menu]; ?></div>
-		<ul class="sideblock-body">
-			<? renderMenuBodyItems( $mainMenu ); ?>
-		</ul>
+		<ul class="sideblock-body"><? renderMenuBodyItems( $mainMenu ); ?></ul>
 	</div>
 <?php foreach ($menu as $category) {?>
 	<div class="sideblock">
-		<div class="sideblock-header"
-			onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
+		<div class="sideblock-header" onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
 			<?php echo $nfs->unconvert_html($category['name']); ?>
 			<i <?php echo ($category['isOpen'] ? "class='expanded'" : ""); ?>></i>
 		</div>

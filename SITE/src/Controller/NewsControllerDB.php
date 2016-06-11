@@ -41,6 +41,7 @@ class NewsControllerDB extends AbstractSiteController {
 	 * @param integer $page
 	 */
 	private function news_p($page) {
+		$this->_smarty->caching = 2;
 		$this->_smarty->cache_lifetime = 300;  //На 30 мин
 	    if (!$this->_smarty->is_cached('modules/news_row.tpl',$page.$this->_sdk_info['language'])) {
 	        //Создание строки для множества форумов
@@ -95,6 +96,7 @@ class NewsControllerDB extends AbstractSiteController {
 		// $conf['active_num'] Количество 'последних постов'
 		 
 		//Последние сообщения
+		$this->_smarty->caching = 2;
 	    $this->_smarty->cache_lifetime = 10;  //На 10 секунд   
 	    if (!$this->_smarty->is_cached('modules/news_last_posts.tpl')) {
 	        $this->_DB->query("SELECT last_poster_name,last_poster_id,last_post,tid,title FROM ibf_topics WHERE forum_id NOT IN (".$this->_conf['active_ids'].") ORDER BY last_post DESC LIMIT 0,".$this->_conf['active_num'].";" );
@@ -129,6 +131,7 @@ class NewsControllerDB extends AbstractSiteController {
 		// $conf['active_num'] Количество 'последних файлов'
 	
 		//Файловый архив
+		$this->_smarty->caching = 2;
         $this->_smarty->cache_lifetime = 86400;  //На сутки   
         if (!$this->_smarty->is_cached('modules/news_last_files.tpl')) {
             $last_files = array();

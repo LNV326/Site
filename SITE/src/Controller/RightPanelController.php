@@ -41,6 +41,7 @@ class RightPanelController extends AbstractComplexController  {
 	protected function renderWhoIsOnlinePanel() {
 		//Кто онлайн
 		if ($this->_conf['menur_online'] == 1){
+			$this->_smarty->caching = 2;
 			$this->_smarty->cache_lifetime = 60; // На 60 секунд
 			if (! $this->_smarty->is_cached( 'right_menu/online.tpl' )) {
 				$to_echo = array ();
@@ -66,6 +67,7 @@ class RightPanelController extends AbstractComplexController  {
 	protected function renderModeratorPanel() {
 		//Панель модератора
 		if (($this->_sdk_info[id]==$this->_admins['root']) or ($this->_SDK->is_small_siteadmin($this->_sdk_info['id']) == TRUE) or ($this->_SDK->is_full_siteadmin($this->_sdk_info['id']) == TRUE)) {
+			$this->_smarty->caching = 2;
 			$this->_smarty->cache_lifetime = 10;  //Раз в минуту
 			if (!$this->_smarty->is_cached('right_menu/mod_cp.tpl')) {
 				GalleryService::init($this->_conf, $this->_DB);
@@ -81,6 +83,7 @@ class RightPanelController extends AbstractComplexController  {
 		//Случайный скриншот
 		if ($this->_conf['menur_gallery'] == 1){
 			$vid = rand(1,5);
+			$this->_smarty->caching = 2;
 			$this->_smarty->cache_lifetime = 60;  //На 60 секунд
 			if (!$this->_smarty->is_cached('right_menu/rnd_screen.tpl', $vid)) {
 				GalleryService::init($this->_conf, $this->_DB);
@@ -110,6 +113,7 @@ class RightPanelController extends AbstractComplexController  {
 	protected function renderTimerPanel() {
 		//Таймер
 		if ($this->_conf['menur_time'] == 1){
+			$this->_smarty->caching = 2;
 			$this->_smarty->cache_lifetime = 86400;  //Раз в сутки
 			$this->_smarty->display($this->_relatedTemplatePath.'timer.tpl');
 		}
@@ -117,6 +121,7 @@ class RightPanelController extends AbstractComplexController  {
 	
 	protected function renderOthersPanel() {
 		//Остальное
+		$this->_smarty->caching = 2;
 		$this->_smarty->cache_lifetime = 86400;  //Раз в сутки
 		$this->_smarty->display($this->_relatedTemplatePath.'other.tpl');
 	}

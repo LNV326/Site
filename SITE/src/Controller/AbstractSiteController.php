@@ -47,7 +47,7 @@ abstract class AbstractSiteController {
 	 * 0 - disable, 1 - enable, 2 - custom lifetime, -1 - forever
 	 */
 	protected $_caching = 0;
-	protected $_debug = true;
+	protected $_debug = false;
 	
 	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin) {
 		$this->_em = $em;
@@ -89,7 +89,10 @@ abstract class AbstractSiteController {
 		}
 		// Show debug info for admins
 		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
-			echo '<div class="debug-info"><h6>Debug info</h6><p>ClassName: '.get_class($this).'<br>Template engine: '.$this->_templateEngine.'<br>';
+			echo '<div class="debug-info"><h6>Debug info</h6><p>ClassName: '.get_class($this).'<br>Template engine: '.$this->_templateEngine
+				.'<br>Cache mode: '.$this->_caching
+				.'<br>Cache lifetime: '.$this->_cacheLifetime
+				.'<br>Debug mode: '.$this->_debug.'<br>';
 			if (isset( $getDataTime ))
 				echo 'GetData time: ' . $getDataTime . ' sec<br>';
 			if (isset( $renderTime ))
