@@ -364,9 +364,9 @@ ul.footerblock-body {
 
 /* Adaptive draft for embed video in news*/ 
 @media (max-width: 1200px) {
-	.news object, .news embed {
-		width: 480px;
-		height: 320px;
+	.news object, .news embed, .news img {
+		max-width: 480px;
+		max-height: 320px;
 		margin: auto;
 	}
 }
