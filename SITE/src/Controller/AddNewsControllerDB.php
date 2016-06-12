@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class AddNewsControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'AddNewsTemplate.php';
 	
 	protected function getData() {

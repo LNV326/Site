@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class ConfirmLoadControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'ConfirmLoadTemplate.php';
 	
 	protected function getData() {

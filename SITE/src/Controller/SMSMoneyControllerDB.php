@@ -16,7 +16,6 @@ use Controller\AbstractSiteController;
  */
 class SMSMoneyControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'SMSMoneyTemplate.php';
 	
 	protected function getData() {

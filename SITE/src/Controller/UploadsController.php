@@ -6,7 +6,6 @@ use Controller\AbstractSiteController;
 
 class UploadsController extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'UploadsTemplate.php';
 	
 	/* (non-PHPdoc)

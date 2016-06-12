@@ -15,7 +15,6 @@ use Controller\AbstractSiteController;
  */
 class UserbarsControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'UserbarsTemplate.php';
 	
 	protected function getData() {

@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class AdverControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'AdverTemplate.php';	
 	
 	protected function getData() {

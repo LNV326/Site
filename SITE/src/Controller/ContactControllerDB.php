@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class ContactControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'ContactTemplate.php';	
 	
 	protected function getData() {

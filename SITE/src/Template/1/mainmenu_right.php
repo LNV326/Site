@@ -1,7 +1,7 @@
 <aside id='rightpanel'>
 <?php
 use Controller\RightPanelController;
-$rpc = new RightPanelController( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
+$rpc = new RightPanelController( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
 $rpc->index();
 ?>
 <div class="sideblock-block">

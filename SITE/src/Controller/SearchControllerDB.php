@@ -15,7 +15,6 @@ use Controller\AbstractSiteController;
  */
 class SearchControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'SearchTemplate.php';
 	
 	protected function getData() {

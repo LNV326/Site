@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class LinksControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'LinksTemplate.php';
 	
 	protected function getData() {

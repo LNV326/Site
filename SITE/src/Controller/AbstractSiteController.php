@@ -2,14 +2,12 @@
 
 namespace Controller;
 
+use Template\TemplateEngineAdapter;
+use Utils\Debug;
 abstract class AbstractSiteController {
-	
-	static $PURE_PHP_TEMPLATE_PATH = '/../Template/1/Controller/';
-	
-	
-	protected $_templateEngine = 'smarty';
-	
+		
 	protected $_templateName = null;
+	protected $_templateParams = array();
 	protected $_cacheLifetime = 0;
 	
 	/**
@@ -28,10 +26,7 @@ abstract class AbstractSiteController {
 	 * @var Array
 	 */
 	protected $_conf;
-	/**
-	 * Template Engine
-	 */
-	protected $_smarty;
+
 	protected $_ibforums;
 	protected $_INFO;
 	protected $_std;
@@ -49,11 +44,10 @@ abstract class AbstractSiteController {
 	protected $_caching = 0;
 	protected $_debug = false;
 	
-	public function __construct($em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin) {
+	public function __construct($em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin) {
 		$this->_em = $em;
 		$this->_DB = $DB;
 		$this->_conf = $conf;
-		$this->_smarty = $smarty;
 		$this->_ibforums = $ibforums;
 		$this->_INFO = $INFO;
 		$this->_std = $std;
@@ -66,27 +60,19 @@ abstract class AbstractSiteController {
 	}
 	
 	public function index() {
-		global $style_id, $lil, $line;
-		$Debug = new \Debug;
-		if ( $this->_templateEngine != 'smarty' ) {
+			
+		// Get the template engine adapter
+		$templateEngine = TemplateEngineAdapter::getInstanceBase($this->_templateName);
+		// Check reault cache status (if result cache is out of current interests then get data from database)
+		if ( !$templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
+			$Debug = new Debug;
 			$Debug->startTimer();
-			$out = $this->getData();			
+			$this->_templateParams = $this->getData();
 			$getDataTime = $Debug->endTimer();
-			include realpath(__DIR__.self::$PURE_PHP_TEMPLATE_PATH.$this->_templateName);
-		} else {
-			$this->_smarty->caching = $this->_caching;
-			$this->_smarty->compile_check = $this->_debug;
-			$this->_smarty->cache_lifetime = $this->_cacheLifetime;
-			// TODO Need to support multy-page caching http://www.smarty.net/docsv2/ru/caching.multiple.caches.tpl
-			if (! $this->_smarty->is_cached( $this->_templateName )) {
-				$Debug->startTimer();
-				$this->getData();
-				$getDataTime = $Debug->endTimer();
-			}
-			$Debug->startTimer();
-			$this->_smarty->display( $this->_templateName );
-			$renderTime = $Debug->endTimer();
 		}
+		$templateEngine->display( $this->_templateName, $this->_templateParams );
+		$logInfo = TemplateEngineAdapter::getLog($this->_templateName);
+		$renderTime = $logInfo['renderTime'];
 		// Show debug info for admins
 		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
 			echo '<div class="debug-info"><h6>Debug info</h6><p>ClassName: '.get_class($this).'<br>Template engine: '.$this->_templateEngine
@@ -100,14 +86,7 @@ abstract class AbstractSiteController {
 			echo 'To disable this message set "conf[debug_on]" property into "false"</p></div>';
 		}
 		$this->postIndexHook();
-	}
-	
-	public function clearCache () {
-		$this->_smarty->caching = $this->_caching;
-		$this->_smarty->clear_cache($this->_templateName);
-	}
-	
-	
+	}	
 	
 	protected function getData() {}
 	protected function postIndexHook() {}

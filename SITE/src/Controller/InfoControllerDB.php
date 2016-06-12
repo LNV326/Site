@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class InfoControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'InfoTemplate.php';
 	
 	protected function getData() {

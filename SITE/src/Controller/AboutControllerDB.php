@@ -17,7 +17,6 @@ use Controller\AbstractSiteController;
  */
 class AboutControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'AboutTemplate.php';
 	
 	protected function getData() {

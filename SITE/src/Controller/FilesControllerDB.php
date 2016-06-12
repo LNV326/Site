@@ -5,7 +5,6 @@ use Controller\AbstractSiteController;
 
 class FilesControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'FilesTemplate.php';
 		
 	//Вывод подкатегории

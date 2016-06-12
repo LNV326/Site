@@ -91,7 +91,7 @@ class PageManager {
 			}
 			if (isset( self::$_map [$this->_page [name]] )) {
 				$controllerName = self::$_map [$this->_page [name]];
-				$m = new $controllerName( $em, $DB, $conf, $smarty, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
+				$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
 				$m->index();
 			} else
 				include $this->_page [module_path];

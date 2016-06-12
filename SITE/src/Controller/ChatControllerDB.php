@@ -15,7 +15,6 @@ use Controller\AbstractSiteController;
  */
 class ChatControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'ChatTemplate.php';
 		
 	protected function getData() {

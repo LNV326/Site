@@ -133,8 +133,7 @@ class StatisticControllerDB extends AbstractSiteController {
 			}
 			$top_10_new.=' <a href="http://files.'.$this->_conf['site_url'].'/download.php?go='.$row[id].'" title="Скачать">'.$name.'</a> - ('.$row[count].')<br>';
 		}
-		
-		$this->_smarty->assign('stat', array(
+		$this->_templateParams['stat'] = array(
 				'total_posts'	=> $total_posts,
 				'poppostsurl'	=> $poppostsurl,
 				'popviewsurl'	=> $popviewsurl,
@@ -168,6 +167,7 @@ class StatisticControllerDB extends AbstractSiteController {
 				'top_10_new'		=> $top_10_new,
 				'top_10_downloads'		=> $top_10_downloads,
 				'max_count'		=> $max_count
-		));
+		);
+		return $this->_templateParams;
 	}
 }

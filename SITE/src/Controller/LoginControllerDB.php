@@ -34,7 +34,7 @@ class LoginControllerDB extends AbstractSiteController {
 					break;
 				}
 			}
-			$this->_smarty->assign('error', $error);
+			$this->_templateParams['error'] = $error;
 		}
 	}
 

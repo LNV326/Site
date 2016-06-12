@@ -14,7 +14,6 @@ use Controller\AbstractSiteController;
  */
 class FAQControllerDB extends AbstractSiteController {
 	
-	protected $_templateEngine = 'purePHP';
 	protected $_templateName = 'FAQTemplate.php';
 	
 	//Вывод списка вопросов юзеру
