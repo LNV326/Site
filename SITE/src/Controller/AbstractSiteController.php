@@ -7,7 +7,7 @@ use Utils\Debug;
 abstract class AbstractSiteController {
 		
 	protected $_templateName = null;
-	protected $_templateParams = array();
+	protected $_templateParams = null;
 	protected $_cacheLifetime = 0;
 	
 	/**
@@ -65,29 +65,10 @@ abstract class AbstractSiteController {
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($this->_templateName);
 		// Check reault cache status (if result cache is out of current interests then get data from database)
 		if ( !$templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
-			$Debug = new Debug;
-			$Debug->startTimer();
 			$this->_templateParams = $this->getData();
-			$getDataTime = $Debug->endTimer();
 		}
 		$templateEngine->display( $this->_templateName, $this->_templateParams );
-		$logInfo = TemplateEngineAdapter::getLog($this->_templateName);
-		$renderTime = $logInfo['renderTime'];
-		// Show debug info for admins
-		if ($this->_conf ['debug_on'] == 1 and $this->_SDK->is_admin()) {
-			echo '<div class="debug-info"><h6>Debug info</h6><p>ClassName: '.get_class($this).'<br>Template engine: '.$this->_templateEngine
-				.'<br>Cache mode: '.$this->_caching
-				.'<br>Cache lifetime: '.$this->_cacheLifetime
-				.'<br>Debug mode: '.$this->_debug.'<br>';
-			if (isset( $getDataTime ))
-				echo 'GetData time: ' . $getDataTime . ' sec<br>';
-			if (isset( $renderTime ))
-				echo 'Render time: ' . $renderTime . ' sec<br>';
-			echo 'To disable this message set "conf[debug_on]" property into "false"</p></div>';
-		}
-		$this->postIndexHook();
 	}	
 	
 	protected function getData() {}
-	protected function postIndexHook() {}
 }

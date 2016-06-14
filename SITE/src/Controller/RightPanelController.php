@@ -35,10 +35,9 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле авторизации
 		if (($this->_conf['menur_login']==1) and (!$this->_SDK->is_loggedin())) {
 			$templateName = $this->_relatedTemplatePath.'block-login.tpl';
-			$templateParams = array();
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-			$templateEngine->display( $templateName, $templateParams );
+			$templateEngine->display( $templateName, null );
 		}
 	}
 
@@ -107,39 +106,35 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле поиска
 		if ($this->_conf['menur_search'] == 1) {
 			$templateName = $this->_relatedTemplatePath.'block-search.tpl';
-			$templateParams = array();
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-			$templateEngine->display( $templateName, $templateParams );
+			$templateEngine->display( $templateName, null );
 		}
 	}
 	
 	protected function renderSubprojectsPanel() {
 		//Поле доп. проектов
 		$templateName = $this->_relatedTemplatePath.'block-projects.tpl';
-		$templateParams = array();
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 		if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-		$templateEngine->display( $templateName, $templateParams );
+		$templateEngine->display( $templateName, null );
 	}
 	
 	protected function renderTimerPanel() {
 		//Таймер
 		if ($this->_conf['menur_time'] == 1) {
 			$templateName = $this->_relatedTemplatePath.'timer.tpl';
-			$templateParams = array();
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, 2, 86400) ) {}
-			$templateEngine->display( $templateName, $templateParams );
+			$templateEngine->display( $templateName, null );
 		}
 	}
 	
 	protected function renderOthersPanel() {
 		//Остальное
 		$templateName = $this->_relatedTemplatePath.'other.tpl';
-		$templateParams = array();
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 		if ( !$templateEngine->isCached($templateName, null, 2, 86400) ) {}
-		$templateEngine->display( $templateName, $templateParams );
+		$templateEngine->display( $templateName, null );
 	}
 }

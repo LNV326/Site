@@ -28,21 +28,23 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 	 * @return array
 	 */
 	public static function getLog( $templateName ) {
-		return self::$_logging[$templateName];
+		if ( !is_null($templateName) )
+			return self::$_logging[$templateName];
+		else return self::$_logging;
 	}
 	
 	/**
 	 * Save new row to the log info about rendered template with given name
 	 * @param string $templateName
 	 */
-	public function setLog( $templateName  ) {
+	public function setLog( $templateName, $mu  ) {
 		self::$_logging[$templateName] = array(
 				'templateName' => $templateName,
 				'engine' => get_called_class(),
 				'renderTime' => self::$_debug->endTimer(),
 				'cachingMode' => $this->getCachingMode(),
 				'cacheLifetime' => $this->getCacheLifetime(),
-				'memoryUsage' => self::$_debug->endMemUsage()
+				'memoryUsage' => $mu
 		);
 	}
 	
@@ -53,8 +55,9 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 	 */
 	public static function getInstanceBase($templateName) {
 		// Initialize debugger
-		if ( is_null(self::$_debug) )
+		if ( is_null(self::$_debug) ) {
 			self::$_debug = new Debug();
+		}
 		// Choose the template engine
 		$filetype = strtolower(substr(strrchr($templateName, '.'), 1));
 		switch ($filetype) {
@@ -78,16 +81,15 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 	 */
 	protected function __clone() {}
 	
-	public final function display( $templateName, $templateParams = array(), $cacheId = null ) {
+	public final function display( $templateName, $templateParams, $cacheId = null ) {
 		print $this->render($templateName, $templateParams, $cacheId);
 	}
 			
-	public final function render( $templateName, $templateParams = array(), $cacheId = null ){
+	public final function render( $templateName, $templateParams, $cacheId = null ){
 		self::$_debug->startTimer();
 		self::$_debug->startMemUsage();
 		$result = $this->renderExecute($templateName, $templateParams, $cacheId);
-		$this->setLog($templateName);
-// 		var_dump(self::getLog( $templateName ));
+		$this->setLog($templateName, self::$_debug->endMemUsage());
 		return $result;
 	}
 	

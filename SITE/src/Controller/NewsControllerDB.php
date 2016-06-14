@@ -4,7 +4,6 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 use Template\TemplateEngineAdapter;
-use Utils\Debug;
 
 /**
  *

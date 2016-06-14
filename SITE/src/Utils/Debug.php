@@ -9,14 +9,14 @@ namespace Utils;
  */
 class Debug {
 	
-	static protected $_startTime;
-	static protected $_startMemUsage;
+	protected $_startTime;
+	protected $_startMemUsage;
 	
     public function startTimer() {
         $mtime = microtime ();
         $mtime = explode (' ', $mtime);
         $mtime = $mtime[1] + $mtime[0];
-        self::$_startTime = $mtime;
+        $this->_startTime = $mtime;
     }
     
     public function endTimer() {
@@ -24,15 +24,15 @@ class Debug {
         $mtime = explode (' ', $mtime);
         $mtime = $mtime[1] + $mtime[0];
         $endtime = $mtime;
-        $totaltime = round (($endtime - self::$_startTime), 5);
+        $totaltime = round (($endtime - $this->_startTime), 5);
         return $totaltime;
     }
     
     public function startMemUsage() {
-    	self::$_startMemUsage = memory_get_usage();
+    	$this->_startMemUsage = memory_get_usage();
     }
     
     public function endMemUsage() {
-    	return (memory_get_usage()-self::$_startMemUsage);
+    	return (memory_get_usage()-$this->_startMemUsage);
     }
 }

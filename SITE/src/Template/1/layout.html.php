@@ -84,7 +84,7 @@
 						}
 						if ($conf ['debug_on'] == 1 and $SDK->is_admin()) {
 							echo "<p align=\"center\" class=\"small\" style=\"margin-bottom:3pt\">[ ";
-							echo "<span style='margin:0px 5px'>Время генерации: " . sprintf( "%.4f", $Debug->endTimer() ) . "</span>";
+							echo "<span style='margin:0px 5px'>Время генерации: " . sprintf( "%.4f", $gDebug->endTimer() ) . "</span>";
 							echo "<span style='margin:0px 5px'>Запросов к БД: " . $DB->query_count . "</span>";
 							echo "<span style='margin:0px 5px'>Время выполнения запросов: " . sprintf( '%.5f', $GLOBALS ['mysql'] ['totalQueryTime'] ) . " sec</span>";
 							echo "<span style='margin:0px 5px'>Использовано памяти: <b>" . number_format( round( memory_get_usage() / 1024 ) ) . " Kb</b></span>";
@@ -120,4 +120,9 @@ if (($sdk_info [id] == 1 or $sdk_info [id] == 281) and $show_log) {
 	}
 	$DB->error_print( TRUE );
 }
+
+// Show debug info for admins
+// if ($conf['debug_on'] == 1 and $SDK->is_admin()) {
+// 	var_dump(Template\TemplateEngineAdapter::getLog());
+// }
 ?>

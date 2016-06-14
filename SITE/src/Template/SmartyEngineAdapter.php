@@ -38,12 +38,14 @@ final class SmartyEngineAdapter extends TemplateEngineAdapter {
 		return self::$_engine->is_cached( $templateName, $cacheId );
 	}
 		
-	protected function renderExecute( $templateName, $templateParams = array(), $cacheId = null ) {
+	protected function renderExecute( $templateName, $templateParams = null, $cacheId = null ) {
 		// Assign params for template
-		self::$_engine->assign($templateParams);
+		if ( is_array($templateParams) )
+			self::$_engine->assign($templateParams);
 		return self::$_engine->fetch( $templateName, $cacheId );
 		// Unsen all assigned params
-		self::$_engine->clearAssign( array_keys($templateParams) );		
+		if ( is_array($templateParams) )
+			self::$_engine->clearAssign( array_keys($templateParams) );		
 	}
 	
 	protected function getCachingMode() {

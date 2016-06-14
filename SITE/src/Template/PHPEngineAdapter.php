@@ -31,10 +31,11 @@ final class PHPEngineAdapter extends TemplateEngineAdapter {
 		return false;
 	}
 		
-	protected function renderExecute( $templateName, $templateParams = array(), $cacheId = null ) {
+	protected function renderExecute( $templateName, $templateParams = null, $cacheId = null ) {
 		global $style_id, $lil, $line;
 		ob_start();
-		$out = $templateParams;
+		if ( is_array($templateParams) )
+			$out = $templateParams;
 		include realpath(__DIR__.self::_PURE_PHP_TEMPLATE_PATH_.$templateName);
 		$result = ob_get_contents();
 		ob_end_clean();

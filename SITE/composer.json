@@ -3,7 +3,8 @@
 		"psr-0" : {
 			"Controller" : "src",
 			"Utils" : "src",
-			"Service" : "src"
+			"Service" : "src",
+			"Template" : "src"
 		}
 	},
 	"name" : "LNV/SITE",
