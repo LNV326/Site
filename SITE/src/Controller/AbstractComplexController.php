@@ -13,12 +13,14 @@ class AbstractComplexController extends AbstractSiteController {
 	protected $_CONFIG = array();
 	
 	protected function getData() {
+		$result = array();
 		foreach ($this->_CONFIG as $item) {
 			try {
-				$this->$item();
+				$result[$item] = $this->$item();
 			} catch (Exception $e) {
 				// TODO dont do that!
 			}
 		}
+		return $result;
 	}
 }

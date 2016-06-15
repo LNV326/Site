@@ -17,14 +17,10 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/style/js/bootstrap.min.js"></script>
-
 <!-- Add some JS -->
-<script language="JavaScript" type="text/javascript"
-	src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
-<script language="JavaScript" type="text/javascript"
-	src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
+<script language="JavaScript" type="text/javascript" src="/style/js/bootstrap.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 <!-- Add some CSS -->
 <link rel="stylesheet" href="/style/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="/style/css/bs-structure.css" type="text/css" />
@@ -35,7 +31,9 @@
 			<div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'><? include "../src/Template/" . $style_id . "/header.html.php"; ?></div>
 		</header>
 		<div class="row">
-			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 visible-lg visible-md hidden-sm hidden-xs" id='panel-left'><? include "../src/Template/" . $style_id . "/mainmenu_left.php";?></div>
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 visible-lg visible-md hidden-sm hidden-xs" id='panel-left'>
+<? include "../src/Template/" . $style_id . "/mainmenu_left.php";?>
+			</div>
 			<!-- Основное содержимое веб-страницы -->
 			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" id='panel-center'>
 				<div class="row">
@@ -94,7 +92,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 hidden-sm hidden-xs" id='panel-right'><? include "../src/Template/" . $style_id . "/mainmenu_right.php";?></div>							
+			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 hidden-sm hidden-xs" id='panel-right'>
+			<? //include "../src/Template/" . $style_id . "/mainmenu_right.php";
+use Controller\RightPanelController;
+$rpc = new RightPanelController( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
+$rpc->index();
+			?>
+			</div>							
 		</div>
 		<footer class='row' id='footer'>
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -108,6 +112,10 @@ PopUp('/modules/view_new_pms.php','New_PMS','550','200','0','1','1','1');
 			</div>
 		</footer>
 	</div>
+	<!-- Add some JS -->
+	<script language="JavaScript" type="text/javascript" src="/style/js/bootstrap.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/engine.js"></script>
+	<script language="JavaScript" type="text/javascript" src="http://<? echo $conf['site_url']; ?>/js/load.js"></script>
 </body>
 </html>
 <?php
@@ -122,7 +130,21 @@ if (($sdk_info [id] == 1 or $sdk_info [id] == 281) and $show_log) {
 }
 
 // Show debug info for admins
-// if ($conf['debug_on'] == 1 and $SDK->is_admin()) {
+if ($conf['debug_on'] == 1 and $SDK->is_admin()) {
 // 	var_dump(Template\TemplateEngineAdapter::getLog());
-// }
+	echo "<div class='debug-info'><h6>Debug info</h6><table cellpadding='5'>";	
+	$row = 0;
+	foreach (Template\TemplateEngineAdapter::getLog() as $templateInfo) {
+		echo '<tr>';
+		if (++$row == 1) {
+			foreach ($templateInfo as $key => $value)
+				echo "<td><b>$key</b></td>";
+			echo '</tr><tr>';
+		}
+		foreach ($templateInfo as $value)
+			echo "<td>$value</td>";
+		echo '</tr>';
+	}
+	echo "</table></div>";
+}
 ?>

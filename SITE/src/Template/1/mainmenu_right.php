@@ -1,8 +1,9 @@
 <aside id='rightpanel'>
 <?php
-use Controller\RightPanelController;
-$rpc = new RightPanelController( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
-$rpc->index();
+global $sape_show, $empty, $sape, $conf;
+foreach ($out as $rightBlock) {
+	echo $rightBlock;
+}
 ?>
 <div class="sideblock-block">
 	<div class="sideblock-header">Реклама</div>

@@ -163,16 +163,17 @@ ul.sideblock-body > li > .smalllink {
  * Templates: no
  * ====================
  */
-.debug-info p, .debug-info h6 {
-	width: 100%;
+.debug-info td, .debug-info h6 {	
 	font-size: 9px;
 	font-family: Verdana;
 	padding: 2px 5px;
 }
 .debug-info h6 {
+	width: 100%;
 	font-weight: bold;
 	margin: 2px 0;
 }
+
 
 /* ====================
  * Decoration for menu header

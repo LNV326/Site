@@ -15,8 +15,7 @@ use Template\TemplateEngineAdapter;
  */
 class RightPanelController extends AbstractComplexController  {
 	
-	protected $_templateName = '.php';
-	protected $_caching = 0; // Don't cache module output
+	protected $_templateName = './../mainmenu_right.php';
 	
 	protected $_CONFIG = array(
 			'renderLoginPanel',
@@ -37,7 +36,7 @@ class RightPanelController extends AbstractComplexController  {
 			$templateName = $this->_relatedTemplatePath.'block-login.tpl';
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-			$templateEngine->display( $templateName, null );
+			return $templateEngine->render( $templateName, null );
 		}
 	}
 
@@ -64,7 +63,7 @@ class RightPanelController extends AbstractComplexController  {
 				$row = $this->_DB->fetch_row();
 				$templateParams['que_count'] = $row ['count'];
 			}		
-			$templateEngine->display( $templateName, $templateParams );
+			return $templateEngine->render( $templateName, $templateParams );
 		}
 	}
 	
@@ -80,7 +79,7 @@ class RightPanelController extends AbstractComplexController  {
 				FilesStoreService::init($this->_conf, $this->_DB);
 				$templateParams['files_count'] = FilesStoreService::getCountForReview();
 			}
-			$templateEngine->display( $templateName, $templateParams );
+			return $templateEngine->render( $templateName, $templateParams );
 		}
 	}
 		
@@ -98,7 +97,7 @@ class RightPanelController extends AbstractComplexController  {
 				$templateParams['subcat_row'] = $imageInfo['subcat'];
 				$templateParams['size_px'] = $imageInfo['size_px'];
 			}
-			$templateEngine->display( $templateName, $templateParams, $vid );
+			return $templateEngine->render( $templateName, $templateParams, $vid );
 		}
 	}
 	
@@ -108,7 +107,7 @@ class RightPanelController extends AbstractComplexController  {
 			$templateName = $this->_relatedTemplatePath.'block-search.tpl';
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-			$templateEngine->display( $templateName, null );
+			return $templateEngine->render( $templateName, null );
 		}
 	}
 	
@@ -117,7 +116,7 @@ class RightPanelController extends AbstractComplexController  {
 		$templateName = $this->_relatedTemplatePath.'block-projects.tpl';
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 		if ( !$templateEngine->isCached($templateName, null, -1, 0) ) {}
-		$templateEngine->display( $templateName, null );
+		return $templateEngine->render( $templateName, null );
 	}
 	
 	protected function renderTimerPanel() {
@@ -126,7 +125,7 @@ class RightPanelController extends AbstractComplexController  {
 			$templateName = $this->_relatedTemplatePath.'timer.tpl';
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 			if ( !$templateEngine->isCached($templateName, null, 2, 86400) ) {}
-			$templateEngine->display( $templateName, null );
+			return $templateEngine->render( $templateName, null );
 		}
 	}
 	
@@ -135,6 +134,6 @@ class RightPanelController extends AbstractComplexController  {
 		$templateName = $this->_relatedTemplatePath.'other.tpl';
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 		if ( !$templateEngine->isCached($templateName, null, 2, 86400) ) {}
-		$templateEngine->display( $templateName, null );
+		return $templateEngine->render( $templateName, null );
 	}
 }
