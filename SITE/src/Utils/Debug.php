@@ -9,8 +9,8 @@ namespace Utils;
  */
 class Debug {
 	
-	protected $_startTime;
-	protected $_startMemUsage;
+	protected $_startTime = 0;
+	protected $_startMemUsage = 0;
 	
     public function startTimer() {
         $mtime = microtime ();

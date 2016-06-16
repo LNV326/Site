@@ -6,6 +6,7 @@ use Template\TemplateEngineInterface;
 use Template\PHPEngineAdapter;
 use Template\SmartyEngineAdapter;
 use Utils\Debug;
+use Utils\SingletonInterface;
 
 /**
  * The base class for any template adapter class.
@@ -14,13 +15,16 @@ use Utils\Debug;
  * @author NLukyanov
  *
  */
-abstract class TemplateEngineAdapter implements TemplateEngineInterface {
+abstract class TemplateEngineAdapter implements TemplateEngineInterface, SingletonInterface {
 	
 	/* ====================== */
 	/* ======= STATIC ======= */
+		
+	protected static $_logging = array();
+	protected static $_debug = null;
 	
-	private static $_logging = array();
-	private static $_debug = null;
+	protected static $_temp_milestone_time = 0;
+	protected static $_temp_milestone_mu = 0;
 	
 	/**
 	 * Return the log info about rendered template with given name
@@ -37,20 +41,32 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 	 * Save new row to the log info about rendered template with given name
 	 * @param string $templateName
 	 */
-	public function setLog( $templateName, $mu  ) {
+	public function setLog( $templateName, $rt, $mu, $isFromCache ) {
+		if ( is_null(self::$_logging[$templateName]) )
 		self::$_logging[$templateName] = array(
 				'templateName' => $templateName,
 				'engine' => get_called_class(),
-				'renderTime' => self::$_debug->endTimer(),
 				'cachingMode' => $this->getCachingMode(),
 				'cacheLifetime' => $this->getCacheLifetime(),
-				'memoryUsage' => $mu
+				'isFromCache' => $isFromCache,
+// 				'memoryUsage' => array(),
+// 				'timer' => array(),
+				'checkIsCacheTime' => 0,
+				'checkIsCacheMU' => 0,
+				'renderTime' => 0,
+				'renderMU' => 0,
 		);
+	}
+	
+	public function setLogIsCachedMilestone($templateName) {
+		self::$_temp_milestone_time = self::$_debug->endTimer();
+		self::$_temp_milestone_mu = self::$_debug->endMemUsage();
 	}
 	
 	/**
 	 * Return dynamically deternited template adapter (implements of TemplateEngineInterface) using template file name.
 	 * @param string $templateName
+	 * @return TemplateEngineAdapter
 	 * @throws \UnexpectedValueException
 	 */
 	public static function getInstanceBase($templateName) {
@@ -68,7 +84,7 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 		}
 	}
 	
-	/* ====================== */
+	/* ======================= */
 	/* ======= DYNAMIC ======= */
 	
 	/**
@@ -89,7 +105,20 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 		self::$_debug->startTimer();
 		self::$_debug->startMemUsage();
 		$result = $this->renderExecute($templateName, $templateParams, $cacheId);
-		$this->setLog($templateName, self::$_debug->endMemUsage());
+		$this->setLog($templateName, self::$_debug->endTimer(), self::$_debug->endMemUsage(), 0);
+		self::$_logging[$templateName]['renderTime'] = self::$_debug->endTimer();
+		self::$_logging[$templateName]['renderMU'] = self::$_debug->endMemUsage();
+		self::$_logging[$templateName]['isFromCache'] = 0;
+		return $result;
+	}
+	
+	public final function getCachedResult($templateName, $cacheId = null) {
+		self::$_debug->startTimer();
+		self::$_debug->startMemUsage();
+		$result = $this->getCachedResultExecute($templateName, $cacheId);
+		$this->setLog($templateName, self::$_debug->endTimer(), self::$_debug->endMemUsage(), 1);
+		self::$_logging[$templateName]['checkIsCacheTime'] = self::$_debug->endTimer();
+		self::$_logging[$templateName]['checkIsCacheMU'] = self::$_debug->endMemUsage();	
 		return $result;
 	}
 	
@@ -100,15 +129,7 @@ abstract class TemplateEngineAdapter implements TemplateEngineInterface {
 	 * @param string $cacheId
 	 */
 	protected abstract function renderExecute( $templateName, $templateParams = array(), $cacheId = null );
-	
-	protected function getCachingMode() {
-		return 'Not Supported';
-	}
-	
-	protected function getCacheLifetime() {
-		return 'Not Supported';
-	}
-	
+		
 	public function clearAllCache () {
 		$this->_smarty->caching = $this->_caching;
 		$this->_smarty->clear_cache($this->_templateName);

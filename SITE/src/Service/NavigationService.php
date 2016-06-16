@@ -1,29 +1,42 @@
 <?php
 
-/**
- * 
- * @author Nikolay Lukyanov
- *
- */
-abstract class NavigationManager {
-	
+namespace Service;
+
+class NavigationService {
+	private static $_instance;
 	private static $_conf;
 	private static $_DB;
 	
-	public static function init($conf, $DB) {
+	public static function getInstance() {
+		if ( is_null(self::$_instance) ) {
+			self::$_instance = new self;
+		}
+		return self::$_instance;
+	}
+	
+	/**
+	 * Protected constructor for nobody it this but this class itself (Singleton)
+	 */
+	protected function __construct() {
+		global $conf, $DB;
 		self::$_conf = $conf;
 		self::$_DB = $DB;
 	}
 	
-	public static function getMainMenu() {
+	/**
+	 * Protected cloner for nobody call it but this class itself (Singleton)
+	 */
+	protected function __clone() {}
+	
+	public function getMainMenu() {
 		//Подсчёт кол-ва пользователей в чате!
 		self::$_DB->query("SELECT count(uid) as act_count FROM ibf_chatonline LIMIT 1");
 		$row = self::$_DB->fetch_row();
 		$count=$row['act_count'];
 		// Remove old sessions from chat
 		if (!empty($count)) self::$_DB->query("DELETE FROM ibf_chatonline WHERE (".time()."-time)>600"); //10 мин
-	 	// TODO Dont need to remove ols sessions, need to count only active sessions (minus one DB query)
-		
+		// TODO Dont need to remove ols sessions, need to count only active sessions (minus one DB query)
+	
 		//Элементы меню
 		$main_menu=array();
 		$main_menu[] = array("ru" => "Новости сайта", "en" => "Site News", "url" => "/", "image" => "rss.png", "image_title" => "RSS News", "image_link" => "http://www.".self::$_conf[site_url]."/modules/rss.php", 'type' => 'link');
@@ -43,7 +56,7 @@ abstract class NavigationManager {
 		return $main_menu;
 	}
 	
-	public static function getMenuCategories() {
+	public function getMenuCategories() {
 		global $nfs,$sdk_info;
 		// TODO need to remove globals
 		$i=0;
@@ -86,7 +99,7 @@ abstract class NavigationManager {
 					'open_new' => $row['open_new']
 			);
 		}
-// 		$return_html=str_replace("&","&amp;",$return_html);
+		// 		$return_html=str_replace("&","&amp;",$return_html);
 		return $categories;
 	}
 }

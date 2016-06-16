@@ -1,6 +1,5 @@
 <aside id='rightpanel'>
 <?php
-global $sape_show, $empty, $sape, $conf;
 foreach ($out as $rightBlock) {
 	echo $rightBlock;
 }

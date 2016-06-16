@@ -32,7 +32,12 @@
 		</header>
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-3 col-xs-3 visible-lg visible-md hidden-sm hidden-xs" id='panel-left'>
-<? include "../src/Template/" . $style_id . "/mainmenu_left.php";?>
+<?
+use Controller\LeftPanelController;
+$lpc = new LeftPanelController( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
+$lpc->index();
+unset($lpc);
+?>
 			</div>
 			<!-- Основное содержимое веб-страницы -->
 			<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" id='panel-center'>
@@ -97,7 +102,7 @@
 use Controller\RightPanelController;
 $rpc = new RightPanelController( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
 $rpc->index();
-			?>
+unset($rpc);?>
 			</div>							
 		</div>
 		<footer class='row' id='footer'>

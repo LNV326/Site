@@ -1,8 +1,8 @@
 <?php
-require_once '../src/NavigationManager.php';
-NavigationManager::init($conf, $DB);
-$mainMenu = NavigationManager::getMainMenu();
-$menu = NavigationManager::getMenuCategories();
+// require_once '../src/NavigationManager.php';
+// NavigationManager::init($conf, $DB);
+// $mainMenu = NavigationManager::getMainMenu();
+// $menu = NavigationManager::getMenuCategories();
 
 function renderMenuBodyItems($items) {
 	global $nfs, $langinfo, $style_id;
@@ -58,7 +58,7 @@ function renderUserProfileInfo() {
 	<div class="sideblock visible-sm visible-xs hidden-lg hidden-md">
 		<div class="sideblock-header"><? 
 		if ($SDK->is_loggedin ()) {
-			echo '<b>' . $lang [login_hi] . '</b> <a href="http://' . $conf ['site_url'] . '/forum/index.php?showuser=' . $sdk_info [id] . '" target="_blank"><b>' . $sdk_info [name] . '</b></a>';
+			echo '<b>' . $lang ['login_hi'] . '</b> <a href="http://' . $conf ['site_url'] . '/forum/index.php?showuser=' . $sdk_info ['id'] . '" target="_blank"><b>' . $sdk_info ['name'] . '</b></a>';
 		} else {
 			echo $lang [guest_hi];
 		}
@@ -67,9 +67,9 @@ function renderUserProfileInfo() {
 	</div>
 	<div class="sideblock">
 		<div class="sideblock-header"><? echo $lang[menu]; ?></div>
-		<ul class="sideblock-body"><? renderMenuBodyItems( $mainMenu ); ?></ul>
+		<ul class="sideblock-body"><? renderMenuBodyItems( $out['mainMenu'] ); ?></ul>
 	</div>
-<?php foreach ($menu as $category) {?>
+<?php foreach ($out['menu'] as $category) {?>
 	<div class="sideblock">
 		<div class="sideblock-header" onclick='menuLoad(this, "<?php echo 'm'.$category['id']; ?>")'>
 			<?php echo $nfs->unconvert_html($category['name']); ?>
