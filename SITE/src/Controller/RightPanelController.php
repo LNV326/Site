@@ -35,7 +35,7 @@ class RightPanelController extends AbstractComplexController  {
 		if (($this->_conf['menur_login']==1) and (!$this->_SDK->is_loggedin())) {
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'block-login.tpl',
-					null,
+					null, null,
 					TemplateEngineAdapter::TIME_EXPIRE_0);
 		}
 	}
@@ -45,7 +45,8 @@ class RightPanelController extends AbstractComplexController  {
 		if ($this->_conf['menur_online'] == 1) {
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'block-online.tpl',
-					function() {return $this->getDataWhoIsOnlinePanel();},
+					$this, 'getDataWhoIsOnlinePanel',
+// 					function() {return $this->getDataWhoIsOnlinePanel();},
 					TemplateEngineAdapter::TIME_EXPIRE_10_SEC);
 		}
 	}
@@ -55,7 +56,8 @@ class RightPanelController extends AbstractComplexController  {
 		if (($this->_sdk_info[id]==$this->_admins['root']) or ($this->_SDK->is_small_siteadmin($this->_sdk_info['id']) == TRUE) or ($this->_SDK->is_full_siteadmin($this->_sdk_info['id']) == TRUE)) {
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'block-modcp.tpl',
-					function() {return $this->getDataModeratorPanel();},
+					$this, 'getDataModeratorPanel',
+// 					function() {return $this->getDataModeratorPanel();},
 					TemplateEngineAdapter::TIME_EXPIRE_1_MIN);
 		}
 	}
@@ -66,7 +68,8 @@ class RightPanelController extends AbstractComplexController  {
 			$cacheId = rand(1,5);	// Let us caching 5 variants of random screen in the same time
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'block-rndscreen.tpl',
-					function() {return $this->getDataRandomScreenshot();},
+					$this, 'getDataRandomScreenshot',
+// 					function() {return $this->getDataRandomScreenshot();},
 					TemplateEngineAdapter::TIME_EXPIRE_1_MIN,
 					$cacheId);
 		}
@@ -77,7 +80,7 @@ class RightPanelController extends AbstractComplexController  {
 		if ($this->_conf['menur_search'] == 1) {
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'block-search.tpl',
-					null,
+					null, null,
 					TemplateEngineAdapter::TIME_EXPIRE_0);
 		}
 	}
@@ -86,7 +89,7 @@ class RightPanelController extends AbstractComplexController  {
 		//Поле доп. проектов
 		return $this->renderTemplate(
 				$this->_relatedTemplatePath.'block-projects.tpl',
-				null,
+				null, null,
 				TemplateEngineAdapter::TIME_EXPIRE_0);
 	}
 	
@@ -95,7 +98,7 @@ class RightPanelController extends AbstractComplexController  {
 		if ($this->_conf['menur_time'] == 1) {
 			return $this->renderTemplate(
 					$this->_relatedTemplatePath.'timer.tpl',
-					null,
+					null, null,
 					TemplateEngineAdapter::TIME_EXPIRE_1_DAY);
 		}
 	}
@@ -104,12 +107,12 @@ class RightPanelController extends AbstractComplexController  {
 		//Остальное
 		return $this->renderTemplate(
 				$this->_relatedTemplatePath.'other.tpl',
-				null,
+				null, null,
 				TemplateEngineAdapter::TIME_EXPIRE_0);
 	}
 	
 	//====
-	private function getDataWhoIsOnlinePanel() {
+	public function getDataWhoIsOnlinePanel() {
 		$to_echo = array ();
 		$this->_DB->query( "SELECT s.member_name, s.member_id FROM ibf_sessions s WHERE s.member_id <> 0 AND s.running_time > " . (time() - 900) . " ORDER BY 'running_time' DESC LIMIT 0," . $this->_conf ['online_num'] . ";" );
 		while ( $out = $this->_DB->fetch_row() ) {
@@ -131,7 +134,7 @@ class RightPanelController extends AbstractComplexController  {
 		);
 	}
 	
-	private function getDataModeratorPanel() {
+	public function getDataModeratorPanel() {
 		//Панель модератора
 		GalleryService::init($this->_conf, $this->_DB);
 		FilesStoreService::init($this->_conf, $this->_DB);
@@ -141,7 +144,7 @@ class RightPanelController extends AbstractComplexController  {
 		);
 	}
 	
-	private function getDataRandomScreenshot() {
+	public function getDataRandomScreenshot() {
 		//Случайный скриншот
 		GalleryService::init($this->_conf, $this->_DB);
 		$imageInfo = GalleryService::getRandomImage();

@@ -2,17 +2,40 @@
 
 namespace Service;
 
-class NavigationService {
+use Utils\SingletonInterface;
+
+final class NavigationService implements SingletonInterface {
+	
+	/* ====================== */
+	/* ======= STATIC ======= */
+	
+	/**
+	 * An instance of class
+	 * @var SingletonInterface
+	 */
 	private static $_instance;
 	private static $_conf;
 	private static $_DB;
 	
+	/* (non-PHPdoc)
+	 * @see \Utils\SingletonInterface::getInstance()
+	 */
 	public static function getInstance() {
 		if ( is_null(self::$_instance) ) {
 			self::$_instance = new self;
 		}
 		return self::$_instance;
 	}
+	
+	/* (non-PHPdoc)
+	 * @see \Utils\SingletonInterface::hasInstance()
+	 */
+	public static function hasInstance() {
+		return ( is_null(self::$_instance) ) ? false : true;
+	}
+	
+	/* ======================= */
+	/* ======= DYNAMIC ======= */
 	
 	/**
 	 * Protected constructor for nobody it this but this class itself (Singleton)

@@ -70,18 +70,31 @@ abstract class AbstractSiteController {
 		$templateEngine->display( $this->_templateName, $this->_templateParams );
 	}	
 	
-	public function renderTemplate($templateName, $templateDataFuncName, $resultCacheLifetime, $cacheId = null) {
-		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);		
+	public function renderTemplate($templateName, $templateDataSourceObject, $templateDataFuncName, $resultCacheLifetime, $cacheId = null) {
+		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
 		// Try to get cached result for the template
-// 		$templateEngine->setCachingMode(TemplateEngineAdapter::CACHE_MODE_DEFAULT_LIFETIME);
+		// 		$templateEngine->setCachingMode(TemplateEngineAdapter::CACHE_MODE_DEFAULT_LIFETIME);
 		$templateEngine->setCacheLifetime($resultCacheLifetime);
 		$cachedResult = $templateEngine->getCachedResult($templateName, $cacheId);
 		if ($cachedResult != false)
 			return $cachedResult;
 		// Set the fiture cache lifetime and render it
 		$templateEngine->setCacheLifetime($resultCacheLifetime);
-		return $templateEngine->render( $templateName, (!is_null($templateDataFuncName)) ? $templateDataFuncName() : null, $cacheId );
+		return $templateEngine->render( $templateName, (is_object($templateDataSourceObject)) ? $templateDataSourceObject->$templateDataFuncName() : null, $cacheId );
 	}
+	
+// 	public function renderTemplate($templateName, $templateDataFuncName, $resultCacheLifetime, $cacheId = null) {
+// 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);		
+// 		// Try to get cached result for the template
+// // 		$templateEngine->setCachingMode(TemplateEngineAdapter::CACHE_MODE_DEFAULT_LIFETIME);
+// 		$templateEngine->setCacheLifetime($resultCacheLifetime);
+// 		$cachedResult = $templateEngine->getCachedResult($templateName, $cacheId);
+// 		if ($cachedResult != false)
+// 			return $cachedResult;
+// 		// Set the fiture cache lifetime and render it
+// 		$templateEngine->setCacheLifetime($resultCacheLifetime);
+// 		return $templateEngine->render( $templateName, (!is_null($templateDataFuncName)) ? $templateDataFuncName() : null, $cacheId );
+// 	}
 	
 	protected abstract function getData();
 }
