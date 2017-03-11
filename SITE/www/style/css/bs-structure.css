@@ -39,6 +39,7 @@
 	font-size: 11px;
 	padding: 0px 5px;
 	position: relative;
+	box-sizing: border-box;
 }
 .sideblock-header > i {
 	background: url('/style/1/img/spoiler.gif') no-repeat;
@@ -57,14 +58,15 @@ div.sideblock-body {
 	margin: 0;
 	font-family: Verdana;
 	font-size: 11px;
+	box-sizing: border-box;
 }
 ul.sideblock-body {
 	width: 100%;
-	list-style: inside url('/style/1/img/lil.gif') none;
 	padding: 0 5px;
 	margin: 0;
 	font-family: Verdana;
 	font-size: 0;
+	box-sizing: border-box;
 }
 ul.sideblock-body > li {
 	height: 12px;
@@ -112,6 +114,14 @@ ul.sideblock-body > li > .smalllink {
 #panel-left a:hover, #panel-right a:hover {
 	color: #BBB;
 	text-decoration: none;
+}
+#panel-left ul.sideblock-body {
+	list-style: inside url('/style/1/img/lil.gif') none;
+	direction: ltr;
+}
+#panel-right ul.sideblock-body {
+	list-style: inside url('/style/1/img/lir.gif') none;
+	direction: rtl;
 }
 
 /* Decoration for blocks in the right panel */
@@ -319,6 +329,90 @@ ul.footerblock-body {
 		top: 12px;
 		right: 5px;
 	}
+}
+
+/* ====================
+ * Decoration for NewsController
+ * Templates: news-row.tpl
+ * ====================
+ */
+.news-topline, .newsblock > div {
+	text-align: left;
+	margin-top: 5pt;
+}
+.newsblock-header,
+.newsblock-footer,
+.news-topline,
+#lastposts > .header,
+#lastfiles > .header {
+	height: 18px;
+	margin: 2px 0 5px;
+	padding: 1px 41px;
+	position: relative;
+	/* background-image: url('/style/img/hrzl_lines.gif'); 
+	background-color: #424242; */
+	font-family: Verdana;
+	font-size: 11px;
+    background: linear-gradient(-45deg, #2E2F30 0%, transparent 14%, transparent 36%, #2E2F30 46%, #2E2F30 54%, transparent 64%, transparent 86%, #2E2F30 100%);
+    background-size: 5px 5px;    
+    border-top: 1px solid #2e2f30;
+    border-bottom: 1px solid #2e2f30;
+    box-sizing: border-box;
+}
+.newsblock-header,
+.news-topline,
+#lastposts > .header,
+#lastfiles > .header {
+	font-weight: bold;
+}
+.newsblock-header:before,
+.newsblock-header:after,
+.newsblock-footer:before,
+.newsblock-footer:after,
+.news-topline:before,
+.news-topline:after,
+#lastposts > .header:before,
+#lastposts > .header:after,
+#lastfiles > .header:before,
+#lastfiles > .header:after {
+	content: '';
+	height: 18px;
+	width: 41px;
+	position: absolute;
+	top: -1px;
+	background-image: url('/style/img/hrzl_lines.gif');
+}
+.newsblock-header,
+.newsblock-footer,
+#lastposts > .header,
+#lastfiles > .header {
+	/*background-position: 0px -19px;*/
+	background-color: #515151;
+}
+.news-topline {
+	/*background-position: 0px -38px;*/
+	background-color: #424242;
+}
+.newsblock-header:before,
+.newsblock-footer:before,
+.news-topline:before,
+#lastposts > .header:before,
+#lastfiles > .header:before {
+	left: 0;
+	background-position: 0px 0px;
+}
+.newsblock-header:after,
+.newsblock-footer:after,
+.news-topline:after,
+#lastposts > .header:after,
+#lastfiles > .header:after {
+	right: 0;
+	background-position: 41px 0px;
+}
+.newsblock-header > div:last-child,
+.newsblock-footer > div:last-child,
+.news-topline > div:last-child {
+	text-align: right;
 }
 
 /* ====================
