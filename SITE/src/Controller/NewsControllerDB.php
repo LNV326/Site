@@ -17,9 +17,12 @@ use Template\TemplateEngineAdapter;
  */
 class NewsControllerDB extends AbstractSiteController {
 	
-	protected $_templateName = 'modules/news.tpl';
-	protected $_caching = 0; // Don't cache module output
+	private static $_relatedTemplatePath = '../../../../src/Template/1/Controller/';
 	
+// 	protected $_templateName = 'modules/news.tpl';
+	protected $_templateName = '../../../../src/Template/1/Controller/NewsController.tpl';
+	protected $_caching = 0; // Don't cache module output
+		
 	protected function getData() {
 		// This controller has no cache but it consists of three independent prerendered parts
 		// So the code below render each of three parst step by step
@@ -47,7 +50,8 @@ class NewsControllerDB extends AbstractSiteController {
 		} else $news_page=1;
 				
 		// Get the last news rendered html
-		$templateName = 'modules/news_row.tpl';
+// 		$templateName = 'modules/news_row.tpl';
+		$templateName = self::$_relatedTemplatePath.'news_row.tpl';
 		$cacheId = $news_page.$this->_sdk_info['language'];
 		$templateParams = array();
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
