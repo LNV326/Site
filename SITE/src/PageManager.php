@@ -1,6 +1,11 @@
 <?php
 
 use Controller;
+
+use Symfony\Component\Routing\Matcher\UrlMatcher;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\Route;
 /**
  * 
  * Refactoring from old site engine version (year 2003).
@@ -12,37 +17,73 @@ use Controller;
  */
 class PageManager {
 		
-	private static $_map = array(
-			'about' => 'Controller\AboutControllerDB',
-			'add_news' => 'Controller\AddNewsControllerDB',
-			'adver' => 'Controller\AdverControllerDB',
-			'articles' => 'Controller\ArticlesControllerDB',
-			'chat' => 'Controller\ChatControllerDB',
-			'confirm_load' => 'Controller\ConfirmLoadControllerDB',
-			'contact' => 'Controller\ContactControllerDB',
-			'faq' => 'Controller\FAQControllerDB',
-			'files' => 'Controller\FilesControllerDB',
-			'gadgets' => 'Controller\GadgetsController',
-			'gallery' => 'Controller\GalleryController',
-			'info' => 'Controller\InfoControllerDB',
-			'links' => 'Controller\LinksControllerDB',
-			'login' => 'Controller\LoginControllerDB',
-			'news' => 'Controller\NewsControllerDB',
-			'search' => 'Controller\SearchControllerDB',
-			'sms_money' => 'Controller\SMSMoneyControllerDB',
-			'stat' => 'Controller\StatisticControllerDB',
-			'uploads' => 'Controller\UploadsController',
-			'userbars' => 'Controller\UserbarsControllerDB'
-	);
+// 	private static $_map = array(
+// 			'about' => 'Controller\AboutControllerDB',
+// 			'add_news' => 'Controller\AddNewsControllerDB',
+// 			'adver' => 'Controller\AdverControllerDB',
+// 			'articles' => 'Controller\ArticlesControllerDB',
+// 			'chat' => 'Controller\ChatControllerDB',
+// 			'confirm_load' => 'Controller\ConfirmLoadControllerDB',
+// 			'contact' => 'Controller\ContactControllerDB',
+// 			'faq' => 'Controller\FAQControllerDB',
+// 			'files' => 'Controller\FilesControllerDB',
+// 			'gadgets' => 'Controller\GadgetsController',
+// 			'gallery' => 'Controller\GalleryController',
+// 			'info' => 'Controller\InfoControllerDB',
+// 			'links' => 'Controller\LinksControllerDB',
+// 			'login' => 'Controller\LoginControllerDB',
+// 			'news' => 'Controller\NewsControllerDB',
+// 			'search' => 'Controller\SearchControllerDB',
+// 			'sms_money' => 'Controller\SMSMoneyControllerDB',
+// 			'stat' => 'Controller\StatisticControllerDB',
+// 			'uploads' => 'Controller\UploadsController',
+// 			'userbars' => 'Controller\UserbarsControllerDB'
+// 	);
+	
 	private $_DB;
 	private $_conf;
 	private $_nfs;
 	private $_page;
+	private $_matcher;
 	
 	public function __construct($DB, $conf, $nfs) {
 		$this->_DB = $DB;
 		$this->_conf = $conf;
 		$this->_nfs = $nfs;
+		
+		$_map = array(
+				'default' 			=> new Route('/', 			array('_controller' => 'Controller\NewsControllerDB')),
+				/* === News === */
+				'show_news' 		=> new Route('news={pageNum}', 		array('_controller' => 'Controller\NewsControllerDB:showAction', 'pageNum' => 1), array('pageNum' => '\d+')),
+				'add_news'			=> new Route('page=add_news', 	array('_controller' => 'Controller\AddNewsControllerDB')),
+				/* === FAQ === */
+				'show_faq_main'		=> new Route('page=faq', array('_controller' => 'Controller\FAQControllerDB')),
+				'show_faq_category'	=> new Route('page=faq&cat={categoryId}', array('_controller' => 'Controller\FAQControllerDB'), array('categoryId' => '\d+')),
+				/* === === */
+				'about'				=> new Route('page=about', array('_controller' => 'Controller\AboutControllerDB')),
+				'adver'				=> new Route('page=adver', array('_controller' => 'Controller\AdverControllerDB')),
+				'articles'			=> new Route('page=articles', array('_controller' => 'Controller\ArticlesControllerDB')),
+				'chat'				=> new Route('page=chat', array('_controller' => 'Controller\ChatControllerDB')),
+				'confirm_load'		=> new Route('page=confirm_load', array('_controller' => 'Controller\ConfirmLoadControllerDB')),
+				'contact'			=> new Route('page=contact', array('_controller' => 'Controller\ContactControllerDB')),
+				'files'				=> new Route('page=files', array('_controller' => 'Controller\FilesControllerDB')),
+				'gadgets'			=> new Route('page=gadgets', array('_controller' => 'Controller\GadgetsController')),
+				'gallery'			=> new Route('page=gallery', array('_controller' => 'Controller\GalleryController')),
+				'info'				=> new Route('page=info', array('_controller' => 'Controller\InfoControllerDB')),
+				'links'				=> new Route('page=links', array('_controller' => 'Controller\LinksControllerDB')),
+				'login'				=> new Route('page=login', array('_controller' => 'Controller\LoginControllerDB')),
+				'search'			=> new Route('page=search', array('_controller' => 'Controller\SearchControllerDB')),
+				'sms_money'			=> new Route('page=sms_money', array('_controller' => 'Controller\SMSMoneyControllerDB')),
+				'stat'				=> new Route('page=stat', array('_controller' => 'Controller\StatisticControllerDB')),
+				'uploads'			=> new Route('page=uploads', array('_controller' => 'Controller\UploadsController')),
+				'userbars'			=> new Route('page=userbars', array('_controller' => 'Controller\UserbarsControllerDB'))
+		);
+		
+		$routes = new RouteCollection();
+		foreach ($_map as $key => $value)
+			$routes->add($key, $value);
+		$context = new RequestContext('/');
+		$this->_matcher = new UrlMatcher($routes, $context);		
 	}
 	
 	public function set_page() {
@@ -89,12 +130,35 @@ class PageManager {
 				echo "<td><img src=\"/style/".$style_id."/img/tlr.gif\" alt=\"\" border=\"0\"/></td>\n";
 				echo "</tr></table>\n";
 			}
-			if (isset( self::$_map [$this->_page [name]] )) {
-				$controllerName = self::$_map [$this->_page [name]];
+			// Looking for requested URL
+			$qs = $_SERVER['QUERY_STRING'];
+			try {
+				$parameters = $this->_matcher->match('/'.$qs);
+				if ( $controllerInto = preg_split('/:/', $parameters['_controller']) ) {
+					$controllerName = $controllerInto[0];
+// 					$methodName = $controllerInto[1];
+					$methodName = 'index'; // TODO At this time always index method (abstract)
+				} else {
+					$controllerName = $parameters['_controller'];
+					$methodName = 'index';
+				}
+				unset($parameters['_controller'], $parameters['_route']);
 				$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
-				$m->index();
-			} else
+				call_user_func_array(array($m, $methodName), $parameters);
+			} catch (ResourceNotFoundException $e) {
+				// TODO Need to response 404 error
+				echo $e->getMessage();
 				include $this->_page [module_path];
+			} catch (Exception $e) {
+				// TODO Need to response 404 error
+				echo $e->getMessage();
+			}
+// 			if (isset( self::$_map [$this->_page [name]] )) {
+// 				$controllerName = self::$_map [$this->_page [name]];
+// 				$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
+// 				$m->index();
+// 			} else
+// 				include $this->_page [module_path];
 		} else {
 			$ed_link = '';
 			if ($SDK->is_supermod() OR $SDK->is_admin()) {
