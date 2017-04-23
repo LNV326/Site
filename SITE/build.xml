@@ -6,6 +6,8 @@
 	<!-- Using Paths -->
 	<property name="path.src" value="${env.path}/src"/>
 	<property name="path.vendor" value="${env.path}/vendor"/>
+	<property name="path.controller" value="${path.src}/Controller"/>
+	<property name="path.template" value="${path.src}/Template"/>
 	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: Clear Sources Remote                      
@@ -44,15 +46,15 @@
 				<exclude name="*.xml"/>
 				<exclude name="src/ForFutureUse/"/>
 				<exclude name=".settings/"/>
-				<exclude name="vendor/jasny"/>
-				<exclude name="vendor/twbs"/>
+				<exclude name="vendor/jasny/"/>
+				<exclude name="vendor/twbs/"/>
 			</fileset>
 		</scp>
-		<sshexec trust="true" host="${env.ssh.host}"
+		<!--<sshexec trust="true" host="${env.ssh.host}"
 					username="${env.ssh.user}"
 					password="${env.ssh.pass}"
 					command="echo ${env.ssh.pass} | sudo -S chmod 0777 -R ${env.path}"
-					failonerror="false"/>
+					failonerror="false"/>-->
 					
 	</target>
 	
@@ -63,5 +65,35 @@
         <exec executable="less" input="www/main_2015.less" output="www/main_2015_2.css">
         </exec>
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: _deployVendor                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="_deployVendor">
+    	<sshexec trust="true" host="${env.ssh.host}"
+    						username="${env.ssh.user}"
+    						password="${env.ssh.pass}"
+    						command="mkdir ${path.vendor}"
+    						failonerror="false"/>
+		<scp trust="true" todir="${env.ssh.user}:${env.ssh.pass}@${env.ssh.host}:${path.vendor}" port="${env.ssh.port}">
+			<fileset dir="./vendor/"></fileset>
+		</scp>
+    </target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: _deploySrc                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="_deploySrc">
+    	<sshexec trust="true" host="${env.ssh.host}"
+    						username="${env.ssh.user}"
+    						password="${env.ssh.pass}"
+    						command="mkdir ${path.src}"
+    						failonerror="false"/>
+		<scp trust="true" todir="${env.ssh.user}:${env.ssh.pass}@${env.ssh.host}:${path.src}" port="${env.ssh.port}">
+			<fileset dir="./src/"></fileset>
+		</scp>
+    </target>
+	
+	
 
 </project>
