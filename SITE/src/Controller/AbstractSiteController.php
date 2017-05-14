@@ -59,6 +59,9 @@ abstract class AbstractSiteController {
 		$this->_admin = $admin;
 	}
 	
+	/**
+	 * @deprecated
+	 */
 	public function index() {
 			
 		// Get the template engine adapter
@@ -67,6 +70,8 @@ abstract class AbstractSiteController {
 		if ( !$templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
 			$this->_templateParams = $this->getData();
 		}
+		$templateEngine->setCachingMode($this->_caching);
+		$templateEngine->setCacheLifetime($this->_cacheLifetime);
 		$templateEngine->display( $this->_templateName, $this->_templateParams );
 	}	
 	
@@ -96,5 +101,9 @@ abstract class AbstractSiteController {
 // 		return $templateEngine->render( $templateName, (!is_null($templateDataFuncName)) ? $templateDataFuncName() : null, $cacheId );
 // 	}
 	
+	/**
+	 * @deprecated
+	 */
 	protected abstract function getData();
+	
 }

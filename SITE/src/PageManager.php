@@ -12,34 +12,11 @@ use Symfony\Component\Routing\Route;
  * 
  * @author Nikolay Lukyanov
  *
- * @version 1.0 
+ * @version 1.1 
  *
  */
 class PageManager {
-		
-// 	private static $_map = array(
-// 			'about' => 'Controller\AboutControllerDB',
-// 			'add_news' => 'Controller\AddNewsControllerDB',
-// 			'adver' => 'Controller\AdverControllerDB',
-// 			'articles' => 'Controller\ArticlesControllerDB',
-// 			'chat' => 'Controller\ChatControllerDB',
-// 			'confirm_load' => 'Controller\ConfirmLoadControllerDB',
-// 			'contact' => 'Controller\ContactControllerDB',
-// 			'faq' => 'Controller\FAQControllerDB',
-// 			'files' => 'Controller\FilesControllerDB',
-// 			'gadgets' => 'Controller\GadgetsController',
-// 			'gallery' => 'Controller\GalleryController',
-// 			'info' => 'Controller\InfoControllerDB',
-// 			'links' => 'Controller\LinksControllerDB',
-// 			'login' => 'Controller\LoginControllerDB',
-// 			'news' => 'Controller\NewsControllerDB',
-// 			'search' => 'Controller\SearchControllerDB',
-// 			'sms_money' => 'Controller\SMSMoneyControllerDB',
-// 			'stat' => 'Controller\StatisticControllerDB',
-// 			'uploads' => 'Controller\UploadsController',
-// 			'userbars' => 'Controller\UserbarsControllerDB'
-// 	);
-	
+			
 	private $_DB;
 	private $_conf;
 	private $_nfs;
@@ -52,23 +29,59 @@ class PageManager {
 		$this->_nfs = $nfs;
 		
 		$_map = array(
-				'default' 			=> new Route('/', 			array('_controller' => 'Controller\NewsControllerDB')),
-				/* === News === */
-				'show_news' 		=> new Route('news={pageNum}', 		array('_controller' => 'Controller\NewsControllerDB:showAction', 'pageNum' => 1), array('pageNum' => '\d+')),
-				'add_news'			=> new Route('page=add_news', 	array('_controller' => 'Controller\AddNewsControllerDB')),
-				/* === FAQ === */
-				'show_faq_main'		=> new Route('page=faq', array('_controller' => 'Controller\FAQControllerDB')),
-				'show_faq_category'	=> new Route('page=faq&cat={categoryId}', array('_controller' => 'Controller\FAQControllerDB'), array('categoryId' => '\d+')),
-				/* === === */
+				'news_homepage' =>
+					new Route('/',
+						array('_controller' => 'Controller\NewsControllerDB')),
+		/* === News === */
+				'news_showPage' =>
+					new Route('news={pageNum}',
+						array('_controller' => 'Controller\NewsControllerDB:showAction', 'pageNum' => 1),
+						array('pageNum' => '\d+')),
+				'add_news' => 
+					new Route('page=add_news',
+						array('_controller' => 'Controller\AddNewsControllerDB')),
+		/* === FAQ === */
+				'faq_homepage' =>
+					new Route('page=faq',
+						array('_controller' => 'Controller\FAQControllerDB')),
+				'faq_showCategory'	=>
+					new Route('page=faq&cat={categoryId}',
+						array('_controller' => 'Controller\FAQControllerDB'),
+						array('categoryId' => '\d+')),
+		/* === Gallery === */
+				'gallery_homepage' =>
+					new Route('page=gallery',
+						array('_controller' => 'Controller\GalleryController')),
+				'gallery_showCategory' =>
+					new Route('page=gallery&cat={categoryId}',
+						array('_controller' => 'Controller\GalleryController'),
+						array('categoryId' => '\d+')),
+				'gallery_showAlbum' =>
+					new Route('page=gallery&subcat={albumId}',
+						array('_controller' => 'Controller\GalleryController'),
+						array('albumId' => '\d+')),
+		/* === File Store === */
+				'files_homepage'	=>
+					new Route('page=files',
+						array('_controller' => 'Controller\FilesControllerDB')),
+				'files_showCategory'	=>
+					new Route('page=files&cat={categoryId}',
+						array('_controller' => 'Controller\FilesControllerDB'),
+						array('categoryId' => '\d+')),
+				'files_showSubcategory'	=>
+					new Route('page=files&subcat={subcategoryId}',
+						array('_controller' => 'Controller\FilesControllerDB'),
+						array('subcategoryId' => '\d+')),
+				'files_showFile' =>
+					new Route('page=confirm_load&fid={fileId}',
+						array('_controller' => 'Controller\ConfirmLoadControllerDB'),
+						array('fileId' => '\d+')),
+		/* === Others === */
 				'about'				=> new Route('page=about', array('_controller' => 'Controller\AboutControllerDB')),
 				'adver'				=> new Route('page=adver', array('_controller' => 'Controller\AdverControllerDB')),
-				'articles'			=> new Route('page=articles', array('_controller' => 'Controller\ArticlesControllerDB')),
-				'chat'				=> new Route('page=chat', array('_controller' => 'Controller\ChatControllerDB')),
-				'confirm_load'		=> new Route('page=confirm_load', array('_controller' => 'Controller\ConfirmLoadControllerDB')),
+				'chat'				=> new Route('page=chat', array('_controller' => 'Controller\ChatControllerDB')),				
 				'contact'			=> new Route('page=contact', array('_controller' => 'Controller\ContactControllerDB')),
-				'files'				=> new Route('page=files', array('_controller' => 'Controller\FilesControllerDB')),
 				'gadgets'			=> new Route('page=gadgets', array('_controller' => 'Controller\GadgetsController')),
-				'gallery'			=> new Route('page=gallery', array('_controller' => 'Controller\GalleryController')),
 				'info'				=> new Route('page=info', array('_controller' => 'Controller\InfoControllerDB')),
 				'links'				=> new Route('page=links', array('_controller' => 'Controller\LinksControllerDB')),
 				'login'				=> new Route('page=login', array('_controller' => 'Controller\LoginControllerDB')),
@@ -76,7 +89,12 @@ class PageManager {
 				'sms_money'			=> new Route('page=sms_money', array('_controller' => 'Controller\SMSMoneyControllerDB')),
 				'stat'				=> new Route('page=stat', array('_controller' => 'Controller\StatisticControllerDB')),
 				'uploads'			=> new Route('page=uploads', array('_controller' => 'Controller\UploadsController')),
-				'userbars'			=> new Route('page=userbars', array('_controller' => 'Controller\UserbarsControllerDB'))
+				'userbars'			=> new Route('page=userbars', array('_controller' => 'Controller\UserbarsControllerDB')),
+		/* === Others === */
+// 				'articles_showPage'	=>
+// 					new Route('page={pageName}',
+// 						array('_controller' => 'Controller\ArticlesControllerDB'),
+// 						array('pageName' => '\w+'))
 		);
 		
 		$routes = new RouteCollection();
@@ -134,31 +152,15 @@ class PageManager {
 			$qs = $_SERVER['QUERY_STRING'];
 			try {
 				$parameters = $this->_matcher->match('/'.$qs);
-				if ( $controllerInto = preg_split('/:/', $parameters['_controller']) ) {
-					$controllerName = $controllerInto[0];
-// 					$methodName = $controllerInto[1];
-					$methodName = 'index'; // TODO At this time always index method (abstract)
-				} else {
-					$controllerName = $parameters['_controller'];
-					$methodName = 'index';
-				}
-				unset($parameters['_controller'], $parameters['_route']);
-				$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
-				call_user_func_array(array($m, $methodName), $parameters);
+				$this->controllerDelegator($parameters);
 			} catch (ResourceNotFoundException $e) {
 				// TODO Need to response 404 error
 				echo $e->getMessage();
-				include $this->_page [module_path];
+// 				include $this->_page [module_path];
 			} catch (Exception $e) {
 				// TODO Need to response 404 error
 				echo $e->getMessage();
 			}
-// 			if (isset( self::$_map [$this->_page [name]] )) {
-// 				$controllerName = self::$_map [$this->_page [name]];
-// 				$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );
-// 				$m->index();
-// 			} else
-// 				include $this->_page [module_path];
 		} else {
 			$ed_link = '';
 			if ($SDK->is_supermod() OR $SDK->is_admin()) {
@@ -235,6 +237,21 @@ class PageManager {
 			<td><img src="<? echo "/style/".$style_id."/img" ;?>/tlr.gif" alt="" border="0"/></td>
 			</tr></table>
 			</noindex></div><?
+		}
+	}
+	
+	protected function controllerDelegator( $routeInfo ) {
+		global $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin;
+		
+		list($controllerName, $methodName) = explode(':', $routeInfo['_controller']);
+		$methodName = is_null($methodName) ? 'index' : $methodName;
+// 		$methodName = 'index'; // TODO At this time always index method (abstract)
+		try {
+			$m = new $controllerName( $em, $DB, $conf, $ibforums, $INFO, $std, $nfs, $sdk_info, $style_id, $lang, $SDK, $admin );			
+			unset($routeInfo['_controller'], $routeInfo['_route']); // Don't remove this!
+			call_user_func_array(array($m, $methodName), $routeInfo);
+		} catch (Exception $e) {
+			echo $e->__toString();
 		}
 	}
 }

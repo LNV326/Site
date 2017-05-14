@@ -4,6 +4,8 @@ namespace Controller;
 
 use Controller\AbstractSiteController;
 use Template\TemplateEngineAdapter;
+use Template;
+use Template\TemplateEngineInterface;
 
 /**
  *
@@ -20,54 +22,7 @@ class NewsControllerDB extends AbstractSiteController {
 	private static $_relatedTemplatePath = '../../../../src/Template/1/Controller/';
 	
 // 	protected $_templateName = 'modules/news.tpl';
-	protected $_templateName = '../../../../src/Template/1/Controller/NewsController.tpl';
-	protected $_caching = 0; // Don't cache module output
-		
-	protected function getData() {
-		// This controller has no cache but it consists of three independent prerendered parts
-		// So the code below render each of three parst step by step
-		
-		if ($this->_conf['active_on']==1){
-			//Последние сообщения на форуме и последние файлы в архиве
-			// Get the last topics rendered html
-			$templateName = 'modules/news_last_posts.tpl';
-			$templateParams = array();
-			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-			if ( !$templateEngine->isCached($templateName, null, 2, 10) )
-				$templateParams = $this->last_p();			
-			$this->_templateParams['last_posts'] = $templateEngine->render( $templateName, $templateParams );			
-			
-			// Get the last files rendered html
-			$templateName = 'modules/news_last_files.tpl';
-			$templateParams = array();
-			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-			if ( !$templateEngine->isCached($templateName, null, 2, 86400) )
-				$templateParams = $this->last_f();
-			$this->_templateParams['last_files'] = $templateEngine->render( $templateName, $templateParams );
-		}
-		if (isset($this->_nfs->input['news']) and ($this->_nfs->input['news'] > 0)) {
-			$news_page = intval($this->_nfs->input['news']);
-		} else $news_page=1;
 				
-		// Get the last news rendered html
-// 		$templateName = 'modules/news_row.tpl';
-		$templateName = self::$_relatedTemplatePath.'news_row.tpl';
-		$cacheId = $news_page.$this->_sdk_info['language'];
-		$templateParams = array();
-		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-		if ( !$templateEngine->isCached($templateName, $cacheId, 2, 300) ) {
-			$templateParams = $this->news_p($news_page);
-			if (count($templateParams['news']) > 0)
-				$this->_templateParams['last_news'] = $templateEngine->render( $templateName, $templateParams, $cacheId );
-			else {
-				// TODO Need to cache forever => cache_lifetime = -1
-				$this->_templateParams['last_news'] = $templateEngine->render('modules/news_row_empty.tpl', $templateParams, $cacheId);
-			}
-		} else
-			$this->_templateParams['last_news'] = $templateEngine->render( $templateName, $templateParams, $cacheId );
-		return $this->_templateParams;
-	}
-		
 	/**
 	 * Page with news
 	 * @param integer $page
@@ -165,5 +120,76 @@ class NewsControllerDB extends AbstractSiteController {
 				
 		);
 	}
+		
+	/**
+	 * @Route
+	 * @Template
+	 */
+	public function showAction($pageNum) {
+		$this->_templateName = '../../../../src/Template/1/Controller/NewsController.tpl';
+		$this->_caching = TemplateEngineInterface::CACHE_MODE_DISABLE;
+		$this->_cacheLifetime = TemplateEngineInterface::TIME_EXPIRE_0;
+		
+		// Get the template engine adapter
+		$templateEngine = TemplateEngineAdapter::getInstanceBase($this->_templateName);
+		// Check reault cache status (if result cache is out of current interests then get data from database)
+		if ( $templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
+			$templateEngine->display( $this->_templateName, $this->_templateParams );
+			return;
+		}		
+		
+		// This controller has no cache but it consists of three independent prerendered parts
+		// So the code below render each of three parst step by step
+		if ($this->_conf['active_on']==1){
+			//Последние сообщения на форуме и последние файлы в архиве
+			// Get the last topics rendered html
+			$templateName = 'modules/news_last_posts.tpl';
+			$templateParams = array();
+			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
+			if ( !$templateEngine->isCached($templateName, null, 2, 10) )
+				$templateParams = $this->last_p();
+			$this->_templateParams['last_posts'] = $templateEngine->render( $templateName, $templateParams );
+				
+			// Get the last files rendered html
+			$templateName = 'modules/news_last_files.tpl';
+			$templateParams = array();
+			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
+			if ( !$templateEngine->isCached($templateName, null, 2, 86400) )
+				$templateParams = $this->last_f();
+			$this->_templateParams['last_files'] = $templateEngine->render( $templateName, $templateParams );
+		}
+		
+		// Get the last news rendered html
+		// 		$templateName = 'modules/news_row.tpl';
+		$templateName = self::$_relatedTemplatePath.'news_row.tpl';
+		$cacheId = $pageNum.$this->_sdk_info['language'];
+		$templateParams = array();
+		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
+		if ( !$templateEngine->isCached($templateName, $cacheId, 2, 300) ) {
+			$templateParams = $this->news_p($pageNum);
+			if (count($templateParams['news']) > 0)
+				$this->_templateParams['last_news'] = $templateEngine->render( $templateName, $templateParams, $cacheId );
+			else {
+				// TODO Need to cache forever => cache_lifetime = -1
+				$this->_templateParams['last_news'] = $templateEngine->render('modules/news_row_empty.tpl', $templateParams, $cacheId);
+			}
+		} else
+			$this->_templateParams['last_news'] = $templateEngine->render( $templateName, $templateParams, $cacheId );
+
+		// Return response
+		$templateEngine->setCachingMode($this->_caching);
+		$templateEngine->setCacheLifetime($this->_cacheLifetime);
+		$templateEngine->display( $this->_templateName, $this->_templateParams );
+	}
 	
+	/**
+	 * @deprecated
+	 * 
+	 * (non-PHPdoc)
+	 * @see \Controller\AbstractSiteController::getData()
+	 */
+	protected function getData() {
+		return null;
+	}
+
 }
