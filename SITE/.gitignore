@@ -1,3 +1,5 @@
 /vendor/
 /composer.lock
 /composer.phar
+/prod_env.properties
+/test_env.properties

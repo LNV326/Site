@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding/dev2_env.properties=UTF-8
+encoding/prod_env.properties=UTF-8
+encoding/test_env.properties=UTF-8
