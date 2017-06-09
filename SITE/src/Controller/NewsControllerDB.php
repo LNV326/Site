@@ -146,7 +146,7 @@ class NewsControllerDB extends AbstractSiteController {
 			$templateName = 'modules/news_last_posts.tpl';
 			$templateParams = array();
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-			if ( !$templateEngine->isCached($templateName, null, 2, 10) )
+			if ( !$templateEngine->isCached($templateName, null, TemplateEngineInterface::CACHE_MODE_INDIVIDUAL_LIFETIME, TemplateEngineInterface::TIME_EXPIRE_1_MIN) )
 				$templateParams = $this->last_p();
 			$this->_templateParams['last_posts'] = $templateEngine->render( $templateName, $templateParams );
 				
@@ -154,7 +154,7 @@ class NewsControllerDB extends AbstractSiteController {
 			$templateName = 'modules/news_last_files.tpl';
 			$templateParams = array();
 			$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-			if ( !$templateEngine->isCached($templateName, null, 2, 86400) )
+			if ( !$templateEngine->isCached($templateName, null, TemplateEngineInterface::CACHE_MODE_INDIVIDUAL_LIFETIME, TemplateEngineInterface::TIME_EXPIRE_1_HOUR) )
 				$templateParams = $this->last_f();
 			$this->_templateParams['last_files'] = $templateEngine->render( $templateName, $templateParams );
 		}
@@ -165,7 +165,7 @@ class NewsControllerDB extends AbstractSiteController {
 		$cacheId = $pageNum.$this->_sdk_info['language'];
 		$templateParams = array();
 		$templateEngine = TemplateEngineAdapter::getInstanceBase($templateName);
-		if ( !$templateEngine->isCached($templateName, $cacheId, 2, 300) ) {
+		if ( !$templateEngine->isCached($templateName, $cacheId, TemplateEngineInterface::CACHE_MODE_INDIVIDUAL_LIFETIME, TemplateEngineInterface::TIME_EXPIRE_1_MIN) ) {
 			$templateParams = $this->news_p($pageNum);
 			if (count($templateParams['news']) > 0)
 				$this->_templateParams['last_news'] = $templateEngine->render( $templateName, $templateParams, $cacheId );

@@ -4,7 +4,8 @@
 			"Controller" : "src",
 			"Utils" : "src",
 			"Service" : "src",
-			"Template" : "src"
+			"Template" : "src",
+			"Routing" : "src"
 		}
 	},
 	"name" : "LNV/SITE",
