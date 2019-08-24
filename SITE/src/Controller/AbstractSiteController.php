@@ -61,14 +61,23 @@ abstract class AbstractSiteController {
 	
 	public function index() {
 			
-		// Get the template engine adapter
-		$templateEngine = TemplateEngineAdapter::getInstanceBase($this->_templateName);
-		// Check reault cache status (if result cache is out of current interests then get data from database)
-		if ( !$templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
-			$this->_templateParams = $this->getData();
-		}
-		$templateEngine->display( $this->_templateName, $this->_templateParams );
+// 		// Get the template engine adapter
+// 		$templateEngine = TemplateEngineAdapter::getInstanceBase($this->_templateName);
+// 		// Check reault cache status (if result cache is out of current interests then get data from database)
+// 		if ( !$templateEngine->isCached($this->_templateName, null, $this->_caching, $this->_cacheLifetime) ) {
+// 			$this->_templateParams = $this->getData();
+// 		}
+// 		$templateEngine->display( $this->_templateName, $this->_templateParams );
+
+	    global $templating;
+	    $this->_templateParams = $this->getData();
+	    print $templating->render($this->_templateName, array('out' => $this->_templateParams));
 	}	
 	
 	protected function getData() {}
+	
+	protected function render($name, array $parameters = []) {
+	    global $templating;
+	    print $templating->render($name, $parameters);
+	}
 }

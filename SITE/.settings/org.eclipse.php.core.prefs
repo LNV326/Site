@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
-phpVersion=php5.3
+include_path=0;/SITE/www\u00050;/SITE/vendor
+phpVersion=php7.2
+useShortTags=true
 use_asp_tags_as_php=false

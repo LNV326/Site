@@ -14,7 +14,7 @@ use Controller\AbstractSiteController;
  */
 class FAQControllerDB extends AbstractSiteController {
 	
-	protected $_templateName = 'FAQTemplate.php';
+	protected $_templateName = 'Controller/FAQTemplate.php';
 	
 	//Вывод списка вопросов юзеру
 	private function cat_list($cat) {
